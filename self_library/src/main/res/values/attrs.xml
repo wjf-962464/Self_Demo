@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--标题栏-->
+    <declare-styleable name="CommonToolbar">
+        <attr name="dark_theme" format="boolean" />
+        <attr name="if_back" format="boolean" />
+        <attr name="titleText" format="string" />
+        <attr name="backText" format="string" />
+        <attr name="background_color" format="color" />
+        <attr name="background_change_color" format="color" />
+    </declare-styleable>
+    <!--矢量图片换色-->
+    <declare-styleable name="ColorImage">
+        <attr name="img_color" format="color" />
+    </declare-styleable>
 
     <declare-styleable name="MyIcon">
         <attr name="icon_normal" format="reference|color" />
@@ -12,24 +25,12 @@
         <attr name="icon_text" format="string" />
         <attr name="icon_text_margin" format="dimension" />/>
     </declare-styleable>
-    <declare-styleable name="CommonToolbar">
-        <attr name="dark_theme" format="boolean" />
-        <attr name="if_back" format="boolean" />
-        <attr name="titleText" format="string" />
-        <attr name="backText" format="string" />
-        <attr name="icon_dark_src" format="reference" />
-        <attr name="icon_light_src" format="reference" />
-        <attr name="background_color" format="reference|color" />
-        <attr name="background_change_color" format="reference|color" />
-    </declare-styleable>
+
+
     <declare-styleable name="StatusBarHeightView">
         <attr name="use_type" format="integer">
             <enum name="use_height" value="0" />
             <enum name="use_padding_top" value="1" />
         </attr>
-    </declare-styleable>
-
-    <declare-styleable name="ColorImage">
-        <attr name="img_color" format="color"/>
     </declare-styleable>
 </resources>

@@ -8,9 +8,13 @@ import android.util.TypedValue;
 import android.widget.LinearLayout;
 
 import com.wjf.self_library.R;
+import com.wjf.self_library.common.BaseUi;
 import com.wjf.self_library.databinding.UiIconBinding;
 
-
+/**
+ * @author : Wangjf
+ * @date : 2021/1/19
+ */
 public class MyIcon extends BaseUi<UiIconBinding> {
 
     private String text;

@@ -4,16 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 
+import androidx.core.content.ContextCompat;
+
 import com.wjf.self_library.R;
+import com.wjf.self_library.common.BaseUi;
 import com.wjf.self_library.databinding.UiCommonToolbarBinding;
 
 
 /**
- * @author Wangjf2-DESKTOP
+ * @author : Wangjf
+ * @date : 2021/1/19
  */
 public class CommonToolbar extends BaseUi<UiCommonToolbarBinding> {
 
@@ -69,24 +72,23 @@ public class CommonToolbar extends BaseUi<UiCommonToolbarBinding> {
 
     @Override
     protected void setView() {
-        int themeColor = darkTheme ? getResources().getColor(R.color.black) : getResources().getColor(R.color.white);
-        if (!ifBack) {
-            view.backLine.setClickable(false);
-            view.backLine.setVisibility(INVISIBLE);
-        } else {
+        int themeColor = darkTheme ? ContextCompat.getColor(context, R.color.black) : ContextCompat.getColor(context, R.color.white);
+
+        if (ifBack) {
+            view.backLine.setVisibility(VISIBLE);
             if (backText != null) {
                 view.toolbarBack.setText(backText);
                 view.toolbarBack.setVisibility(VISIBLE);
                 view.toolbarBack.setTextColor(themeColor);
-                view.toolbarBackIcon.setImgColor(themeColor);
-                view.backLine.setOnClickListener(v -> {
-                    if (toolbarBackCallback != null) {
-                        toolbarBackCallback.backActivity(context);
-                    } else {
-                        ((Activity) context).finish();
-                    }
-                });
             }
+            view.toolbarBackIcon.setVisibility(VISIBLE);
+            view.toolbarBackIcon.changeColor(themeColor);
+            view.backLine.setOnClickListener(v -> {
+                if (toolbarBackCallback != null) {
+                    toolbarBackCallback.backActivity(context);
+                }
+                ((Activity) context).finish();
+            });
         }
 
         if (titleText != null) {
@@ -98,6 +100,7 @@ public class CommonToolbar extends BaseUi<UiCommonToolbarBinding> {
         setBackgroundColor(backgroundColor);
     }
 
+
     private ToolbarBackCallback toolbarBackCallback;
 
 
@@ -107,6 +110,11 @@ public class CommonToolbar extends BaseUi<UiCommonToolbarBinding> {
 
 
     public interface ToolbarBackCallback {
+        /**
+         * 返回事件回调
+         *
+         * @param context 上下文对象
+         */
         void backActivity(Context context);
     }
 }
