@@ -15,11 +15,10 @@
     </declare-styleable>
 
     <declare-styleable name="MyIcon">
-        <attr name="icon_normal" format="reference|color" />
-        <attr name="icon_selected" format="reference" />
+        <attr name="icon_src" format="reference" />
         <attr name="icon_text_selected" format="reference|color" />
-        <attr name="text_color" format="reference|color" />
-        <attr name="text_color_selected" format="reference|color" />
+        <attr name="color_normal" format="reference|color" />
+        <attr name="color_selected" format="reference|color" />
         <attr name="icon_size" format="dimension" />
         <attr name="text_size" format="dimension" />
         <attr name="icon_text" format="string" />
