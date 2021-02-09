@@ -5,8 +5,10 @@ plugins {
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+// for view binding :
+        viewBinding = true
     }
 
     defaultConfig {

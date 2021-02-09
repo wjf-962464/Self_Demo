@@ -2,10 +2,12 @@ package com.wjf.self_library.common;
 
 import android.os.Bundle;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+
 import com.wjf.self_library.R;
 import com.wjf.self_library.util.ActivityCollector;
 import com.wjf.self_library.util.StatusBar.StatusBarUtil;
@@ -60,6 +62,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackA
     } else {
       // 没有标题栏，默认判定为透明且白色主题
       StatusBarUtil.setTranslucentStatus(this, false);
+      disableSwipeOut();
     }
   }
 
