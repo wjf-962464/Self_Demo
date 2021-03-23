@@ -90,7 +90,7 @@ public final class TimeUtils {
     /**
      * Formatted time string to the milliseconds.
      *
-     * @param time    The formatted time string.
+     * @param time The formatted time string.
      * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm
      * @return the milliseconds
      */
@@ -101,7 +101,7 @@ public final class TimeUtils {
     /**
      * Formatted time string to the milliseconds.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
      * @return the milliseconds
      */
@@ -129,7 +129,7 @@ public final class TimeUtils {
     /**
      * Formatted time string to the date.
      *
-     * @param time    The formatted time string.
+     * @param time The formatted time string.
      * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm
      * @return the date
      */
@@ -140,7 +140,7 @@ public final class TimeUtils {
     /**
      * Formatted time string to the date.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
      * @return the date
      */
@@ -168,7 +168,7 @@ public final class TimeUtils {
     /**
      * Date to the formatted time string.
      *
-     * @param date    The date.
+     * @param date The date.
      * @param pattern The pattern of date format, such as yyyy/MM/dd HH:mm
      * @return the formatted time string
      */
@@ -179,7 +179,7 @@ public final class TimeUtils {
     /**
      * Date to the formatted time string.
      *
-     * @param date   The date.
+     * @param date The date.
      * @param format The format.
      * @return the formatted time string
      */
@@ -214,14 +214,15 @@ public final class TimeUtils {
      *
      * @param time1 The first formatted time string.
      * @param time2 The second formatted time string.
-     * @param unit  The unit of time span.
-     *              <ul>
-     *                <li>{@link TimeConstants#MIL}
-     *                <li>{@link TimeConstants#SEC }
-     *                <li>{@link TimeConstants#MIN }
-     *                <li>{@link TimeConstants#HOUR}
-     *                <li>{@link TimeConstants#DAY }
-     *              </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the time span, in unit
      */
     public static long getTimeSpan(
@@ -232,17 +233,18 @@ public final class TimeUtils {
     /**
      * Return the time span, in unit.
      *
-     * @param time1  The first formatted time string.
-     * @param time2  The second formatted time string.
+     * @param time1 The first formatted time string.
+     * @param time2 The second formatted time string.
      * @param format The format.
-     * @param unit   The unit of time span.
-     *               <ul>
-     *                 <li>{@link TimeConstants#MIL}
-     *                 <li>{@link TimeConstants#SEC }
-     *                 <li>{@link TimeConstants#MIN }
-     *                 <li>{@link TimeConstants#HOUR}
-     *                 <li>{@link TimeConstants#DAY }
-     *               </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the time span, in unit
      */
     public static long getTimeSpan(
@@ -258,14 +260,15 @@ public final class TimeUtils {
      *
      * @param date1 The first date.
      * @param date2 The second date.
-     * @param unit  The unit of time span.
-     *              <ul>
-     *                <li>{@link TimeConstants#MIL}
-     *                <li>{@link TimeConstants#SEC }
-     *                <li>{@link TimeConstants#MIN }
-     *                <li>{@link TimeConstants#HOUR}
-     *                <li>{@link TimeConstants#DAY }
-     *              </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the time span, in unit
      */
     public static long getTimeSpan(
@@ -278,14 +281,15 @@ public final class TimeUtils {
      *
      * @param millis1 The first milliseconds.
      * @param millis2 The second milliseconds.
-     * @param unit    The unit of time span.
-     *                <ul>
-     *                  <li>{@link TimeConstants#MIL}
-     *                  <li>{@link TimeConstants#SEC }
-     *                  <li>{@link TimeConstants#MIN }
-     *                  <li>{@link TimeConstants#HOUR}
-     *                  <li>{@link TimeConstants#DAY }
-     *                </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the time span, in unit
      */
     public static long getTimeSpan(
@@ -298,17 +302,18 @@ public final class TimeUtils {
      *
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
-     * @param time1     The first formatted time string.
-     * @param time2     The second formatted time string.
+     * @param time1 The first formatted time string.
+     * @param time2 The second formatted time string.
      * @param precision The precision of time span.
-     *                  <ul>
-     *                    <li>precision = 0, return null
-     *                    <li>precision = 1, return 天
-     *                    <li>precision = 2, return 天, 小时
-     *                    <li>precision = 3, return 天, 小时, 分钟
-     *                    <li>precision = 4, return 天, 小时, 分钟, 秒
-     *                    <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒
-     *                  </ul>
+     *     <ul>
+     *       <li>precision = 0, return null
+     *       <li>precision = 1, return 天
+     *       <li>precision = 2, return 天, 小时
+     *       <li>precision = 3, return 天, 小时, 分钟
+     *       <li>precision = 4, return 天, 小时, 分钟, 秒
+     *       <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒
+     *     </ul>
+     *
      * @return the fit time span
      */
     public static String getFitTimeSpan(
@@ -321,18 +326,19 @@ public final class TimeUtils {
     /**
      * Return the fit time span.
      *
-     * @param time1     The first formatted time string.
-     * @param time2     The second formatted time string.
-     * @param format    The format.
+     * @param time1 The first formatted time string.
+     * @param time2 The second formatted time string.
+     * @param format The format.
      * @param precision The precision of time span.
-     *                  <ul>
-     *                    <li>precision = 0, return null
-     *                    <li>precision = 1, return 天
-     *                    <li>precision = 2, return 天, 小时
-     *                    <li>precision = 3, return 天, 小时, 分钟
-     *                    <li>precision = 4, return 天, 小时, 分钟, 秒
-     *                    <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒
-     *                  </ul>
+     *     <ul>
+     *       <li>precision = 0, return null
+     *       <li>precision = 1, return 天
+     *       <li>precision = 2, return 天, 小时
+     *       <li>precision = 3, return 天, 小时, 分钟
+     *       <li>precision = 4, return 天, 小时, 分钟, 秒
+     *       <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒
+     *     </ul>
+     *
      * @return the fit time span
      */
     public static String getFitTimeSpan(
@@ -347,17 +353,18 @@ public final class TimeUtils {
     /**
      * Return the fit time span.
      *
-     * @param date1     The first date.
-     * @param date2     The second date.
+     * @param date1 The first date.
+     * @param date2 The second date.
      * @param precision The precision of time span.
-     *                  <ul>
-     *                    <li>precision = 0, return null
-     *                    <li>precision = 1, return 天
-     *                    <li>precision = 2, return 天, 小时
-     *                    <li>precision = 3, return 天, 小时, 分钟
-     *                    <li>precision = 4, return 天, 小时, 分钟, 秒
-     *                    <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒
-     *                  </ul>
+     *     <ul>
+     *       <li>precision = 0, return null
+     *       <li>precision = 1, return 天
+     *       <li>precision = 2, return 天, 小时
+     *       <li>precision = 3, return 天, 小时, 分钟
+     *       <li>precision = 4, return 天, 小时, 分钟, 秒
+     *       <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒
+     *     </ul>
+     *
      * @return the fit time span
      */
     public static String getFitTimeSpan(final Date date1, final Date date2, final int precision) {
@@ -367,17 +374,18 @@ public final class TimeUtils {
     /**
      * Return the fit time span.
      *
-     * @param millis1   The first milliseconds.
-     * @param millis2   The second milliseconds.
+     * @param millis1 The first milliseconds.
+     * @param millis2 The second milliseconds.
      * @param precision The precision of time span.
-     *                  <ul>
-     *                    <li>precision = 0, return null
-     *                    <li>precision = 1, return 天
-     *                    <li>precision = 2, return 天, 小时
-     *                    <li>precision = 3, return 天, 小时, 分钟
-     *                    <li>precision = 4, return 天, 小时, 分钟, 秒
-     *                    <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒
-     *                  </ul>
+     *     <ul>
+     *       <li>precision = 0, return null
+     *       <li>precision = 1, return 天
+     *       <li>precision = 2, return 天, 小时
+     *       <li>precision = 3, return 天, 小时, 分钟
+     *       <li>precision = 4, return 天, 小时, 分钟, 秒
+     *       <li>precision &gt;= 5，return 天, 小时, 分钟, 秒, 毫秒
+     *     </ul>
+     *
      * @return the fit time span
      */
     public static String getFitTimeSpan(
@@ -431,13 +439,14 @@ public final class TimeUtils {
      *
      * @param time The formatted time string.
      * @param unit The unit of time span.
-     *             <ul>
-     *               <li>{@link TimeConstants#MIL}
-     *               <li>{@link TimeConstants#SEC }
-     *               <li>{@link TimeConstants#MIN }
-     *               <li>{@link TimeConstants#HOUR}
-     *               <li>{@link TimeConstants#DAY }
-     *             </ul>
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final String time, @TimeConstants.Unit final int unit) {
@@ -447,16 +456,17 @@ public final class TimeUtils {
     /**
      * Return the time span by now, in unit.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
-     * @param unit   The unit of time span.
-     *               <ul>
-     *                 <li>{@link TimeConstants#MIL}
-     *                 <li>{@link TimeConstants#SEC }
-     *                 <li>{@link TimeConstants#MIN }
-     *                 <li>{@link TimeConstants#HOUR}
-     *                 <li>{@link TimeConstants#DAY }
-     *               </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(
@@ -471,13 +481,14 @@ public final class TimeUtils {
      *
      * @param date The date.
      * @param unit The unit of time span.
-     *             <ul>
-     *               <li>{@link TimeConstants#MIL}
-     *               <li>{@link TimeConstants#SEC }
-     *               <li>{@link TimeConstants#MIN }
-     *               <li>{@link TimeConstants#HOUR}
-     *               <li>{@link TimeConstants#DAY }
-     *             </ul>
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final Date date, @TimeConstants.Unit final int unit) {
@@ -488,14 +499,15 @@ public final class TimeUtils {
      * Return the time span by now, in unit.
      *
      * @param millis The milliseconds.
-     * @param unit   The unit of time span.
-     *               <ul>
-     *                 <li>{@link TimeConstants#MIL}
-     *                 <li>{@link TimeConstants#SEC }
-     *                 <li>{@link TimeConstants#MIN }
-     *                 <li>{@link TimeConstants#HOUR}
-     *                 <li>{@link TimeConstants#DAY }
-     *               </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the time span by now, in unit
      */
     public static long getTimeSpanByNow(final long millis, @TimeConstants.Unit final int unit) {
@@ -507,16 +519,17 @@ public final class TimeUtils {
      *
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
-     * @param time      The formatted time string.
+     * @param time The formatted time string.
      * @param precision The precision of time span.
-     *                  <ul>
-     *                    <li>precision = 0，返回 null
-     *                    <li>precision = 1，返回天
-     *                    <li>precision = 2，返回天和小时
-     *                    <li>precision = 3，返回天、小时和分钟
-     *                    <li>precision = 4，返回天、小时、分钟和秒
-     *                    <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒
-     *                  </ul>
+     *     <ul>
+     *       <li>precision = 0，返回 null
+     *       <li>precision = 1，返回天
+     *       <li>precision = 2，返回天和小时
+     *       <li>precision = 3，返回天、小时和分钟
+     *       <li>precision = 4，返回天、小时、分钟和秒
+     *       <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒
+     *     </ul>
+     *
      * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final String time, final int precision) {
@@ -526,17 +539,18 @@ public final class TimeUtils {
     /**
      * Return the fit time span by now.
      *
-     * @param time      The formatted time string.
-     * @param format    The format.
+     * @param time The formatted time string.
+     * @param format The format.
      * @param precision The precision of time span.
-     *                  <ul>
-     *                    <li>precision = 0，返回 null
-     *                    <li>precision = 1，返回天
-     *                    <li>precision = 2，返回天和小时
-     *                    <li>precision = 3，返回天、小时和分钟
-     *                    <li>precision = 4，返回天、小时、分钟和秒
-     *                    <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒
-     *                  </ul>
+     *     <ul>
+     *       <li>precision = 0，返回 null
+     *       <li>precision = 1，返回天
+     *       <li>precision = 2，返回天和小时
+     *       <li>precision = 3，返回天、小时和分钟
+     *       <li>precision = 4，返回天、小时、分钟和秒
+     *       <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒
+     *     </ul>
+     *
      * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(
@@ -547,16 +561,17 @@ public final class TimeUtils {
     /**
      * Return the fit time span by now.
      *
-     * @param date      The date.
+     * @param date The date.
      * @param precision The precision of time span.
-     *                  <ul>
-     *                    <li>precision = 0，返回 null
-     *                    <li>precision = 1，返回天
-     *                    <li>precision = 2，返回天和小时
-     *                    <li>precision = 3，返回天、小时和分钟
-     *                    <li>precision = 4，返回天、小时、分钟和秒
-     *                    <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒
-     *                  </ul>
+     *     <ul>
+     *       <li>precision = 0，返回 null
+     *       <li>precision = 1，返回天
+     *       <li>precision = 2，返回天和小时
+     *       <li>precision = 3，返回天、小时和分钟
+     *       <li>precision = 4，返回天、小时、分钟和秒
+     *       <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒
+     *     </ul>
+     *
      * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final Date date, final int precision) {
@@ -566,16 +581,17 @@ public final class TimeUtils {
     /**
      * Return the fit time span by now.
      *
-     * @param millis    The milliseconds.
+     * @param millis The milliseconds.
      * @param precision The precision of time span.
-     *                  <ul>
-     *                    <li>precision = 0，返回 null
-     *                    <li>precision = 1，返回天
-     *                    <li>precision = 2，返回天和小时
-     *                    <li>precision = 3，返回天、小时和分钟
-     *                    <li>precision = 4，返回天、小时、分钟和秒
-     *                    <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒
-     *                  </ul>
+     *     <ul>
+     *       <li>precision = 0，返回 null
+     *       <li>precision = 1，返回天
+     *       <li>precision = 2，返回天和小时
+     *       <li>precision = 3，返回天、小时和分钟
+     *       <li>precision = 4，返回天、小时、分钟和秒
+     *       <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒
+     *     </ul>
+     *
      * @return the fit time span by now
      */
     public static String getFitTimeSpanByNow(final long millis, final int precision) {
@@ -589,15 +605,15 @@ public final class TimeUtils {
      *
      * @param time The formatted time string.
      * @return the friendly time span by now
-     * <ul>
-     *   <li>如果小于 1 秒钟内，显示刚刚
-     *   <li>如果在 1 分钟内，显示 XXX秒前
-     *   <li>如果在 1 小时内，显示 XXX分钟前
-     *   <li>如果在 1 小时外的今天内，显示今天15:32
-     *   <li>如果是昨天的，显示昨天15:32
-     *   <li>其余显示，2016-10-15
-     *   <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
-     * </ul>
+     *     <ul>
+     *       <li>如果小于 1 秒钟内，显示刚刚
+     *       <li>如果在 1 分钟内，显示 XXX秒前
+     *       <li>如果在 1 小时内，显示 XXX分钟前
+     *       <li>如果在 1 小时外的今天内，显示今天15:32
+     *       <li>如果是昨天的，显示昨天15:32
+     *       <li>其余显示，2016-10-15
+     *       <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
+     *     </ul>
      */
     public static String getFriendlyTimeSpanByNow(final String time) {
         return getFriendlyTimeSpanByNow(time, getDefaultFormat());
@@ -606,18 +622,18 @@ public final class TimeUtils {
     /**
      * Return the friendly time span by now.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
      * @return the friendly time span by now
-     * <ul>
-     *   <li>如果小于 1 秒钟内，显示刚刚
-     *   <li>如果在 1 分钟内，显示 XXX秒前
-     *   <li>如果在 1 小时内，显示 XXX分钟前
-     *   <li>如果在 1 小时外的今天内，显示今天15:32
-     *   <li>如果是昨天的，显示昨天15:32
-     *   <li>其余显示，2016-10-15
-     *   <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
-     * </ul>
+     *     <ul>
+     *       <li>如果小于 1 秒钟内，显示刚刚
+     *       <li>如果在 1 分钟内，显示 XXX秒前
+     *       <li>如果在 1 小时内，显示 XXX分钟前
+     *       <li>如果在 1 小时外的今天内，显示今天15:32
+     *       <li>如果是昨天的，显示昨天15:32
+     *       <li>其余显示，2016-10-15
+     *       <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
+     *     </ul>
      */
     public static String getFriendlyTimeSpanByNow(
             final String time, @NonNull final DateFormat format) {
@@ -629,15 +645,15 @@ public final class TimeUtils {
      *
      * @param date The date.
      * @return the friendly time span by now
-     * <ul>
-     *   <li>如果小于 1 秒钟内，显示刚刚
-     *   <li>如果在 1 分钟内，显示 XXX秒前
-     *   <li>如果在 1 小时内，显示 XXX分钟前
-     *   <li>如果在 1 小时外的今天内，显示今天15:32
-     *   <li>如果是昨天的，显示昨天15:32
-     *   <li>其余显示，2016-10-15
-     *   <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
-     * </ul>
+     *     <ul>
+     *       <li>如果小于 1 秒钟内，显示刚刚
+     *       <li>如果在 1 分钟内，显示 XXX秒前
+     *       <li>如果在 1 小时内，显示 XXX分钟前
+     *       <li>如果在 1 小时外的今天内，显示今天15:32
+     *       <li>如果是昨天的，显示昨天15:32
+     *       <li>其余显示，2016-10-15
+     *       <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
+     *     </ul>
      */
     public static String getFriendlyTimeSpanByNow(final Date date) {
         return getFriendlyTimeSpanByNow(date.getTime());
@@ -648,15 +664,15 @@ public final class TimeUtils {
      *
      * @param millis The milliseconds.
      * @return the friendly time span by now
-     * <ul>
-     *   <li>如果小于 1 秒钟内，显示刚刚
-     *   <li>如果在 1 分钟内，显示 XXX秒前
-     *   <li>如果在 1 小时内，显示 XXX分钟前
-     *   <li>如果在 1 小时外的今天内，显示今天15:32
-     *   <li>如果是昨天的，显示昨天15:32
-     *   <li>其余显示，2016-10-15
-     *   <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
-     * </ul>
+     *     <ul>
+     *       <li>如果小于 1 秒钟内，显示刚刚
+     *       <li>如果在 1 分钟内，显示 XXX秒前
+     *       <li>如果在 1 小时内，显示 XXX分钟前
+     *       <li>如果在 1 小时外的今天内，显示今天15:32
+     *       <li>如果是昨天的，显示昨天15:32
+     *       <li>其余显示，2016-10-15
+     *       <li>时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
+     *     </ul>
      */
     public static String getFriendlyTimeSpanByNow(final long millis) {
         long now = System.currentTimeMillis();
@@ -695,16 +711,17 @@ public final class TimeUtils {
     /**
      * Return the milliseconds differ time span.
      *
-     * @param millis   The milliseconds.
+     * @param millis The milliseconds.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the milliseconds differ time span
      */
     public static long getMillis(
@@ -717,16 +734,17 @@ public final class TimeUtils {
      *
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
-     * @param time     The formatted time string.
+     * @param time The formatted time string.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the milliseconds differ time span
      */
     public static long getMillis(
@@ -737,17 +755,18 @@ public final class TimeUtils {
     /**
      * Return the milliseconds differ time span.
      *
-     * @param time     The formatted time string.
-     * @param format   The format.
+     * @param time The formatted time string.
+     * @param format The format.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the milliseconds differ time span.
      */
     public static long getMillis(
@@ -761,16 +780,17 @@ public final class TimeUtils {
     /**
      * Return the milliseconds differ time span.
      *
-     * @param date     The date.
+     * @param date The date.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the milliseconds differ time span.
      */
     public static long getMillis(
@@ -783,16 +803,17 @@ public final class TimeUtils {
      *
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
-     * @param millis   The milliseconds.
+     * @param millis The milliseconds.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the formatted time string differ time span
      */
     public static String getString(
@@ -803,17 +824,18 @@ public final class TimeUtils {
     /**
      * Return the formatted time string differ time span.
      *
-     * @param millis   The milliseconds.
-     * @param format   The format.
+     * @param millis The milliseconds.
+     * @param format The format.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the formatted time string differ time span
      */
     public static String getString(
@@ -829,16 +851,17 @@ public final class TimeUtils {
      *
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
-     * @param time     The formatted time string.
+     * @param time The formatted time string.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the formatted time string differ time span
      */
     public static String getString(
@@ -849,17 +872,18 @@ public final class TimeUtils {
     /**
      * Return the formatted time string differ time span.
      *
-     * @param time     The formatted time string.
-     * @param format   The format.
+     * @param time The formatted time string.
+     * @param format The format.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the formatted time string differ time span
      */
     public static String getString(
@@ -875,16 +899,17 @@ public final class TimeUtils {
      *
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
-     * @param date     The date.
+     * @param date The date.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the formatted time string differ time span
      */
     public static String getString(
@@ -895,17 +920,18 @@ public final class TimeUtils {
     /**
      * Return the formatted time string differ time span.
      *
-     * @param date     The date.
-     * @param format   The format.
+     * @param date The date.
+     * @param format The format.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the formatted time string differ time span
      */
     public static String getString(
@@ -919,16 +945,17 @@ public final class TimeUtils {
     /**
      * Return the date differ time span.
      *
-     * @param millis   The milliseconds.
+     * @param millis The milliseconds.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the date differ time span
      */
     public static Date getDate(
@@ -941,16 +968,17 @@ public final class TimeUtils {
      *
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
-     * @param time     The formatted time string.
+     * @param time The formatted time string.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the date differ time span
      */
     public static Date getDate(
@@ -961,17 +989,18 @@ public final class TimeUtils {
     /**
      * Return the date differ time span.
      *
-     * @param time     The formatted time string.
-     * @param format   The format.
+     * @param time The formatted time string.
+     * @param format The format.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the date differ time span
      */
     public static Date getDate(
@@ -985,16 +1014,17 @@ public final class TimeUtils {
     /**
      * Return the date differ time span.
      *
-     * @param date     The date.
+     * @param date The date.
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the date differ time span
      */
     public static Date getDate(
@@ -1006,14 +1036,15 @@ public final class TimeUtils {
      * Return the milliseconds differ time span by now.
      *
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the milliseconds differ time span by now
      */
     public static long getMillisByNow(final long timeSpan, @TimeConstants.Unit final int unit) {
@@ -1026,14 +1057,15 @@ public final class TimeUtils {
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the formatted time string differ time span by now
      */
     public static String getStringByNow(final long timeSpan, @TimeConstants.Unit final int unit) {
@@ -1044,15 +1076,16 @@ public final class TimeUtils {
      * Return the formatted time string differ time span by now.
      *
      * @param timeSpan The time span.
-     * @param format   The format.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param format The format.
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the formatted time string differ time span by now
      */
     public static String getStringByNow(
@@ -1066,14 +1099,15 @@ public final class TimeUtils {
      * Return the date differ time span by now.
      *
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return the date differ time span by now
      */
     public static Date getDateByNow(final long timeSpan, @TimeConstants.Unit final int unit) {
@@ -1087,7 +1121,7 @@ public final class TimeUtils {
      *
      * @param time The formatted time string.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isToday(final String time) {
         return isToday(string2Millis(time, getDefaultFormat()));
@@ -1096,10 +1130,10 @@ public final class TimeUtils {
     /**
      * Return whether it is today.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isToday(final String time, @NonNull final DateFormat format) {
         return isToday(string2Millis(time, format));
@@ -1110,7 +1144,7 @@ public final class TimeUtils {
      *
      * @param date The date.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isToday(final Date date) {
         return isToday(date.getTime());
@@ -1121,7 +1155,7 @@ public final class TimeUtils {
      *
      * @param millis The milliseconds.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isToday(final long millis) {
         long wee = getWeeOfToday();
@@ -1135,7 +1169,7 @@ public final class TimeUtils {
      *
      * @param time The formatted time string.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLeapYear(final String time) {
         return isLeapYear(string2Date(time, getDefaultFormat()));
@@ -1144,10 +1178,10 @@ public final class TimeUtils {
     /**
      * Return whether it is leap year.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLeapYear(final String time, @NonNull final DateFormat format) {
         return isLeapYear(string2Date(time, format));
@@ -1158,7 +1192,7 @@ public final class TimeUtils {
      *
      * @param date The date.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLeapYear(final Date date) {
         Calendar cal = Calendar.getInstance();
@@ -1172,7 +1206,7 @@ public final class TimeUtils {
      *
      * @param millis The milliseconds.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLeapYear(final long millis) {
         return isLeapYear(millis2Date(millis));
@@ -1183,7 +1217,7 @@ public final class TimeUtils {
      *
      * @param year The year.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLeapYear(final int year) {
         return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
@@ -1204,7 +1238,7 @@ public final class TimeUtils {
     /**
      * Return the day of week in Chinese.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
      * @return the day of week in Chinese
      */
@@ -1247,7 +1281,7 @@ public final class TimeUtils {
     /**
      * Return the day of week in US.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
      * @return the day of week in US
      */
@@ -1280,15 +1314,16 @@ public final class TimeUtils {
      *
      * <p>The pattern is {@code yyyy-MM-dd HH:mm:ss}.
      *
-     * @param time  The formatted time string.
+     * @param time The formatted time string.
      * @param field The given calendar field.
-     *              <ul>
-     *                <li>{@link Calendar#ERA}
-     *                <li>{@link Calendar#YEAR}
-     *                <li>{@link Calendar#MONTH}
-     *                <li>...
-     *                <li>{@link Calendar#DST_OFFSET}
-     *              </ul>
+     *     <ul>
+     *       <li>{@link Calendar#ERA}
+     *       <li>{@link Calendar#YEAR}
+     *       <li>{@link Calendar#MONTH}
+     *       <li>...
+     *       <li>{@link Calendar#DST_OFFSET}
+     *     </ul>
+     *
      * @return the value of the given calendar field
      */
     public static int getValueByCalendarField(final String time, final int field) {
@@ -1298,16 +1333,17 @@ public final class TimeUtils {
     /**
      * Returns the value of the given calendar field.
      *
-     * @param time   The formatted time string.
+     * @param time The formatted time string.
      * @param format The format.
-     * @param field  The given calendar field.
-     *               <ul>
-     *                 <li>{@link Calendar#ERA}
-     *                 <li>{@link Calendar#YEAR}
-     *                 <li>{@link Calendar#MONTH}
-     *                 <li>...
-     *                 <li>{@link Calendar#DST_OFFSET}
-     *               </ul>
+     * @param field The given calendar field.
+     *     <ul>
+     *       <li>{@link Calendar#ERA}
+     *       <li>{@link Calendar#YEAR}
+     *       <li>{@link Calendar#MONTH}
+     *       <li>...
+     *       <li>{@link Calendar#DST_OFFSET}
+     *     </ul>
+     *
      * @return the value of the given calendar field
      */
     public static int getValueByCalendarField(
@@ -1318,15 +1354,16 @@ public final class TimeUtils {
     /**
      * Returns the value of the given calendar field.
      *
-     * @param date  The date.
+     * @param date The date.
      * @param field The given calendar field.
-     *              <ul>
-     *                <li>{@link Calendar#ERA}
-     *                <li>{@link Calendar#YEAR}
-     *                <li>{@link Calendar#MONTH}
-     *                <li>...
-     *                <li>{@link Calendar#DST_OFFSET}
-     *              </ul>
+     *     <ul>
+     *       <li>{@link Calendar#ERA}
+     *       <li>{@link Calendar#YEAR}
+     *       <li>{@link Calendar#MONTH}
+     *       <li>...
+     *       <li>{@link Calendar#DST_OFFSET}
+     *     </ul>
+     *
      * @return the value of the given calendar field
      */
     public static int getValueByCalendarField(final Date date, final int field) {
@@ -1339,14 +1376,15 @@ public final class TimeUtils {
      * Returns the value of the given calendar field.
      *
      * @param millis The milliseconds.
-     * @param field  The given calendar field.
-     *               <ul>
-     *                 <li>{@link Calendar#ERA}
-     *                 <li>{@link Calendar#YEAR}
-     *                 <li>{@link Calendar#MONTH}
-     *                 <li>...
-     *                 <li>{@link Calendar#DST_OFFSET}
-     *               </ul>
+     * @param field The given calendar field.
+     *     <ul>
+     *       <li>{@link Calendar#ERA}
+     *       <li>{@link Calendar#YEAR}
+     *       <li>{@link Calendar#MONTH}
+     *       <li>...
+     *       <li>{@link Calendar#DST_OFFSET}
+     *     </ul>
+     *
      * @return the value of the given calendar field
      */
     public static int getValueByCalendarField(final long millis, final int field) {

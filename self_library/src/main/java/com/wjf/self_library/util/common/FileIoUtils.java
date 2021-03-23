@@ -1,6 +1,5 @@
 package com.wjf.self_library.util.common;
 
-
 import com.wjf.self_library.util.common.constant.MemoryConstants;
 
 import java.io.BufferedOutputStream;
@@ -43,10 +42,10 @@ public final class FileIoUtils {
      * Write file from input stream.
      *
      * @param filePath The path of file.
-     * @param is       The input stream.
-     * @param append   True to append, false otherwise.
+     * @param is The input stream.
+     * @param append True to append, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromIS(
             final String filePath, final InputStream is, final boolean append) {
@@ -57,9 +56,9 @@ public final class FileIoUtils {
      * Write file from input stream.
      *
      * @param file The file.
-     * @param is   The input stream.
+     * @param is The input stream.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromIS(final File file, final InputStream is) {
         return writeFileFromIS(file, is, false);
@@ -68,11 +67,11 @@ public final class FileIoUtils {
     /**
      * Write file from input stream.
      *
-     * @param file   The file.
-     * @param is     The input stream.
+     * @param file The file.
+     * @param is The input stream.
      * @param append True to append, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromIS(
             final File file, final InputStream is, final boolean append) {
@@ -103,9 +102,9 @@ public final class FileIoUtils {
      * Write file from bytes by stream.
      *
      * @param filePath The path of file.
-     * @param bytes    The bytes.
+     * @param bytes The bytes.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromBytesByStream(final String filePath, final byte[] bytes) {
         return writeFileFromBytesByStream(FileUtils.getFileByPath(filePath), bytes, false);
@@ -115,10 +114,10 @@ public final class FileIoUtils {
      * Write file from bytes by stream.
      *
      * @param filePath The path of file.
-     * @param bytes    The bytes.
-     * @param append   True to append, false otherwise.
+     * @param bytes The bytes.
+     * @param append True to append, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromBytesByStream(
             final String filePath, final byte[] bytes, final boolean append) {
@@ -128,10 +127,10 @@ public final class FileIoUtils {
     /**
      * Write file from bytes by stream.
      *
-     * @param file  The file.
+     * @param file The file.
      * @param bytes The bytes.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromBytesByStream(final File file, final byte[] bytes) {
         return writeFileFromBytesByStream(file, bytes, false);
@@ -140,11 +139,11 @@ public final class FileIoUtils {
     /**
      * Write file from bytes by stream.
      *
-     * @param file   The file.
-     * @param bytes  The bytes.
+     * @param file The file.
+     * @param bytes The bytes.
      * @param append True to append, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromBytesByStream(
             final File file, final byte[] bytes, final boolean append) {
@@ -165,10 +164,10 @@ public final class FileIoUtils {
      * Write file from bytes by channel.
      *
      * @param filePath The path of file.
-     * @param bytes    The bytes.
-     * @param isForce  是否写入文件
+     * @param bytes The bytes.
+     * @param isForce 是否写入文件
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromBytesByChannel(
             final String filePath, final byte[] bytes, final boolean isForce) {
@@ -180,11 +179,11 @@ public final class FileIoUtils {
      * Write file from bytes by channel.
      *
      * @param filePath The path of file.
-     * @param bytes    The bytes.
-     * @param append   True to append, false otherwise.
-     * @param isForce  True to force write file, false otherwise.
+     * @param bytes The bytes.
+     * @param append True to append, false otherwise.
+     * @param isForce True to force write file, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromBytesByChannel(
             final String filePath,
@@ -198,11 +197,11 @@ public final class FileIoUtils {
     /**
      * Write file from bytes by channel.
      *
-     * @param file    The file.
-     * @param bytes   The bytes.
+     * @param file The file.
+     * @param bytes The bytes.
      * @param isForce True to force write file, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromBytesByChannel(
             final File file, final byte[] bytes, final boolean isForce) {
@@ -212,12 +211,12 @@ public final class FileIoUtils {
     /**
      * Write file from bytes by channel.
      *
-     * @param file    The file.
-     * @param bytes   The bytes.
-     * @param append  True to append, false otherwise.
+     * @param file The file.
+     * @param bytes The bytes.
+     * @param append True to append, false otherwise.
      * @param isForce True to force write file, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromBytesByChannel(
             final File file, final byte[] bytes, final boolean append, final boolean isForce) {
@@ -241,9 +240,9 @@ public final class FileIoUtils {
      * Write file from string.
      *
      * @param filePath The path of file.
-     * @param content  The string of content.
+     * @param content The string of content.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromString(final String filePath, final String content) {
         return writeFileFromString(FileUtils.getFileByPath(filePath), content, false);
@@ -253,10 +252,10 @@ public final class FileIoUtils {
      * Write file from string.
      *
      * @param filePath The path of file.
-     * @param content  The string of content.
-     * @param append   True to append, false otherwise.
+     * @param content The string of content.
+     * @param append True to append, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromString(
             final String filePath, final String content, final boolean append) {
@@ -266,10 +265,10 @@ public final class FileIoUtils {
     /**
      * Write file from string.
      *
-     * @param file    The file.
+     * @param file The file.
      * @param content The string of content.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromString(final File file, final String content) {
         return writeFileFromString(file, content, false);
@@ -278,11 +277,11 @@ public final class FileIoUtils {
     /**
      * Write file from string.
      *
-     * @param file    The file.
+     * @param file The file.
      * @param content The string of content.
-     * @param append  True to append, false otherwise.
+     * @param append True to append, false otherwise.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean writeFileFromString(
             final File file, final String content, final boolean append) {
@@ -319,7 +318,7 @@ public final class FileIoUtils {
     /**
      * Return the lines in file.
      *
-     * @param filePath    The path of file.
+     * @param filePath The path of file.
      * @param charsetName The name of charset.
      * @return the lines in file
      */
@@ -340,7 +339,7 @@ public final class FileIoUtils {
     /**
      * Return the lines in file.
      *
-     * @param file        The file.
+     * @param file The file.
      * @param charsetName The name of charset.
      * @return the lines in file
      */
@@ -352,8 +351,8 @@ public final class FileIoUtils {
      * Return the lines in file.
      *
      * @param filePath The path of file.
-     * @param st       The line's index of start.
-     * @param end      The line's index of end.
+     * @param st The line's index of start.
+     * @param end The line's index of end.
      * @return the lines in file
      */
     public static List<String> readFile2List(final String filePath, final int st, final int end) {
@@ -363,9 +362,9 @@ public final class FileIoUtils {
     /**
      * Return the lines in file.
      *
-     * @param filePath    The path of file.
-     * @param st          The line's index of start.
-     * @param end         The line's index of end.
+     * @param filePath The path of file.
+     * @param st The line's index of start.
+     * @param end The line's index of end.
      * @param charsetName The name of charset.
      * @return the lines in file
      */
@@ -378,8 +377,8 @@ public final class FileIoUtils {
      * Return the lines in file.
      *
      * @param file The file.
-     * @param st   The line's index of start.
-     * @param end  The line's index of end.
+     * @param st The line's index of start.
+     * @param end The line's index of end.
      * @return the lines in file
      */
     public static List<String> readFile2List(final File file, final int st, final int end) {
@@ -389,9 +388,9 @@ public final class FileIoUtils {
     /**
      * Return the lines in file.
      *
-     * @param file        The file.
-     * @param st          The line's index of start.
-     * @param end         The line's index of end.
+     * @param file The file.
+     * @param st The line's index of start.
+     * @param end The line's index of end.
      * @param charsetName The name of charset.
      * @return the lines in file
      */
@@ -438,7 +437,7 @@ public final class FileIoUtils {
     /**
      * Return the string in file.
      *
-     * @param filePath    The path of file.
+     * @param filePath The path of file.
      * @param charsetName The name of charset.
      * @return the string in file
      */
@@ -459,7 +458,7 @@ public final class FileIoUtils {
     /**
      * Return the string in file.
      *
-     * @param file        The file.
+     * @param file The file.
      * @param charsetName The name of charset.
      * @return the string in file
      */

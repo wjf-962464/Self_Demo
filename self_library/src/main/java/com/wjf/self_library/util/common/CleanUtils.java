@@ -13,7 +13,7 @@ public final class CleanUtils {
      * <p>directory: /data/data/package/cache
      *
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean cleanInternalCache(Context context) {
         return FileUtils.deleteFilesInDir(context.getCacheDir());
@@ -25,7 +25,7 @@ public final class CleanUtils {
      * <p>directory: /data/data/package/files
      *
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean cleanInternalFiles(Context context) {
         return FileUtils.deleteFilesInDir(context.getFilesDir());
@@ -37,7 +37,7 @@ public final class CleanUtils {
      * <p>directory: /data/data/package/databases
      *
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean cleanInternalDbs(Context context) {
         return FileUtils.deleteFilesInDir(new File(context.getFilesDir().getParent(), "databases"));
@@ -50,7 +50,7 @@ public final class CleanUtils {
      *
      * @param dbName The name of database.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean cleanInternalDbByName(Context context, final String dbName) {
         return context.deleteDatabase(dbName);
@@ -62,7 +62,7 @@ public final class CleanUtils {
      * <p>directory: /data/data/package/shared_prefs
      *
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean cleanInternalSp(Context context) {
         return FileUtils.deleteFilesInDir(
@@ -75,7 +75,7 @@ public final class CleanUtils {
      * <p>directory: /storage/emulated/0/android/data/package/cache
      *
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean cleanExternalCache(Context context) {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())

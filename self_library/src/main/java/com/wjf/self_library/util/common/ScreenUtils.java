@@ -61,7 +61,7 @@ public final class ScreenUtils {
      * Return whether screen is landscape.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLandscape(Context context) {
         return context.getResources().getConfiguration().orientation
@@ -72,7 +72,7 @@ public final class ScreenUtils {
      * Return whether screen is portrait.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isPortrait(Context context) {
         return context.getResources().getConfiguration().orientation
@@ -83,7 +83,7 @@ public final class ScreenUtils {
      * Return whether screen is locked.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isScreenLock(Context context) {
         KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
@@ -95,7 +95,7 @@ public final class ScreenUtils {
      * Return whether device is tablet.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout

@@ -42,7 +42,7 @@ public final class NetworkUtils {
      * />}
      *
      * @return {@code true}: connected<br>
-     * {@code false}: disconnected
+     *     {@code false}: disconnected
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isConnected(Context context) {
@@ -57,7 +57,7 @@ public final class NetworkUtils {
      * />}
      *
      * @return {@code true}: available<br>
-     * {@code false}: not available
+     *     {@code false}: not available
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isAvailable(Context context) {
@@ -83,7 +83,7 @@ public final class NetworkUtils {
      * />}
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isMobileData(Context context) {
@@ -100,7 +100,7 @@ public final class NetworkUtils {
      * />}
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean is4G(Context context) {
@@ -116,7 +116,7 @@ public final class NetworkUtils {
      * <p>Must hold {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}
      *
      * @return {@code true}: enabled<br>
-     * {@code false}: disabled
+     *     {@code false}: disabled
      */
     @RequiresPermission(ACCESS_WIFI_STATE)
     public static boolean getWifiEnabled(Context context) {
@@ -136,7 +136,7 @@ public final class NetworkUtils {
      * />}
      *
      * @return {@code true}: connected<br>
-     * {@code false}: disconnected
+     *     {@code false}: disconnected
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static boolean isWifiConnected(Context context) {
@@ -156,7 +156,7 @@ public final class NetworkUtils {
      * {@code <uses-permission android:name="android.permission.INTERNET" />}
      *
      * @return {@code true}: available<br>
-     * {@code false}: unavailable
+     *     {@code false}: unavailable
      */
     @RequiresPermission(allOf = {ACCESS_WIFI_STATE, INTERNET})
     public static boolean isWifiAvailable(Context context) {
@@ -184,14 +184,14 @@ public final class NetworkUtils {
      * />}
      *
      * @return type of network
-     * <ul>
-     *   <li>{@link NetworkUtils.NetworkType#NETWORK_ETHERNET}
-     *   <li>{@link NetworkUtils.NetworkType#NETWORK_WIFI }
-     *   <li>{@link NetworkUtils.NetworkType#NETWORK_4G }
-     *   <li>{@link NetworkUtils.NetworkType#NETWORK_3G }
-     *   <li>{@link NetworkUtils.NetworkType#NETWORK_2G }
-     *   <li>{@link NetworkUtils.NetworkType#NETWORK_UNKNOWN }
-     * </ul>
+     *     <ul>
+     *       <li>{@link NetworkUtils.NetworkType#NETWORK_ETHERNET}
+     *       <li>{@link NetworkUtils.NetworkType#NETWORK_WIFI }
+     *       <li>{@link NetworkUtils.NetworkType#NETWORK_4G }
+     *       <li>{@link NetworkUtils.NetworkType#NETWORK_3G }
+     *       <li>{@link NetworkUtils.NetworkType#NETWORK_2G }
+     *       <li>{@link NetworkUtils.NetworkType#NETWORK_UNKNOWN }
+     *     </ul>
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
     public static NetworkType getNetworkType(Context context) {
@@ -251,7 +251,7 @@ public final class NetworkUtils {
      * />}
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     @RequiresPermission(ACCESS_NETWORK_STATE)
     private static boolean isEthernet(Context context) {
@@ -378,33 +378,19 @@ public final class NetworkUtils {
     }
 
     public enum NetworkType {
-        /**
-         * 以太网
-         */
+        /** 以太网 */
         NETWORK_ETHERNET,
-        /**
-         * WIFI
-         */
+        /** WIFI */
         NETWORK_WIFI,
-        /**
-         * 5G
-         */
+        /** 5G */
         NETWORK_5G,
-        /**
-         * 4G
-         */
+        /** 4G */
         NETWORK_4G,
-        /**
-         * 3G
-         */
+        /** 3G */
         NETWORK_3G,
-        /**
-         * 2G
-         */
+        /** 2G */
         NETWORK_2G,
-        /**
-         * 未知
-         */
+        /** 未知 */
         NETWORK_UNKNOWN;
 
         @Override

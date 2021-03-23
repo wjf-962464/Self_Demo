@@ -19,7 +19,7 @@ public final class DeviceUtils {
      * Return whether device is rooted.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isDeviceRooted() {
         String su = "su";
@@ -48,7 +48,7 @@ public final class DeviceUtils {
      * Return whether ADB is enabled.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static boolean isAdbEnabled(Context context) {

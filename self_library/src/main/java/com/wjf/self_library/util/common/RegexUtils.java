@@ -1,6 +1,5 @@
 package com.wjf.self_library.util.common;
 
-
 import androidx.collection.SimpleArrayMap;
 
 import com.wjf.self_library.util.common.constant.RegexConstants;
@@ -24,7 +23,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isMobileSimple(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_MOBILE_SIMPLE, input);
@@ -35,7 +34,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isMobileExact(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_MOBILE_EXACT, input);
@@ -46,7 +45,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isTel(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_TEL, input);
@@ -57,7 +56,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isIDCard15(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_ID_CARD15, input);
@@ -68,7 +67,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isIDCard18(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_ID_CARD18, input);
@@ -79,7 +78,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isEmail(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_EMAIL, input);
@@ -90,7 +89,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isUrl(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_URL, input);
@@ -101,7 +100,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isZh(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_ZH, input);
@@ -118,7 +117,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isUsername(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_USERNAME, input);
@@ -129,7 +128,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isDate(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_DATE, input);
@@ -140,7 +139,7 @@ public final class RegexUtils {
      *
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isIP(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_IP, input);
@@ -152,7 +151,7 @@ public final class RegexUtils {
      * @param regex The regex.
      * @param input The input.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isMatch(final String regex, final CharSequence input) {
         return input != null && input.length() > 0 && Pattern.matches(regex, input);
@@ -214,11 +213,11 @@ public final class RegexUtils {
      * Replace every subsequent of the input sequence that matches the pattern with the given
      * replacement string.
      *
-     * @param input       The input.
-     * @param regex       The regex.
+     * @param input The input.
+     * @param regex The regex.
      * @param replacement The replacement string.
      * @return the string constructed by replacing each matching subsequent by the replacement
-     * string, substituting captured subsequent as needed
+     *     string, substituting captured subsequent as needed
      */
     public static String getReplaceAll(
             final String input, final String regex, final String replacement) {

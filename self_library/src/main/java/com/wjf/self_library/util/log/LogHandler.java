@@ -15,7 +15,7 @@ public class LogHandler {
     private static LogLevel logLevel = LogLevel.Verbose;
     private static LogListener logListener;
 
-    private static HashMap<String, LogLevel> modelLog = new HashMap<>();
+    private static final HashMap<String, LogLevel> modelLog = new HashMap<>();
 
     private static void log(LogLevel level, String tag, String msg, Exception e) {
         if (level.value() >= logLevel.value() || e != null) {
@@ -73,9 +73,9 @@ public class LogHandler {
      * 模块统一日志接口, 方便分模块管理日志,
      *
      * @param module 唯一, 模块id
-     * @param level  日志级别
-     * @param tag    日志标签
-     * @param msg    日志内容
+     * @param level 日志级别
+     * @param tag 日志标签
+     * @param msg 日志内容
      */
     public static void moduleLog(String module, LogLevel level, String tag, String msg) {
         moduleLog(module, level, tag, msg, null);
@@ -85,10 +85,10 @@ public class LogHandler {
      * 模块统一日志接口, 方便分模块管理日志,
      *
      * @param module 唯一, 模块id
-     * @param level  日志级别
-     * @param tag    日志标签
-     * @param msg    日志内容
-     * @param e      异常信息
+     * @param level 日志级别
+     * @param tag 日志标签
+     * @param msg 日志内容
+     * @param e 异常信息
      */
     public static void moduleLog(
             @NonNull String module, LogLevel level, String tag, String msg, Exception e) {
@@ -127,7 +127,7 @@ public class LogHandler {
      * 控制模块日志是否开启, 默认状态下所有模块都是开启的
      *
      * @param module 模块名
-     * @param level  模块日志级别
+     * @param level 模块日志级别
      */
     public static void controlModuleLogLevel(@NonNull String module, LogLevel level) {
         modelLog.put(module, level);

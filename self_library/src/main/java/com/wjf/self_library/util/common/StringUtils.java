@@ -13,7 +13,7 @@ public final class StringUtils {
      *
      * @param s The string.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isEmpty(final CharSequence s) {
         return s == null || s.length() == 0;
@@ -24,7 +24,7 @@ public final class StringUtils {
      *
      * @param s The string.
      * @return {@code true}: yes<br>
-     * * {@code false}: no
+     *     * {@code false}: no
      */
     public static boolean isNotEmpty(final CharSequence s) {
         return !isEmpty(s);
@@ -35,7 +35,7 @@ public final class StringUtils {
      *
      * @param s The string.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isTrimEmpty(final String s) {
         return (s == null || s.trim().length() == 0);
@@ -46,7 +46,7 @@ public final class StringUtils {
      *
      * @param s The string.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isSpace(final String s) {
         if (s == null) {
@@ -66,7 +66,7 @@ public final class StringUtils {
      * @param s1 The first string.
      * @param s2 The second string.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean equals(final CharSequence s1, final CharSequence s2) {
         if (s1 == s2) {
@@ -94,7 +94,7 @@ public final class StringUtils {
      * @param s1 The first string.
      * @param s2 The second string.
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean equalsIgnoreCase(final String s1, final String s2) {
         return s1 == null ? s2 == null : s1.equalsIgnoreCase(s2);
@@ -133,7 +133,7 @@ public final class StringUtils {
         if (!Character.isLowerCase(s.charAt(0))) {
             return s;
         }
-        return String.valueOf((char) (s.charAt(0) - 32)) + s.substring(1);
+        return (char) (s.charAt(0) - 32) + s.substring(1);
     }
 
     /**
@@ -149,7 +149,7 @@ public final class StringUtils {
         if (!Character.isUpperCase(s.charAt(0))) {
             return s;
         }
-        return String.valueOf((char) (s.charAt(0) + 32)) + s.substring(1);
+        return (char) (s.charAt(0) + 32) + s.substring(1);
     }
 
     /**

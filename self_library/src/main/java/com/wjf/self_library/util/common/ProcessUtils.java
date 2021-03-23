@@ -122,7 +122,7 @@ public final class ProcessUtils {
      * Return whether app running in the main process.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isMainProcess(Context context) {
         return context.getPackageName().equals(getCurrentProcessName());

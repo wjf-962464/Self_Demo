@@ -4,7 +4,6 @@ import android.os.UserHandle;
 
 import com.wjf.self_library.util.log.LogHandler;
 
-
 public class UserUtils {
 
     private static int userId = -1;

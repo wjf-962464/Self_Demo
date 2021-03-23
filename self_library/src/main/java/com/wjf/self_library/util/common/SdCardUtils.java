@@ -16,7 +16,7 @@ public final class SdCardUtils {
      * Return whether sdcard is enabled by environment.
      *
      * @return {@code true}: enabled<br>
-     * {@code false}: disabled
+     *     {@code false}: disabled
      */
     public static boolean isSdCardEnableByEnvironment() {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
@@ -90,9 +90,9 @@ public final class SdCardUtils {
 
     public static class SdCardInfo {
 
-        private String path;
-        private String state;
-        private boolean isRemovable;
+        private final String path;
+        private final String state;
+        private final boolean isRemovable;
 
         SdCardInfo(String path, String state, boolean isRemovable) {
             this.path = path;

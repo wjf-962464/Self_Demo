@@ -55,7 +55,7 @@ public final class EncodeUtils {
     /**
      * Return the string of decode urlencoded string.
      *
-     * @param input       The input.
+     * @param input The input.
      * @param charsetName The name of charset.
      * @return the string of decode urlencoded string
      */

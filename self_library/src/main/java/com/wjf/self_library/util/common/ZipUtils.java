@@ -18,7 +18,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-
 public final class ZipUtils {
 
     private static final int BUFFER_LEN = MemoryConstants.BUFFER;
@@ -41,10 +40,10 @@ public final class ZipUtils {
      * Zip the files.
      *
      * @param srcFilePaths The paths of source files.
-     * @param zipFilePath  The path of ZIP file.
-     * @param comment      The comment.
+     * @param zipFilePath The path of ZIP file.
+     * @param comment The comment.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFiles(
@@ -71,9 +70,9 @@ public final class ZipUtils {
      * Zip the files.
      *
      * @param srcFiles The source of files.
-     * @param zipFile  The ZIP file.
+     * @param zipFile The ZIP file.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFiles(final Collection<File> srcFiles, final File zipFile)
@@ -85,10 +84,10 @@ public final class ZipUtils {
      * Zip the files.
      *
      * @param srcFiles The source of files.
-     * @param zipFile  The ZIP file.
-     * @param comment  The comment.
+     * @param zipFile The ZIP file.
+     * @param comment The comment.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFiles(
@@ -117,12 +116,13 @@ public final class ZipUtils {
      * @param srcFilePath The path of source file.
      * @param zipFilePath The path of ZIP file.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFile(final String srcFilePath, final String zipFilePath)
             throws IOException {
-        return zipFile(FileUtils.getFileByPath(srcFilePath), FileUtils.getFileByPath(zipFilePath), null);
+        return zipFile(
+                FileUtils.getFileByPath(srcFilePath), FileUtils.getFileByPath(zipFilePath), null);
     }
 
     /**
@@ -130,15 +130,18 @@ public final class ZipUtils {
      *
      * @param srcFilePath The path of source file.
      * @param zipFilePath The path of ZIP file.
-     * @param comment     The comment.
+     * @param comment The comment.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFile(
             final String srcFilePath, final String zipFilePath, final String comment)
             throws IOException {
-        return zipFile(FileUtils.getFileByPath(srcFilePath), FileUtils.getFileByPath(zipFilePath), comment);
+        return zipFile(
+                FileUtils.getFileByPath(srcFilePath),
+                FileUtils.getFileByPath(zipFilePath),
+                comment);
     }
 
     /**
@@ -147,7 +150,7 @@ public final class ZipUtils {
      * @param srcFile The source of file.
      * @param zipFile The ZIP file.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFile(final File srcFile, final File zipFile) throws IOException {
@@ -161,7 +164,7 @@ public final class ZipUtils {
      * @param zipFile The ZIP file.
      * @param comment The comment.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      * @throws IOException if an I/O error has occurred
      */
     public static boolean zipFile(final File srcFile, final File zipFile, final String comment)
@@ -244,14 +247,17 @@ public final class ZipUtils {
      *
      * @param zipFilePath The path of ZIP file.
      * @param destDirPath The path of destination directory.
-     * @param keyword     The keyboard.
+     * @param keyword The keyboard.
      * @return the unzipped files
      * @throws IOException if unzip unsuccessfully
      */
     public static List<File> unzipFileByKeyword(
             final String zipFilePath, final String destDirPath, final String keyword)
             throws IOException {
-        return unzipFileByKeyword(FileUtils.getFileByPath(zipFilePath), FileUtils.getFileByPath(destDirPath), keyword);
+        return unzipFileByKeyword(
+                FileUtils.getFileByPath(zipFilePath),
+                FileUtils.getFileByPath(destDirPath),
+                keyword);
     }
 
     /**

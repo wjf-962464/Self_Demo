@@ -9,7 +9,7 @@ public final class PhoneUtils {
      * Return whether the device is phone.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isPhone(Context context) {
         TelephonyManager tm = getTelephonyManager(context);
@@ -20,12 +20,12 @@ public final class PhoneUtils {
      * Returns the current phone type.
      *
      * @return the current phone type
-     * <ul>
-     *   <li>{@link TelephonyManager#PHONE_TYPE_NONE}
-     *   <li>{@link TelephonyManager#PHONE_TYPE_GSM }
-     *   <li>{@link TelephonyManager#PHONE_TYPE_CDMA}
-     *   <li>{@link TelephonyManager#PHONE_TYPE_SIP }
-     * </ul>
+     *     <ul>
+     *       <li>{@link TelephonyManager#PHONE_TYPE_NONE}
+     *       <li>{@link TelephonyManager#PHONE_TYPE_GSM }
+     *       <li>{@link TelephonyManager#PHONE_TYPE_CDMA}
+     *       <li>{@link TelephonyManager#PHONE_TYPE_SIP }
+     *     </ul>
      */
     public static int getPhoneType(Context context) {
         TelephonyManager tm = getTelephonyManager(context);
@@ -36,7 +36,7 @@ public final class PhoneUtils {
      * Return whether sim card state is ready.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isSimCardReady(Context context) {
         TelephonyManager tm = getTelephonyManager(context);

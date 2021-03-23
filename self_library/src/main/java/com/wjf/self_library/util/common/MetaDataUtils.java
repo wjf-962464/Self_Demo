@@ -76,7 +76,7 @@ public final class MetaDataUtils {
      * Return the value of meta-data in service.
      *
      * @param service The service.
-     * @param key     The key of meta-data.
+     * @param key The key of meta-data.
      * @return the value of meta-data in service
      */
     public static String getMetaDataInService(
@@ -115,9 +115,7 @@ public final class MetaDataUtils {
      * @return the value of meta-data in receiver
      */
     public static String getMetaDataInReceiver(
-            Context context,
-            @NonNull final BroadcastReceiver receiver,
-            @NonNull final String key) {
+            Context context, @NonNull final BroadcastReceiver receiver, @NonNull final String key) {
         return getMetaDataInReceiver(context, receiver.getClass(), key);
     }
 

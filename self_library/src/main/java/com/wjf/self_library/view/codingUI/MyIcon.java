@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.LinearLayout;
+
 import com.wjf.self_library.R;
 import com.wjf.self_library.common.BaseUi;
 import com.wjf.self_library.databinding.UiIconBinding;
@@ -16,67 +17,68 @@ import com.wjf.self_library.databinding.UiIconBinding;
  */
 public class MyIcon extends BaseUi<UiIconBinding> {
 
-  private String text;
-  private int iconSrc;
-  private float iconSize, textSize, iconTextMargin;
-  private int normalColor, selectedColor;
+    private String text;
+    private int iconSrc;
+    private float iconSize, textSize, iconTextMargin;
+    private int normalColor, selectedColor;
 
-  public MyIcon(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
+    public MyIcon(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-  @Override
-  protected int setLayout() {
-    return R.layout.ui_icon;
-  }
+    @Override
+    protected int setLayout() {
+        return R.layout.ui_icon;
+    }
 
-  @Override
-  protected int[] setStyleable() {
-    return R.styleable.MyIcon;
-  }
+    @Override
+    protected int[] setStyleable() {
+        return R.styleable.MyIcon;
+    }
 
-  @Override
-  protected void getTypeArray(TypedArray typedArray) {
-    text = typedArray.getString(R.styleable.MyIcon_icon_text);
-    iconSrc = typedArray.getResourceId(R.styleable.MyIcon_icon_src, R.drawable.ic_launcher);
-    normalColor = typedArray.getColor(R.styleable.MyIcon_color_normal, Color.BLACK);
-    selectedColor = typedArray.getColor(R.styleable.MyIcon_color_selected, normalColor);
-    // 默认20dp，所有默认值都对于480dpi，即像素密度比为1:3
-    iconSize = typedArray.getDimension(R.styleable.MyIcon_icon_size, 60);
-    // 默认13sp
-    textSize = typedArray.getDimension(R.styleable.MyIcon_text_size, 39);
-    // 默认1dp
-    iconTextMargin = typedArray.getDimension(R.styleable.MyIcon_icon_text_margin, 3);
-  }
+    @Override
+    protected void getTypeArray(TypedArray typedArray) {
+        text = typedArray.getString(R.styleable.MyIcon_icon_text);
+        iconSrc = typedArray.getResourceId(R.styleable.MyIcon_icon_src, R.drawable.ic_launcher);
+        normalColor = typedArray.getColor(R.styleable.MyIcon_color_normal, Color.BLACK);
+        selectedColor = typedArray.getColor(R.styleable.MyIcon_color_selected, normalColor);
+        // 默认20dp，所有默认值都对于480dpi，即像素密度比为1:3
+        iconSize = typedArray.getDimension(R.styleable.MyIcon_icon_size, 60);
+        // 默认13sp
+        textSize = typedArray.getDimension(R.styleable.MyIcon_text_size, 39);
+        // 默认1dp
+        iconTextMargin = typedArray.getDimension(R.styleable.MyIcon_icon_text_margin, 3);
+    }
 
-  public void setText(String text) {
-    this.text = text;
-    view.iconText.setText(this.text);
-  }
+    public void setText(String text) {
+        this.text = text;
+        view.iconText.setText(this.text);
+    }
 
-  @Override
-  protected void setView() {
-    changeToNormal();
-    view.iconImg.getLayoutParams().height = (int) iconSize;
-    view.iconImg.getLayoutParams().width = (int) iconSize;
-    view.iconImg.setImageResource(iconSrc);
+    @Override
+    protected void setView() {
+        changeToNormal();
+        view.iconImg.getLayoutParams().height = (int) iconSize;
+        view.iconImg.getLayoutParams().width = (int) iconSize;
+        view.iconImg.setImageResource(iconSrc);
 
-    view.iconText.setText(text);
-    LinearLayout.LayoutParams lp =
-        new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    lp.setMargins(0, (int) iconTextMargin, 0, 0);
-    view.iconImg.setLayoutParams(lp);
-    view.iconText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-  }
+        view.iconText.setText(text);
+        LinearLayout.LayoutParams lp =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, (int) iconTextMargin, 0, 0);
+        view.iconImg.setLayoutParams(lp);
+        view.iconText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+    }
 
-  public void changeToSelected() {
-    view.iconImg.setColorFilter(selectedColor);
-    view.iconText.setTextColor(selectedColor);
-  }
+    public void changeToSelected() {
+        view.iconImg.setColorFilter(selectedColor);
+        view.iconText.setTextColor(selectedColor);
+    }
 
-  public void changeToNormal() {
-    view.iconImg.setColorFilter(normalColor);
-    view.iconText.setTextColor(normalColor);
-  }
+    public void changeToNormal() {
+        view.iconImg.setColorFilter(normalColor);
+        view.iconText.setTextColor(normalColor);
+    }
 }

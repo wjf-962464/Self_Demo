@@ -8,7 +8,7 @@ public abstract class TimerTask extends ThreadUtils.BaseTask<String> {
     private static final String TAG = "TEST";
     private final int timeMaxLimit;
     private int time;
-    private String url;
+    private final String url;
 
     public TimerTask(int timeMaxLimit, String url) {
         this.timeMaxLimit = timeMaxLimit;
@@ -45,5 +45,4 @@ public abstract class TimerTask extends ThreadUtils.BaseTask<String> {
     public void onFail(Throwable t) {
         Log.d(TAG, "onFail");
     }
-
 }

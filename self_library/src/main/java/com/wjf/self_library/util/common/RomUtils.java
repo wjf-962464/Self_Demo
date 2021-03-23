@@ -54,7 +54,7 @@ public final class RomUtils {
      * Return whether the rom is made by huawei.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isHuawei() {
         return ROM_HUAWEI[0].equals(getRomInfo().name);
@@ -64,7 +64,7 @@ public final class RomUtils {
      * Return whether the rom is made by vivo.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isVivo() {
         return ROM_VIVO[0].equals(getRomInfo().name);
@@ -74,7 +74,7 @@ public final class RomUtils {
      * Return whether the rom is made by xiaomi.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isXiaomi() {
         return ROM_XIAOMI[0].equals(getRomInfo().name);
@@ -84,7 +84,7 @@ public final class RomUtils {
      * Return whether the rom is made by oppo.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isOppo() {
         return ROM_OPPO[0].equals(getRomInfo().name);
@@ -94,7 +94,7 @@ public final class RomUtils {
      * Return whether the rom is made by leeco.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLeeco() {
         return ROM_LEECO[0].equals(getRomInfo().name);
@@ -104,7 +104,7 @@ public final class RomUtils {
      * Return whether the rom is made by 360.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean is360() {
         return ROM_360[0].equals(getRomInfo().name);
@@ -114,7 +114,7 @@ public final class RomUtils {
      * Return whether the rom is made by zte.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isZte() {
         return ROM_ZTE[0].equals(getRomInfo().name);
@@ -124,7 +124,7 @@ public final class RomUtils {
      * Return whether the rom is made by oneplus.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isOneplus() {
         return ROM_ONEPLUS[0].equals(getRomInfo().name);
@@ -134,7 +134,7 @@ public final class RomUtils {
      * Return whether the rom is made by nubia.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isNubia() {
         return ROM_NUBIA[0].equals(getRomInfo().name);
@@ -144,7 +144,7 @@ public final class RomUtils {
      * Return whether the rom is made by coolpad.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isCoolpad() {
         return ROM_COOLPAD[0].equals(getRomInfo().name);
@@ -154,7 +154,7 @@ public final class RomUtils {
      * Return whether the rom is made by lg.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLg() {
         return ROM_LG[0].equals(getRomInfo().name);
@@ -164,7 +164,7 @@ public final class RomUtils {
      * Return whether the rom is made by google.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isGoogle() {
         return ROM_GOOGLE[0].equals(getRomInfo().name);
@@ -174,7 +174,7 @@ public final class RomUtils {
      * Return whether the rom is made by samsung.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isSamsung() {
         return ROM_SAMSUNG[0].equals(getRomInfo().name);
@@ -184,7 +184,7 @@ public final class RomUtils {
      * Return whether the rom is made by meizu.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isMeizu() {
         return ROM_MEIZU[0].equals(getRomInfo().name);
@@ -194,7 +194,7 @@ public final class RomUtils {
      * Return whether the rom is made by lenovo.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isLenovo() {
         return ROM_LENOVO[0].equals(getRomInfo().name);
@@ -204,7 +204,7 @@ public final class RomUtils {
      * Return whether the rom is made by smartisan.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isSmartisan() {
         return ROM_SMARTISAN[0].equals(getRomInfo().name);
@@ -214,7 +214,7 @@ public final class RomUtils {
      * Return whether the rom is made by htc.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isHtc() {
         return ROM_HTC[0].equals(getRomInfo().name);
@@ -224,7 +224,7 @@ public final class RomUtils {
      * Return whether the rom is made by sony.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isSony() {
         return ROM_SONY[0].equals(getRomInfo().name);
@@ -234,7 +234,7 @@ public final class RomUtils {
      * Return whether the rom is made by gionee.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isGionee() {
         return ROM_GIONEE[0].equals(getRomInfo().name);
@@ -244,7 +244,7 @@ public final class RomUtils {
      * Return whether the rom is made by motorola.
      *
      * @return {@code true}: yes<br>
-     * {@code false}: no
+     *     {@code false}: no
      */
     public static boolean isMotorola() {
         return ROM_MOTOROLA[0].equals(getRomInfo().name);

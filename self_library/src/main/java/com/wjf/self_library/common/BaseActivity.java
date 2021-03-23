@@ -20,82 +20,92 @@ import com.wjf.self_library.view.swipebacklayout.app.SwipeBackActivity;
  * @date : 2021/1/19
  */
 public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackActivity {
-  /** 封装toolbar */
-  protected CommonToolbar commonToolbar;
+    /**
+     * 封装toolbar
+     */
+    protected CommonToolbar commonToolbar;
 
-  protected T view;
+    protected T view;
 
-  @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    // 手动入栈
-    ActivityCollector.addActivity(this);
-    // 设置控件绑定
-    view = DataBindingUtil.setContentView(this, setLayout());
-    // 隐藏actionbar
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.hide();
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 手动入栈
+        ActivityCollector.addActivity(this);
+        // 设置控件绑定
+        view = DataBindingUtil.setContentView(this, setLayout());
+        // 隐藏actionbar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+        // 初始化右滑返回
+        initSwipeActivity();
+        // 设置自动根据标题栏变色
+        initColorStatusBar();
+        initView();
+        initData();
     }
-    // 初始化右滑返回
-    initSwipeActivity();
-    // 设置自动根据标题栏变色
-    initColorStatusBar();
-    initView();
-    initData();
-  }
 
-  private void initSwipeActivity() {
-    getSwipeBackLayout().setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
-  }
-
-  private void initColorStatusBar() {
-    commonToolbar = findViewById(R.id.commonToolbar);
-    if (commonToolbar != null) {
-      int color = commonToolbar.getBackgroundColor();
-      if (color == 0) {
-        // 透明，默认同样透明主题
-        StatusBarUtil.setTranslucentStatus(this, commonToolbar.isDarkTheme());
-      } else {
-        StatusBarUtil.setStatusBarColor(this, color, commonToolbar.isDarkTheme());
-      }
-    } else {
-      // 没有标题栏，默认判定为透明且白色主题
-      StatusBarUtil.setTranslucentStatus(this, false);
-      disableSwipeOut();
+    private void initSwipeActivity() {
+        getSwipeBackLayout().setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
-  }
 
-  /** 黑色主题透明状态栏 */
-  protected void darkTranslucentStatus() {
-    StatusBarUtil.setTranslucentStatus(this, true);
-  }
+    private void initColorStatusBar() {
+        commonToolbar = findViewById(R.id.commonToolbar);
+        if (commonToolbar != null) {
+            int color = commonToolbar.getBackgroundColor();
+            if (color == 0) {
+                // 透明，默认同样透明主题
+                StatusBarUtil.setTranslucentStatus(this, commonToolbar.isDarkTheme());
+            } else {
+                StatusBarUtil.setStatusBarColor(this, color, commonToolbar.isDarkTheme());
+            }
+        } else {
+            // 没有标题栏，默认判定为透明且白色主题
+            StatusBarUtil.setTranslucentStatus(this, false);
+            disableSwipeOut();
+        }
+    }
 
-  /** 禁用右滑返回 */
-  protected void disableSwipeOut() {
-    getSwipeBackLayout().setEnableGesture(false);
-  }
+    /**
+     * 黑色主题透明状态栏
+     */
+    protected void darkTranslucentStatus() {
+        StatusBarUtil.setTranslucentStatus(this, true);
+    }
 
-  protected void toastShort(String msg) {
-    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-  }
+    /**
+     * 禁用右滑返回
+     */
+    protected void disableSwipeOut() {
+        getSwipeBackLayout().setEnableGesture(false);
+    }
 
-  /**
-   * 设置布局
-   *
-   * @return 布局id
-   */
-  public abstract int setLayout();
+    protected void toastShort(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 
-  /** 初始化控件 */
-  protected abstract void initView();
+    /**
+     * 设置布局
+     *
+     * @return 布局id
+     */
+    public abstract int setLayout();
 
-  /** 初始化数据 */
-  protected abstract void initData();
+    /**
+     * 初始化控件
+     */
+    protected abstract void initView();
 
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    ActivityCollector.removeActivity(this);
-  }
+    /**
+     * 初始化数据
+     */
+    protected abstract void initData();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
 }

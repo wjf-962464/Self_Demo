@@ -49,7 +49,7 @@ public interface LogListener {
      *
      * @param tag 标签
      * @param msg 内容
-     * @param e   异常信息
+     * @param e 异常信息
      */
     void e(String tag, String msg, Exception e);
 }

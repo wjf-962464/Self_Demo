@@ -1,6 +1,5 @@
 package com.wjf.self_library.util.common;
 
-
 import android.content.Context;
 
 import androidx.annotation.RawRes;
@@ -42,9 +41,9 @@ public final class ResourceUtils {
      * Copy the file from assets.
      *
      * @param assetsFilePath The path of file in assets.
-     * @param destFilePath   The path of destination file.
+     * @param destFilePath The path of destination file.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean copyFileFromAssets(
             Context context, final String assetsFilePath, final String destFilePath) {
@@ -85,7 +84,7 @@ public final class ResourceUtils {
      * Return the content of assets.
      *
      * @param assetsFilePath The path of file in assets.
-     * @param charsetName    The name of charset.
+     * @param charsetName The name of charset.
      * @return the content of assets
      */
     public static String readAssets2String(
@@ -126,7 +125,7 @@ public final class ResourceUtils {
     /**
      * Return the content of file in assets.
      *
-     * @param assetsPath  The path of file in assets.
+     * @param assetsPath The path of file in assets.
      * @param charsetName The name of charset.
      * @return the content of file in assets
      */
@@ -143,10 +142,10 @@ public final class ResourceUtils {
     /**
      * Copy the file from raw.
      *
-     * @param resId        The resource id.
+     * @param resId The resource id.
      * @param destFilePath The path of destination file.
      * @return {@code true}: success<br>
-     * {@code false}: fail
+     *     {@code false}: fail
      */
     public static boolean copyFileFromRaw(
             Context context, @RawRes final int resId, final String destFilePath) {
@@ -167,7 +166,7 @@ public final class ResourceUtils {
     /**
      * Return the content of resource in raw.
      *
-     * @param resId       The resource id.
+     * @param resId The resource id.
      * @param charsetName The name of charset.
      * @return the content of resource in raw
      */
@@ -203,7 +202,7 @@ public final class ResourceUtils {
     /**
      * Return the content of resource in raw.
      *
-     * @param resId       The resource id.
+     * @param resId The resource id.
      * @param charsetName The name of charset.
      * @return the content of file in assets
      */

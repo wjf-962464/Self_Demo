@@ -5,33 +5,21 @@ package com.wjf.self_library.util.log;
  */
 public enum LogLevel {
 
-    /**
-     * VERBOSE
-     */
+    /** VERBOSE */
     Verbose(0),
-    /**
-     * DEBUG
-     */
+    /** DEBUG */
     Debug(1),
-    /**
-     * INFO
-     */
+    /** INFO */
     Info(2),
-    /**
-     * WARNING
-     */
+    /** WARNING */
     Warning(3),
-    /**
-     * ERROR
-     */
+    /** ERROR */
     Error(4),
 
-    /**
-     * NONE, 关闭任何日志信息
-     */
+    /** NONE, 关闭任何日志信息 */
     None(5);
 
-    private int value;
+    private final int value;
 
     LogLevel(int value) {
         this.value = value;

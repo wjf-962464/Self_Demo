@@ -22,88 +22,93 @@ import com.wjf.self_library.view.codingUI.CommonToolbar;
  * @date : 2021/1/19
  */
 public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
-  protected T view;
-  private boolean isLoaded = false;
-  /**
-   * 封装toolbar
-   */
-  protected CommonToolbar commonToolbar;
+    protected T view;
+    /**
+     * 封装toolbar
+     */
+    protected CommonToolbar commonToolbar;
 
-  @Override
-  public View onCreateView(
-          @NonNull LayoutInflater inflater,
-          @Nullable ViewGroup container,
-          @Nullable Bundle savedInstanceState) {
-    View root = inflater.inflate(setLayout(), container, false);
-    this.view = DataBindingUtil.bind(root);
-    initColorStatusBar(root);
-    return root;
-  }
+    private boolean isLoaded = false;
 
-  private void initColorStatusBar(View view) {
-    commonToolbar = view.findViewById(R.id.commonToolbar);
-    if (commonToolbar != null) {
-      int color = commonToolbar.getBackgroundColor();
-      if (color == 0) {
-        // 透明，默认同样透明主题
-        StatusBarUtil.setTranslucentStatus(getActivity(), commonToolbar.isDarkTheme());
-      } else {
-        StatusBarUtil.setStatusBarColor(getActivity(), color, commonToolbar.isDarkTheme());
-      }
+    @Override
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(setLayout(), container, false);
+        this.view = DataBindingUtil.bind(root);
+        initColorStatusBar(root);
+        return root;
     }
-  }
 
-  /**
-   * 黑色主题透明状态栏
-   */
-  protected void darkTranslucentStatus() {
-    StatusBarUtil.setTranslucentStatus(getActivity(), true);
-  }
-
-  @Override
-  public void onHiddenChanged(boolean hidden) {
-    super.onHiddenChanged(hidden);
-    if (hidden) {
-      Log.i("wjf", "---" + this.getClass().getCanonicalName() + "隐藏");
+    private void initColorStatusBar(View view) {
+        commonToolbar = view.findViewById(R.id.commonToolbar);
+        if (commonToolbar != null) {
+            int color = commonToolbar.getBackgroundColor();
+            if (color == 0) {
+                // 透明，默认同样透明主题
+                StatusBarUtil.setTranslucentStatus(getActivity(), commonToolbar.isDarkTheme());
+            } else {
+                StatusBarUtil.setStatusBarColor(getActivity(), color, commonToolbar.isDarkTheme());
+            }
+        }
     }
-    lazyInit();
-  }
 
-  @Override
-  public void onResume() {
-    super.onResume();
-    lazyInit();
-  }
-
-  @Override
-  public void onDestroyView() {
-    super.onDestroyView();
-    isLoaded = false;
-  }
-
-  private void lazyInit() {
-    if (!isLoaded && !isHidden()) {
-      initView();
-      initData();
-      isLoaded = true;
-      Log.i("wjf", "---" + this.getClass().getCanonicalName() + "加载");
+    /**
+     * 黑色主题透明状态栏
+     */
+    protected void darkTranslucentStatus() {
+        StatusBarUtil.setTranslucentStatus(getActivity(), true);
     }
-  }
 
-  /**
-   * 设置布局
-   *
-   * @return 布局id
-   */
-  public abstract int setLayout();
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            Log.i("wjf", "---" + this.getClass().getCanonicalName() + "隐藏");
+        }
+        lazyInit();
+    }
 
-  /** 初始化控件 */
-  protected abstract void initView();
+    @Override
+    public void onResume() {
+        super.onResume();
+        lazyInit();
+    }
 
-  /** 初始化数据 */
-  protected abstract void initData();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        isLoaded = false;
+    }
 
-  protected void toastShort(String msg) {
-    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-  }
+    private void lazyInit() {
+        if (!isLoaded && !isHidden()) {
+            initView();
+            initData();
+            isLoaded = true;
+            Log.i("wjf", "---" + this.getClass().getCanonicalName() + "加载");
+        }
+    }
+
+    /**
+     * 设置布局
+     *
+     * @return 布局id
+     */
+    public abstract int setLayout();
+
+    /**
+     * 初始化控件
+     */
+    protected abstract void initView();
+
+    /**
+     * 初始化数据
+     */
+    protected abstract void initData();
+
+    protected void toastShort(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
 }

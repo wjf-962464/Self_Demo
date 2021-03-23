@@ -199,13 +199,14 @@ public final class ConvertUtils {
      * Size of byte to size of memory in unit.
      *
      * @param byteSize Size of byte.
-     * @param unit     The unit of memory size.
-     *                 <ul>
-     *                   <li>{@link MemoryConstants#BYTE}
-     *                   <li>{@link MemoryConstants#KB}
-     *                   <li>{@link MemoryConstants#MB}
-     *                   <li>{@link MemoryConstants#GB}
-     *                 </ul>
+     * @param unit The unit of memory size.
+     *     <ul>
+     *       <li>{@link MemoryConstants#BYTE}
+     *       <li>{@link MemoryConstants#KB}
+     *       <li>{@link MemoryConstants#MB}
+     *       <li>{@link MemoryConstants#GB}
+     *     </ul>
+     *
      * @return size of memory in unit
      */
     public static double byte2MemorySize(
@@ -243,14 +244,15 @@ public final class ConvertUtils {
      * Time span in unit to milliseconds.
      *
      * @param timeSpan The time span.
-     * @param unit     The unit of time span.
-     *                 <ul>
-     *                   <li>{@link TimeConstants#MIL}
-     *                   <li>{@link TimeConstants#SEC }
-     *                   <li>{@link TimeConstants#MIN }
-     *                   <li>{@link TimeConstants#HOUR}
-     *                   <li>{@link TimeConstants#DAY }
-     *                 </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return milliseconds
      */
     public static long timeSpan2Millis(final long timeSpan, @TimeConstants.Unit final int unit) {
@@ -261,14 +263,15 @@ public final class ConvertUtils {
      * Milliseconds to time span in unit.
      *
      * @param millis The milliseconds.
-     * @param unit   The unit of time span.
-     *               <ul>
-     *                 <li>{@link TimeConstants#MIL}
-     *                 <li>{@link TimeConstants#SEC }
-     *                 <li>{@link TimeConstants#MIN }
-     *                 <li>{@link TimeConstants#HOUR}
-     *                 <li>{@link TimeConstants#DAY }
-     *               </ul>
+     * @param unit The unit of time span.
+     *     <ul>
+     *       <li>{@link TimeConstants#MIL}
+     *       <li>{@link TimeConstants#SEC }
+     *       <li>{@link TimeConstants#MIN }
+     *       <li>{@link TimeConstants#HOUR}
+     *       <li>{@link TimeConstants#DAY }
+     *     </ul>
+     *
      * @return time span in unit
      */
     public static long millis2TimeSpan(final long millis, @TimeConstants.Unit final int unit) {
@@ -366,7 +369,7 @@ public final class ConvertUtils {
     /**
      * Input stream to string.
      *
-     * @param is          The input stream.
+     * @param is The input stream.
      * @param charsetName The name of charset.
      * @return string
      */
@@ -389,7 +392,7 @@ public final class ConvertUtils {
     /**
      * String to input stream.
      *
-     * @param string      The string.
+     * @param string The string.
      * @param charsetName The name of charset.
      * @return input stream
      */
@@ -408,7 +411,7 @@ public final class ConvertUtils {
     /**
      * Output stream to string.
      *
-     * @param out         The output stream.
+     * @param out The output stream.
      * @param charsetName The name of charset.
      * @return string
      */
@@ -427,7 +430,7 @@ public final class ConvertUtils {
     /**
      * String to output stream.
      *
-     * @param string      The string.
+     * @param string The string.
      * @param charsetName The name of charset.
      * @return output stream
      */
@@ -522,7 +525,7 @@ public final class ConvertUtils {
      * Drawable to bytes.
      *
      * @param drawable The drawable.
-     * @param format   The format of bitmap.
+     * @param format The format of bitmap.
      * @return bytes
      */
     public static byte[] drawable2Bytes(
