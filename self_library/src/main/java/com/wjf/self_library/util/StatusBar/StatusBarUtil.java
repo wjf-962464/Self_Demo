@@ -72,9 +72,7 @@ public class StatusBarUtil {
         setStatusBarDarkTheme(activity, ifDark);
     }
 
-    /**
-     * 设置状态栏深色浅色切换
-     */
+    /** 设置状态栏深色浅色切换 */
     public static boolean setStatusBarDarkTheme(Activity activity, boolean dark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -92,9 +90,7 @@ public class StatusBarUtil {
         return false;
     }
 
-    /**
-     * 设置 状态栏深色浅色切换
-     */
+    /** 设置 状态栏深色浅色切换 */
     private static boolean setStatusBarFontIconDark(
             Activity activity, @ViewType int type, boolean dark) {
         switch (type) {
@@ -211,6 +207,5 @@ public class StatusBarUtil {
 
     @IntDef({TYPE_MIUI, TYPE_FLYME, TYPE_M})
     @Retention(RetentionPolicy.SOURCE)
-    @interface ViewType {
-    }
+    @interface ViewType {}
 }

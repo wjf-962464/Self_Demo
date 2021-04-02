@@ -12,10 +12,9 @@ import java.util.Set;
  */
 public class LogHandler {
 
+    private static final HashMap<String, LogLevel> modelLog = new HashMap<>();
     private static LogLevel logLevel = LogLevel.Verbose;
     private static LogListener logListener;
-
-    private static final HashMap<String, LogLevel> modelLog = new HashMap<>();
 
     private static void log(LogLevel level, String tag, String msg, Exception e) {
         if (level.value() >= logLevel.value() || e != null) {

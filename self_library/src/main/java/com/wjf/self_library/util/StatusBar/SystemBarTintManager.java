@@ -27,6 +27,7 @@ public class SystemBarTintManager {
      * The default system bar tint color value.
      */
     public static final int DEFAULT_TINT_COLOR = 0x99000000;
+
     private static String sNavBarOverride;
 
     static {
@@ -490,7 +491,7 @@ public class SystemBarTintManager {
          * Get the height of the system navigation bar.
          *
          * @return The height of the navigation bar (in pixels). If the device does not have soft
-         * navigation keys, this will always return 0.
+         *     navigation keys, this will always return 0.
          */
         public int getNavigationBarHeight() {
             return mNavigationBarHeight;
@@ -500,7 +501,7 @@ public class SystemBarTintManager {
          * Get the width of the system navigation bar when it is placed vertically on the screen.
          *
          * @return The width of the navigation bar (in pixels). If the device does not have soft
-         * navigation keys, this will always return 0.
+         *     navigation keys, this will always return 0.
          */
         public int getNavigationBarWidth() {
             return mNavigationBarWidth;

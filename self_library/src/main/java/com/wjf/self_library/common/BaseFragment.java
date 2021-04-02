@@ -54,9 +54,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
         }
     }
 
-    /**
-     * 黑色主题透明状态栏
-     */
+    /** 黑色主题透明状态栏 */
     protected void darkTranslucentStatus() {
         StatusBarUtil.setTranslucentStatus(getActivity(), true);
     }
@@ -98,14 +96,10 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
      */
     public abstract int setLayout();
 
-    /**
-     * 初始化控件
-     */
+    /** 初始化控件 */
     protected abstract void initView();
 
-    /**
-     * 初始化数据
-     */
+    /** 初始化数据 */
     protected abstract void initData();
 
     protected void toastShort(String msg) {

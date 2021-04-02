@@ -7,8 +7,8 @@ import androidx.annotation.Nullable;
 public abstract class TimerTask extends ThreadUtils.BaseTask<String> {
     private static final String TAG = "TEST";
     private final int timeMaxLimit;
-    private int time;
     private final String url;
+    private int time;
 
     public TimerTask(int timeMaxLimit, String url) {
         this.timeMaxLimit = timeMaxLimit;

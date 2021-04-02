@@ -32,8 +32,7 @@ public class SwipeBackActivityHelper {
         mSwipeBackLayout.addSwipeListener(
                 new SwipeBackLayout.SwipeListener() {
                     @Override
-                    public void onScrollStateChange(int state, float scrollPercent) {
-                    }
+                    public void onScrollStateChange(int state, float scrollPercent) {}
 
                     @Override
                     public void onEdgeTouch(int edgeFlag) {
@@ -41,8 +40,7 @@ public class SwipeBackActivityHelper {
                     }
 
                     @Override
-                    public void onScrollOverThreshold() {
-                    }
+                    public void onScrollOverThreshold() {}
                 });
     }
 

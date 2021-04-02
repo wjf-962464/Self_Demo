@@ -24,21 +24,13 @@ public class SwipeBackLayout extends FrameLayout {
      * Edge flag indicating that the left edge should be affected.
      */
     public static final int EDGE_LEFT = ViewDragHelper.EDGE_LEFT;
-    /**
-     * Edge flag indicating that the right edge should be affected.
-     */
+    /** Edge flag indicating that the right edge should be affected. */
     public static final int EDGE_RIGHT = ViewDragHelper.EDGE_RIGHT;
-    /**
-     * Edge flag indicating that the bottom edge should be affected.
-     */
+    /** Edge flag indicating that the bottom edge should be affected. */
     public static final int EDGE_BOTTOM = ViewDragHelper.EDGE_BOTTOM;
-    /**
-     * Edge flag set indicating all edges should be affected.
-     */
+    /** Edge flag set indicating all edges should be affected. */
     public static final int EDGE_ALL = EDGE_LEFT | EDGE_RIGHT | EDGE_BOTTOM;
-    /**
-     * A view is not currently being dragged or animating as a result of a fling/snap.
-     */
+    /** A view is not currently being dragged or animating as a result of a fling/snap. */
     public static final int STATE_IDLE = ViewDragHelper.STATE_IDLE;
     /**
      * A view is currently being dragged. The position is currently changing as a result of user
@@ -50,10 +42,9 @@ public class SwipeBackLayout extends FrameLayout {
      * motion.
      */
     public static final int STATE_SETTLING = ViewDragHelper.STATE_SETTLING;
-    /**
-     * Minimum velocity that will be detected as a fling
-     */
+    /** Minimum velocity that will be detected as a fling */
     private static final int MIN_FLING_VELOCITY = 400; // dips per second
+
     private static final int DEFAULT_SCRIM_COLOR = 0x99000000;
     private static final int FULL_ALPHA = 255;
     /**
@@ -64,50 +55,28 @@ public class SwipeBackLayout extends FrameLayout {
     private static final int OVERSCROLL_DISTANCE = 10;
 
     private static final int[] EDGE_FLAGS = {EDGE_LEFT, EDGE_RIGHT, EDGE_BOTTOM, EDGE_ALL};
-
+    private final ViewDragHelper mDragHelper;
+    private final Rect mTmpRect = new Rect();
     private int mEdgeFlag;
-
     /**
      * Threshold of scroll, we will close the activity, when scrollPercent over this value;
      */
     private float mScrollThreshold = DEFAULT_SCROLL_THRESHOLD;
-
     private Activity mActivity;
-
     private boolean mEnable = true;
-
     private View mContentView;
-
-    private final ViewDragHelper mDragHelper;
-
     private float mScrollPercent;
-
     private int mContentLeft;
-
     private int mContentTop;
-
-    /**
-     * The set of listeners to be sent events through.
-     */
+    /** The set of listeners to be sent events through. */
     private List<SwipeListener> mListeners;
-
     private Drawable mShadowLeft;
-
     private Drawable mShadowRight;
-
     private Drawable mShadowBottom;
-
     private float mScrimOpacity;
-
     private int mScrimColor = DEFAULT_SCRIM_COLOR;
-
     private boolean mInLayout;
-
-    private final Rect mTmpRect = new Rect();
-
-    /**
-     * Edge being dragged
-     */
+    /** Edge being dragged */
     private int mTrackingEdge;
 
     public SwipeBackLayout(Context context) {
@@ -151,9 +120,9 @@ public class SwipeBackLayout extends FrameLayout {
     /**
      * Sets the sensitivity of the NavigationLayout.
      *
-     * @param context     The application context.
+     * @param context The application context.
      * @param sensitivity value between 0 and 1, the final value for touchSlop =
-     *                    ViewConfiguration.getScaledTouchSlop * (1 / s);
+     *     ViewConfiguration.getScaledTouchSlop * (1 / s);
      */
     public void setSensitivity(Context context, float sensitivity) {
         mDragHelper.setSensitivity(context, sensitivity);
@@ -259,9 +228,7 @@ public class SwipeBackLayout extends FrameLayout {
         setShadow(getResources().getDrawable(resId), edgeFlag);
     }
 
-    /**
-     * Scroll out contentView and finish the activity
-     */
+    /** Scroll out contentView and finish the activity */
     public void scrollToFinishActivity() {
         final int childWidth = mContentView.getWidth();
         final int childHeight = mContentView.getHeight();
@@ -416,7 +383,7 @@ public class SwipeBackLayout extends FrameLayout {
         /**
          * Invoke when state change
          *
-         * @param state         flag to describe scroll state
+         * @param state flag to describe scroll state
          * @param scrollPercent scroll percent of this view
          * @see #STATE_IDLE
          * @see #STATE_DRAGGING
@@ -434,9 +401,7 @@ public class SwipeBackLayout extends FrameLayout {
          */
         void onEdgeTouch(int edgeFlag);
 
-        /**
-         * Invoke when scroll percent over the threshold for the first time
-         */
+        /** Invoke when scroll percent over the threshold for the first time */
         void onScrollOverThreshold();
     }
 

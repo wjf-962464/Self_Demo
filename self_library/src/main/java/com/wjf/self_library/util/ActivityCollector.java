@@ -11,8 +11,7 @@ import java.util.List;
 public class ActivityCollector {
     private static final List<Activity> ACT_LIST = new ArrayList<>();
 
-    private ActivityCollector() {
-    }
+    private ActivityCollector() {}
 
     public static void addActivity(Activity act) {
         ACT_LIST.add(act);

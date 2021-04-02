@@ -20,13 +20,56 @@
             app:layout_constraintTop_toTopOf="parent"
             app:titleText="标题" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.wjf.self_demo.view.FlowListView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/commonToolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/commonToolbar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textSize="15sp"
+                android:text="略略略" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="略略略2略略略2略略略2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="略略略2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="第八个工作室" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Debug工作室" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="略略略2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="略略略2" />
+        </com.wjf.self_demo.view.FlowListView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

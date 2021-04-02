@@ -111,7 +111,7 @@ public final class MetaDataUtils {
      * Return the value of meta-data in receiver.
      *
      * @param receiver The receiver.
-     * @param key      The key of meta-data.
+     * @param key The key of meta-data.
      * @return the value of meta-data in receiver
      */
     public static String getMetaDataInReceiver(

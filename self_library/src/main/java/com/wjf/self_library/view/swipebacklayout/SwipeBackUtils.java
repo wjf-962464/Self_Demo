@@ -10,8 +10,7 @@ import java.lang.reflect.Method;
  * Created by Chaojun Wang on 6/9/14.
  */
 public class SwipeBackUtils {
-    private SwipeBackUtils() {
-    }
+    private SwipeBackUtils() {}
 
     /**
      * Convert a translucent themed Activity {@link android.R.attr#windowIsTranslucent} to a

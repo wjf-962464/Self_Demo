@@ -68,16 +68,12 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackA
         }
     }
 
-    /**
-     * 黑色主题透明状态栏
-     */
+    /** 黑色主题透明状态栏 */
     protected void darkTranslucentStatus() {
         StatusBarUtil.setTranslucentStatus(this, true);
     }
 
-    /**
-     * 禁用右滑返回
-     */
+    /** 禁用右滑返回 */
     protected void disableSwipeOut() {
         getSwipeBackLayout().setEnableGesture(false);
     }
@@ -93,14 +89,10 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackA
      */
     public abstract int setLayout();
 
-    /**
-     * 初始化控件
-     */
+    /** 初始化控件 */
     protected abstract void initView();
 
-    /**
-     * 初始化数据
-     */
+    /** 初始化数据 */
     protected abstract void initData();
 
     @Override
