@@ -16,10 +16,25 @@ import androidx.annotation.Nullable;
  * @date : 2021/4/2
  */
 public class FishDrawable extends Drawable {
-    public final static int HEAD_RADIUS = 50;
+    /**
+     * 单位长度R
+     */
+    public static final int R = 50;
+    /**
+     * 其他部分透明度
+     */
     private final int OTHER_ALPHA = 110;
+
     private final int BODY_ALPHA = 160;
-    private final float body_length = 3.2f * HEAD_RADIUS;
+    /**
+     * 鱼身长度
+     */
+    private final float BODY_LENGTH = 3.2f * R;
+    /**
+     * 寻找鱼鳍起点的线长
+     */
+    private final float FIND_FINS_LENGTH = 0.9f;
+
     private Path mPath;
     private Paint mPaint;
     private PointF middlePoint;
@@ -45,16 +60,17 @@ public class FishDrawable extends Drawable {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setARGB(OTHER_ALPHA, 244, 92, 71);
 
-        middlePoint = new PointF(4.18f * HEAD_RADIUS, 4.18f * HEAD_RADIUS);
-
+        middlePoint = new PointF(4.18f * R, 4.18f * R);
     }
 
     @Override
     public void draw(@NonNull Canvas canvas) {
         float fishAngle = fishMainAngle;
 
-        PointF headPoint = calculatePoint(middlePoint, body_length / 2, fishAngle);
-        canvas.drawCircle(headPoint.x, headPoint.y, HEAD_RADIUS, mPaint);
+        PointF headPoint = calculatePoint(middlePoint, BODY_LENGTH / 2, fishAngle);
+        canvas.drawCircle(headPoint.x, headPoint.y, R, mPaint);
+
+        //        calculatePoint(headPoint)
     }
 
     @Override
@@ -74,11 +90,11 @@ public class FishDrawable extends Drawable {
 
     @Override
     public int getIntrinsicWidth() {
-        return (int) (8.38f * HEAD_RADIUS);
+        return (int) (8.38f * R);
     }
 
     @Override
     public int getIntrinsicHeight() {
-        return (int) (8.38f * HEAD_RADIUS);
+        return (int) (8.38f * R);
     }
 }

@@ -1,5 +1,6 @@
-package com.wjf.self_demo;
+package com.wjf.self_demo.activity;
 
+import com.wjf.self_demo.R;
 import com.wjf.self_demo.databinding.ActivityMainBinding;
 import com.wjf.self_library.common.BaseActivity;
 

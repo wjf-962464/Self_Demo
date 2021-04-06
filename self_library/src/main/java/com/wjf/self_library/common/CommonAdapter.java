@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
         extends RecyclerView.Adapter<CommonAdapter.ViewHolder> {
     protected final List<T> data;
-    private final Context context;
+    protected final Context context;
     private Holder holder;
 
     protected CommonAdapter(Context context, List<T> data) {
@@ -57,9 +57,9 @@ public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
      * 绑定View
      *
      * @param entity 数据实体
-     * @param holder 容器
+     * @param view   容器
      */
-    protected abstract void setHolder(T entity, Holder holder);
+    protected abstract void setHolder(T entity, Holder view);
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
