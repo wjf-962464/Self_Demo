@@ -3,6 +3,7 @@ package com.wjf.self_demo;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wjf.self_demo.activity.CaptureActivity;
 import com.wjf.self_demo.activity.FishActivity;
 import com.wjf.self_demo.activity.MainActivity;
 import com.wjf.self_demo.adapter.IndexListAdapter;
@@ -37,6 +38,7 @@ public class IndexActivity extends BaseActivity<ActivityIndexBinding> {
     protected void initData() {
         data.add(new IndexListMenu(MainActivity.class, "自定义流式布局"));
         data.add(new IndexListMenu(FishActivity.class, "灵动的锦鲤"));
+        data.add(new IndexListMenu(CaptureActivity.class, "二维码"));
         adapter.notifyDataSetChanged();
     }
 }

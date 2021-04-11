@@ -1,3 +1,4 @@
 include ':self_library'
 include ':app'
 rootProject.name = "Self_Demo"
+include ':bar_code'

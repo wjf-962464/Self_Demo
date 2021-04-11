@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
 }
 
 android {
@@ -12,7 +12,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.wjf.self_demo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -40,8 +39,4 @@ dependencies {
     implementation dep.supportCardview
     implementation dep.supportConstraintLayout
     testImplementation dep.junit
-    implementation project(':self_library')
-    implementation project(':bar_code')
-    //Zxing二维码jar包
-    implementation files('libs/core-3.3.2-SNAPSHOT.jar')
 }
