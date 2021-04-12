@@ -1,4 +1,4 @@
-package com.wjf.self_demo.Zxing;
+package com.wjf.barcode;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,9 +11,6 @@ import android.os.Vibrator;
 import android.util.Log;
 
 import androidx.annotation.RawRes;
-
-import com.wjf.barcode.CustomException;
-import com.wjf.self_demo.R;
 
 import java.io.Closeable;
 import java.io.IOException;

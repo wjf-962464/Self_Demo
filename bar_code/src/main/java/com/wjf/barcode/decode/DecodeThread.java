@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.wjf.self_demo.Zxing.decode;
+package com.wjf.barcode.decode;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
-import com.wjf.self_demo.activity.CaptureActivity;
+import com.wjf.barcode.CaptureActivity;
 
 import java.util.Collection;
 import java.util.EnumMap;
@@ -36,19 +35,20 @@ import java.util.concurrent.CountDownLatch;
  *
  * @author dswitkin@google.com (Daniel Switkin)
  */
-final class DecodeThread extends Thread {
+class DecodeThread extends Thread {
 
     public static final String BARCODE_BITMAP = "barcode_bitmap";
     public static final String BARCODE_SCALED_FACTOR = "barcode_scaled_factor";
 
     private final CaptureActivity activity;
     private final Map<DecodeHintType, Object> hints;
-    private Handler handler;
     private final CountDownLatch handlerInitLatch;
+    private Handler handler;
 
-    DecodeThread(CaptureActivity activity,
-                 Collection<BarcodeFormat> decodeFormats,
-                 String characterSet) {
+    DecodeThread(
+            CaptureActivity activity,
+            Collection<BarcodeFormat> decodeFormats,
+            String characterSet) {
 
         this.activity = activity;
         handlerInitLatch = new CountDownLatch(1);
@@ -64,7 +64,6 @@ final class DecodeThread extends Thread {
             decodeFormats.addAll(DecodeFormatManager.DATA_MATRIX_FORMATS);
             decodeFormats.addAll(DecodeFormatManager.AZTEC_FORMATS);
             decodeFormats.addAll(DecodeFormatManager.PDF417_FORMATS);
-
         }
         hints.put(DecodeHintType.POSSIBLE_FORMATS, decodeFormats);
 
@@ -73,8 +72,6 @@ final class DecodeThread extends Thread {
         }
         Log.i("DecodeThread", "Hints: " + hints);
     }
-
-
 
     Handler getHandler() {
         try {
@@ -92,5 +89,4 @@ final class DecodeThread extends Thread {
         handlerInitLatch.countDown();
         Looper.loop();
     }
-
 }

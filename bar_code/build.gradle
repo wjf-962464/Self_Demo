@@ -39,4 +39,7 @@ dependencies {
     implementation dep.supportCardview
     implementation dep.supportConstraintLayout
     testImplementation dep.junit
+    //Zxing二维码jar包
+    implementation files('libs/core-3.3.2-SNAPSHOT.jar')
+    implementation project(':self_library')
 }

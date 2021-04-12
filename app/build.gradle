@@ -42,6 +42,5 @@ dependencies {
     testImplementation dep.junit
     implementation project(':self_library')
     implementation project(':bar_code')
-    //Zxing二维码jar包
-    implementation files('libs/core-3.3.2-SNAPSHOT.jar')
+
 }

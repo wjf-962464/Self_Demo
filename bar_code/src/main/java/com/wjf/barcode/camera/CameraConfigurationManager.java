@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wjf.self_demo.Zxing.camera;
+package com.wjf.barcode.camera;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -48,23 +48,18 @@ final class CameraConfigurationManager {
     private static final int MAX_FPS = 20;
     private static final int AREA_PER_1000 = 400;
 
-
     private final Context context;
     private int cwNeededRotation;
     private Point screenResolution;
     private Point bestPreviewSize;
     private Point previewSizeOnScreen;
 
-
     CameraConfigurationManager(Context context) {
         this.context = context;
     }
 
-    /**
-     * Reads, one time, values from the camera that are needed by the app.
-     * 计算相机的顺时针旋转角度，最近屏幕分辨率
-     */
-    void initFromCameraParameters(Camera camera,int cameraID) {
+    /** Reads, one time, values from the camera that are needed by the app. 计算相机的顺时针旋转角度，最近屏幕分辨率 */
+    void initFromCameraParameters(Camera camera, int cameraID) {
         Camera.Parameters parameters = camera.getParameters();
         WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
@@ -99,28 +94,26 @@ final class CameraConfigurationManager {
         Log.i(TAG, "Display at: " + cwRotationFromNaturalToDisplay);
         Log.i(TAG, "Camera at: " + cameraInfo.orientation);
 
-        //获取适当的顺时针旋转角度
+        // 获取适当的顺时针旋转角度
         int result;
         if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             result = (cameraInfo.orientation + cwRotationFromNaturalToDisplay) % 360;
-            cwNeededRotation = (360 - result) % 360;  // compensate the mirror
-        } else {  // back-facing
-            cwNeededRotation = (cameraInfo.orientation - cwRotationFromNaturalToDisplay + 360) % 360;
+            cwNeededRotation = (360 - result) % 360; // compensate the mirror
+        } else { // back-facing
+            cwNeededRotation =
+                    (cameraInfo.orientation - cwRotationFromNaturalToDisplay + 360) % 360;
         }
 
-
-        //获取适当的屏幕分辨率
+        // 获取适当的屏幕分辨率
         Point theScreenResolution = new Point();
         display.getSize(theScreenResolution);
         screenResolution = theScreenResolution;
         Log.i(TAG, "Screen resolution in current orientation: " + screenResolution);
 
-
         bestPreviewSize = findBestPreviewSizeValue(parameters, screenResolution);
         Log.i(TAG, "Best available preview size: " + bestPreviewSize);
 
-
-        //保证屏幕的长宽方向和预览画面的长宽方向一致
+        // 保证屏幕的长宽方向和预览画面的长宽方向一致
         boolean isScreenPortrait = screenResolution.x < screenResolution.y;
         boolean isPreviewSizePortrait = bestPreviewSize.x < bestPreviewSize.y;
 
@@ -134,6 +127,7 @@ final class CameraConfigurationManager {
 
     /**
      * 设置相机参数
+     *
      * @param theCamera
      * @param safeMode
      */
@@ -142,7 +136,9 @@ final class CameraConfigurationManager {
         Camera.Parameters parameters = theCamera.getParameters();
 
         if (parameters == null) {
-            Log.w(TAG, "Device error: no camera parameters are available. Proceeding without configuration.");
+            Log.w(
+                    TAG,
+                    "Device error: no camera parameters are available. Proceeding without configuration.");
             return;
         }
 
@@ -155,12 +151,12 @@ final class CameraConfigurationManager {
         setFocus(parameters, true, true, safeMode);
         if (!safeMode) {
             if (false) {
-                //反色，扫描黑色背景上的白色条码
+                // 反色，扫描黑色背景上的白色条码
                 setInvertColor(parameters);
             }
 
             if (false) {
-                //是否设置扫描场景模式
+                // 是否设置扫描场景模式
                 setBarcodeSceneMode(parameters);
             }
 
@@ -179,40 +175,56 @@ final class CameraConfigurationManager {
 
         Camera.Parameters afterParameters = theCamera.getParameters();
         Camera.Size afterSize = afterParameters.getPreviewSize();
-        if (afterSize != null && (bestPreviewSize.x != afterSize.width || bestPreviewSize.y != afterSize.height)) {
-            Log.w(TAG, "Camera said it supported preview size " + bestPreviewSize.x + 'x' + bestPreviewSize.y +
-                    ", but after setting it, preview size is " + afterSize.width + 'x' + afterSize.height);
+        if (afterSize != null
+                && (bestPreviewSize.x != afterSize.width
+                        || bestPreviewSize.y != afterSize.height)) {
+            Log.w(
+                    TAG,
+                    "Camera said it supported preview size "
+                            + bestPreviewSize.x
+                            + 'x'
+                            + bestPreviewSize.y
+                            + ", but after setting it, preview size is "
+                            + afterSize.width
+                            + 'x'
+                            + afterSize.height);
             bestPreviewSize.x = afterSize.width;
             bestPreviewSize.y = afterSize.height;
         }
     }
 
-
-    public  void setFocus(Camera.Parameters parameters,
-                          boolean autoFocus,
-                          boolean disableContinuous,
-                          boolean safeMode) {
+    public void setFocus(
+            Camera.Parameters parameters,
+            boolean autoFocus,
+            boolean disableContinuous,
+            boolean safeMode) {
         List<String> supportedFocusModes = parameters.getSupportedFocusModes();
         String focusMode = null;
         if (autoFocus) {
             if (safeMode || disableContinuous) {
-                focusMode = findSettableValue("focus mode",
-                        supportedFocusModes,
-                        Camera.Parameters.FOCUS_MODE_AUTO);
+                focusMode =
+                        findSettableValue(
+                                "focus mode",
+                                supportedFocusModes,
+                                Camera.Parameters.FOCUS_MODE_AUTO);
             } else {
-                focusMode = findSettableValue("focus mode",
-                        supportedFocusModes,
-                        Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE,
-                        Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO,
-                        Camera.Parameters.FOCUS_MODE_AUTO);
+                focusMode =
+                        findSettableValue(
+                                "focus mode",
+                                supportedFocusModes,
+                                Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE,
+                                Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO,
+                                Camera.Parameters.FOCUS_MODE_AUTO);
             }
         }
         // Maybe selected auto-focus but not available, so fall through here:
         if (!safeMode && focusMode == null) {
-            focusMode = findSettableValue("focus mode",
-                    supportedFocusModes,
-                    Camera.Parameters.FOCUS_MODE_MACRO,
-                    Camera.Parameters.FOCUS_MODE_EDOF);
+            focusMode =
+                    findSettableValue(
+                            "focus mode",
+                            supportedFocusModes,
+                            Camera.Parameters.FOCUS_MODE_MACRO,
+                            Camera.Parameters.FOCUS_MODE_EDOF);
         }
         if (focusMode != null) {
             if (focusMode.equals(parameters.getFocusMode())) {
@@ -223,12 +235,13 @@ final class CameraConfigurationManager {
         }
     }
 
-    public void  setBestPreviewFPS(Camera.Parameters parameters) {
+    public void setBestPreviewFPS(Camera.Parameters parameters) {
         setBestPreviewFPS(parameters, MIN_FPS, MAX_FPS);
     }
 
     /**
      * 设置预览的帧数
+     *
      * @param parameters
      * @param minFPS
      * @param maxFPS
@@ -255,7 +268,8 @@ final class CameraConfigurationManager {
                     Log.i(TAG, "FPS range already set to " + Arrays.toString(suitableFPSRange));
                 } else {
                     Log.i(TAG, "Setting FPS range to " + Arrays.toString(suitableFPSRange));
-                    parameters.setPreviewFpsRange(suitableFPSRange[Camera.Parameters.PREVIEW_FPS_MIN_INDEX],
+                    parameters.setPreviewFpsRange(
+                            suitableFPSRange[Camera.Parameters.PREVIEW_FPS_MIN_INDEX],
                             suitableFPSRange[Camera.Parameters.PREVIEW_FPS_MAX_INDEX]);
                 }
             }
@@ -264,6 +278,7 @@ final class CameraConfigurationManager {
 
     /**
      * 设置聚焦区域
+     *
      * @param parameters
      */
     private void setFocusArea(Camera.Parameters parameters) {
@@ -279,6 +294,7 @@ final class CameraConfigurationManager {
 
     /**
      * 设置测量区域
+     *
      * @param parameters
      */
     private void setMeteringAreas(Camera.Parameters parameters) {
@@ -299,6 +315,7 @@ final class CameraConfigurationManager {
 
     /**
      * 设置视频稳定
+     *
      * @param parameters
      */
     private void setVideoStabilization(Camera.Parameters parameters) {
@@ -316,6 +333,7 @@ final class CameraConfigurationManager {
 
     /**
      * 设置场景模式
+     *
      * @param parameters
      */
     private void setBarcodeSceneMode(Camera.Parameters parameters) {
@@ -323,9 +341,11 @@ final class CameraConfigurationManager {
             Log.i(TAG, "Barcode scene mode already set");
             return;
         }
-        String sceneMode = findSettableValue("scene mode",
-                parameters.getSupportedSceneModes(),
-                Camera.Parameters.SCENE_MODE_BARCODE);
+        String sceneMode =
+                findSettableValue(
+                        "scene mode",
+                        parameters.getSupportedSceneModes(),
+                        Camera.Parameters.SCENE_MODE_BARCODE);
         if (sceneMode != null) {
             parameters.setSceneMode(sceneMode);
         }
@@ -348,7 +368,8 @@ final class CameraConfigurationManager {
         }
     }
 
-    private static Integer indexOfClosestZoom(Camera.Parameters parameters, double targetZoomRatio) {
+    private static Integer indexOfClosestZoom(
+            Camera.Parameters parameters, double targetZoomRatio) {
         List<Integer> ratios = parameters.getZoomRatios();
         Log.i(TAG, "Zoom ratios: " + ratios);
         int maxZoom = parameters.getMaxZoom();
@@ -372,6 +393,7 @@ final class CameraConfigurationManager {
 
     /**
      * 设置反色
+     *
      * @param parameters
      */
     private void setInvertColor(Camera.Parameters parameters) {
@@ -379,9 +401,11 @@ final class CameraConfigurationManager {
             Log.i(TAG, "Negative effect already set");
             return;
         }
-        String colorMode = findSettableValue("color effect",
-                parameters.getSupportedColorEffects(),
-                Camera.Parameters.EFFECT_NEGATIVE);
+        String colorMode =
+                findSettableValue(
+                        "color effect",
+                        parameters.getSupportedColorEffects(),
+                        Camera.Parameters.EFFECT_NEGATIVE);
         if (colorMode != null) {
             parameters.setColorEffect(colorMode);
         }
@@ -389,11 +413,13 @@ final class CameraConfigurationManager {
 
     /**
      * 寻找最佳预览尺寸
+     *
      * @param parameters
      * @param screenResolution
      * @return
      */
-    public static Point findBestPreviewSizeValue(Camera.Parameters parameters, Point screenResolution) {
+    public static Point findBestPreviewSizeValue(
+            Camera.Parameters parameters, Point screenResolution) {
 
         List<Camera.Size> rawSupportedSizes = parameters.getSupportedPreviewSizes();
         if (rawSupportedSizes == null) {
@@ -426,20 +452,21 @@ final class CameraConfigurationManager {
                 continue;
             }
 
-            //是否待选择竖屏,Width 选择数值较大的，
+            // 是否待选择竖屏,Width 选择数值较大的，
             boolean isCandidatePortrait = realWidth > realHeight;
             int maybeFlippedWidth = isCandidatePortrait ? realHeight : realWidth;
             int maybeFlippedHeight = isCandidatePortrait ? realWidth : realHeight;
             double aspectRatio = maybeFlippedWidth / (double) maybeFlippedHeight;
 
-            //屏幕比例和预览画面的比例相差不能超过0.15
+            // 屏幕比例和预览画面的比例相差不能超过0.15
             double distortion = Math.abs(aspectRatio - screenAspectRatio);
             if (distortion > MAX_ASPECT_DISTORTION) {
                 continue;
             }
 
-            //屏幕尺寸是否和预览画面尺寸完全一样
-            if (maybeFlippedWidth == screenResolution.x && maybeFlippedHeight == screenResolution.y) {
+            // 屏幕尺寸是否和预览画面尺寸完全一样
+            if (maybeFlippedWidth == screenResolution.x
+                    && maybeFlippedHeight == screenResolution.y) {
                 Point exactPoint = new Point(realWidth, realHeight);
                 Log.i(TAG, "Found preview size exactly matching screen size: " + exactPoint);
                 return exactPoint;
@@ -452,8 +479,10 @@ final class CameraConfigurationManager {
             }
         }
 
-        // If no exact match, use largest preview size. This was not a great idea on older devices because
-        // of the additional computation needed. We're likely to get here on newer Android 4+ devices, where
+        // If no exact match, use largest preview size. This was not a great idea on older devices
+        // because
+        // of the additional computation needed. We're likely to get here on newer Android 4+
+        // devices, where
         // the CPU is much more powerful.
         if (maxResPreviewSize != null) {
             Point largestSize = new Point(maxResPreviewSize.width, maxResPreviewSize.height);
@@ -471,8 +500,6 @@ final class CameraConfigurationManager {
         return defaultSize;
     }
 
-
-
     Point getBestPreviewSize() {
         return bestPreviewSize;
     }
@@ -480,7 +507,6 @@ final class CameraConfigurationManager {
     Point getPreviewSizeOnScreen() {
         return previewSizeOnScreen;
     }
-
 
     Point getScreenResolution() {
         return screenResolution;
@@ -495,9 +521,9 @@ final class CameraConfigurationManager {
             Camera.Parameters parameters = camera.getParameters();
             if (parameters != null) {
                 String flashMode = parameters.getFlashMode();
-                return flashMode != null &&
-                        (Camera.Parameters.FLASH_MODE_ON.equals(flashMode) ||
-                                Camera.Parameters.FLASH_MODE_TORCH.equals(flashMode));
+                return flashMode != null
+                        && (Camera.Parameters.FLASH_MODE_ON.equals(flashMode)
+                                || Camera.Parameters.FLASH_MODE_TORCH.equals(flashMode));
             }
         }
         return false;
@@ -509,17 +535,17 @@ final class CameraConfigurationManager {
         camera.setParameters(parameters);
     }
 
-
     private void doSetTorch(Camera.Parameters parameters, boolean newSetting) {
         setTorch(parameters, newSetting);
         if (false) {
-            //关闭曝光补偿
+            // 关闭曝光补偿
             setBestExposure(parameters, newSetting);
         }
     }
 
     /**
      * 设置手电筒
+     *
      * @param parameters
      * @param on
      */
@@ -527,14 +553,16 @@ final class CameraConfigurationManager {
         List<String> supportedFlashModes = parameters.getSupportedFlashModes();
         String flashMode;
         if (on) {
-            flashMode = findSettableValue("flash mode",
-                    supportedFlashModes,
-                    Camera.Parameters.FLASH_MODE_TORCH,
-                    Camera.Parameters.FLASH_MODE_ON);
+            flashMode =
+                    findSettableValue(
+                            "flash mode",
+                            supportedFlashModes,
+                            Camera.Parameters.FLASH_MODE_TORCH,
+                            Camera.Parameters.FLASH_MODE_ON);
         } else {
-            flashMode = findSettableValue("flash mode",
-                    supportedFlashModes,
-                    Camera.Parameters.FLASH_MODE_OFF);
+            flashMode =
+                    findSettableValue(
+                            "flash mode", supportedFlashModes, Camera.Parameters.FLASH_MODE_OFF);
         }
         if (flashMode != null) {
             if (flashMode.equals(parameters.getFlashMode())) {
@@ -548,6 +576,7 @@ final class CameraConfigurationManager {
 
     /**
      * 设置曝光补偿指数
+     *
      * @param parameters
      * @param lightOn
      */
@@ -557,15 +586,26 @@ final class CameraConfigurationManager {
         float step = parameters.getExposureCompensationStep();
         if ((minExposure != 0 || maxExposure != 0) && step > 0.0f) {
             // Set low when light is on
-            float targetCompensation = lightOn ? MIN_EXPOSURE_COMPENSATION : MAX_EXPOSURE_COMPENSATION;
+            float targetCompensation =
+                    lightOn ? MIN_EXPOSURE_COMPENSATION : MAX_EXPOSURE_COMPENSATION;
             int compensationSteps = Math.round(targetCompensation / step);
             float actualCompensation = step * compensationSteps;
             // Clamp value:
             compensationSteps = Math.max(Math.min(compensationSteps, maxExposure), minExposure);
             if (parameters.getExposureCompensation() == compensationSteps) {
-                Log.i(TAG, "Exposure compensation already set to " + compensationSteps + " / " + actualCompensation);
+                Log.i(
+                        TAG,
+                        "Exposure compensation already set to "
+                                + compensationSteps
+                                + " / "
+                                + actualCompensation);
             } else {
-                Log.i(TAG, "Setting exposure compensation to " + compensationSteps + " / " + actualCompensation);
+                Log.i(
+                        TAG,
+                        "Setting exposure compensation to "
+                                + compensationSteps
+                                + " / "
+                                + actualCompensation);
                 parameters.setExposureCompensation(compensationSteps);
             }
         } else {
@@ -573,10 +613,8 @@ final class CameraConfigurationManager {
         }
     }
 
-
-    private static String findSettableValue(String name,
-                                            Collection<String> supportedValues,
-                                            String... desiredValues) {
+    private static String findSettableValue(
+            String name, Collection<String> supportedValues, String... desiredValues) {
         Log.i(TAG, "Requesting " + name + " value from among: " + Arrays.toString(desiredValues));
         Log.i(TAG, "Supported " + name + " values: " + supportedValues);
         if (supportedValues != null) {
@@ -590,7 +628,6 @@ final class CameraConfigurationManager {
         Log.i(TAG, "No supported values match");
         return null;
     }
-
 
     private static String toString(Collection<int[]> arrays) {
         if (arrays == null || arrays.isEmpty()) {
@@ -619,6 +656,4 @@ final class CameraConfigurationManager {
         }
         return result.toString();
     }
-
-
 }

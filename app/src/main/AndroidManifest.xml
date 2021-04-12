@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CaptureActivity"></activity>
         <activity android:name=".activity.FishActivity" />
         <activity android:name=".IndexActivity">
             <intent-filter>
@@ -21,6 +20,7 @@
         </activity>
         <activity android:name=".activity.MainActivity" />
     </application>
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.any" />
     <uses-feature

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wjf.self_demo.Zxing;
+package com.wjf.barcode;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -22,11 +22,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.wjf.self_demo.Zxing.camera.CameraManager;
-
+import com.wjf.barcode.camera.CameraManager;
 
 /**
- * Detects ambient light and switches on the front light when very dark, and off again when sufficiently light.
+ * Detects ambient light and switches on the front light when very dark, and off again when
+ * sufficiently light.
  *
  * @author Sean Owen
  * @author Nikolaus Huber
@@ -36,9 +36,9 @@ public final class AmbientLightManager implements SensorEventListener {
     private static final float TOO_DARK_LUX = 45.0f;
     private static final float BRIGHT_ENOUGH_LUX = 450.0f;
 
-    private final Context       context;
-    private       CameraManager cameraManager;
-    private       Sensor        lightSensor;
+    private final Context context;
+    private CameraManager cameraManager;
+    private Sensor lightSensor;
 
     public AmbientLightManager(Context context) {
         this.context = context;
@@ -46,17 +46,18 @@ public final class AmbientLightManager implements SensorEventListener {
 
     public void start(CameraManager cameraManager) {
         this.cameraManager = cameraManager;
-        SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        SensorManager sensorManager =
+                (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         if (lightSensor != null) {
             sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
-
     }
 
     public void stop() {
         if (lightSensor != null) {
-            SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+            SensorManager sensorManager =
+                    (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             sensorManager.unregisterListener(this);
             cameraManager = null;
             lightSensor = null;
@@ -79,5 +80,4 @@ public final class AmbientLightManager implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // do nothing
     }
-
 }

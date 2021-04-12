@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/shadow"
-        tools:context=".activity.CaptureActivity">
+        tools:context="com.wjf.barcode.CaptureActivity">
+
         <SurfaceView
             android:id="@+id/capture_preview"
             android:layout_width="match_parent"
@@ -42,6 +43,7 @@
                     android:layout_marginTop="5dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/zxing_line2" />
+
                 <ImageView
                     android:id="@+id/img_scan_success"
                     android:padding="5dp"
@@ -51,7 +53,7 @@
                     android:background="@drawable/code_bg"
                     android:visibility="gone"
                     android:alpha="0.7"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true" />
             </RelativeLayout>
 
             <ImageView
@@ -85,46 +87,23 @@
 
 
         <TextView
-            android:id="@+id/btn_scan_local_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_scan_local_pic"
-            android:textSize="12sp"
-            android:textColor="@color/common_content_bg_white"
-            android:drawablePadding="8dp"
-            android:visibility="gone"
-            android:gravity="center"
-            android:layout_above="@+id/btn_open_flashlight"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="请扫描车位旁边的二维码"
-            android:textSize="12sp"
-            android:textColor="@color/common_content_bg_white"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:layout_above="@+id/btn_open_flashlight"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"/>
-        <TextView
             android:id="@+id/btn_open_flashlight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_open_flashlight_text"
+            android:text="打开手电筒"
             android:textSize="12sp"
-            android:textColor="@color/common_content_bg_white"
+            android:textColor="@color/white"
             android:drawableTop="@drawable/btn_scan_flashlight"
             android:drawablePadding="8dp"
             android:gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="30dp" />
+
         <com.wjf.self_library.view.codingUI.CommonToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleText="扫码"
-            app:dark_theme="false"/>
+            app:dark_theme="false" />
     </RelativeLayout>
 </layout>

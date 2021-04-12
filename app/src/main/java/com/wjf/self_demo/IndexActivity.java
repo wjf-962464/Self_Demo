@@ -1,9 +1,11 @@
 package com.wjf.self_demo;
 
+import android.util.Log;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wjf.self_demo.activity.CaptureActivity;
+import com.wjf.barcode.CaptureActivity;
 import com.wjf.self_demo.activity.FishActivity;
 import com.wjf.self_demo.activity.MainActivity;
 import com.wjf.self_demo.adapter.IndexListAdapter;
@@ -14,10 +16,9 @@ import com.wjf.self_library.common.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Wangjf2-DESKTOP
- */
-public class IndexActivity extends BaseActivity<ActivityIndexBinding> {
+/** @author Wangjf2-DESKTOP */
+public class IndexActivity extends BaseActivity<ActivityIndexBinding>
+        implements CaptureActivity.DecodeResultCallback {
     private List<IndexListMenu> data = new ArrayList<>();
     private IndexListAdapter adapter;
 
@@ -38,7 +39,14 @@ public class IndexActivity extends BaseActivity<ActivityIndexBinding> {
     protected void initData() {
         data.add(new IndexListMenu(MainActivity.class, "自定义流式布局"));
         data.add(new IndexListMenu(FishActivity.class, "灵动的锦鲤"));
+
         data.add(new IndexListMenu(CaptureActivity.class, "二维码"));
+        CaptureActivity.setDecodeResultCallback(this);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void decode(String result) {
+        Log.d("WJF_DEBUG", "扫描结果：" + result);
     }
 }

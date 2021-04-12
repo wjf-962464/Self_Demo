@@ -1,61 +1,31 @@
-package com.wjf.self_demo.activity;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.wjf.barcode;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.net.Uri;
-import android.nfc.FormatException;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.NotFoundException;
-import com.google.zxing.RGBLuminanceSource;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
-import com.wjf.self_demo.R;
-import com.wjf.self_demo.Zxing.BeepManager;
-import com.wjf.self_demo.Zxing.InactivityTimer;
-import com.wjf.self_demo.Zxing.camera.CameraManager;
-import com.wjf.self_demo.Zxing.decode.CaptureActivityHandler;
-import com.wjf.self_demo.Zxing.decode.DecodeFormatManager;
-import com.wjf.self_demo.databinding.ActivityCaptureBinding;
+import com.google.zxing.Result;
+import com.wjf.barcode.camera.CameraManager;
+import com.wjf.barcode.databinding.ActivityCaptureBinding;
+import com.wjf.barcode.decode.CaptureActivityHandler;
 import com.wjf.self_library.common.BaseActivity;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.EnumSet;
-import java.util.Hashtable;
-import java.util.Map;
-
-import com.google.zxing.Result;
 
 public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
         implements SurfaceHolder.Callback {
 
-    private String TAG = "debug_wjf";
+    private final String TAG = "WJF_DEBUG";
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
     private boolean hasSurface;
@@ -66,6 +36,7 @@ public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
     private InactivityTimer inactivityTimer;
     private BeepManager beepManager;
     private boolean isOpenTorch; // 判断是否开启闪光灯
+    private static DecodeResultCallback mDecodeResultCallback;
 
     public Handler getHandler() {
         return handler;
@@ -82,10 +53,10 @@ public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
 
     @Override
     protected void initView() {
-
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
-        beepManager=BeepManager.getInstance();
+        beepManager = BeepManager.getInstance();
+
         Animation animationSet = AnimationUtils.loadAnimation(this, R.anim.scan_anim);
         animationSet.setInterpolator(new DecelerateInterpolator());
         view.captureScanLine.startAnimation(animationSet);
@@ -105,22 +76,12 @@ public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
                     public void onClick(View v) {
                         if (isOpenTorch) {
                             isOpenTorch = false;
-                            view.btnOpenFlashlight.setText(
-                                    getString(R.string.btn_open_flashlight_text));
+                            view.btnOpenFlashlight.setText("打开手电筒");
                         } else {
                             isOpenTorch = true;
-                            view.btnOpenFlashlight.setText(
-                                    getString(R.string.btn_close_flashlight_text));
+                            view.btnOpenFlashlight.setText("关闭手电筒");
                         }
                         cameraManager.setTorch(isOpenTorch);
-                    }
-                });
-
-        view.btnScanLocalPic.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        pickPictureFromAblum(v);
                     }
                 });
 
@@ -135,27 +96,6 @@ public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
         } else {
             // Install the callback and wait for surfaceCreated() to init the camera.
             surfaceHolder.addCallback(this);
-        }
-    }
-
-    private int getCurrentOrientation() {
-        int rotation = getWindowManager().getDefaultDisplay().getRotation();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            switch (rotation) {
-                case Surface.ROTATION_0:
-                case Surface.ROTATION_90:
-                    return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-                default:
-                    return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
-            }
-        } else {
-            switch (rotation) {
-                case Surface.ROTATION_0:
-                case Surface.ROTATION_270:
-                    return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-                default:
-                    return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
-            }
         }
     }
 
@@ -276,109 +216,6 @@ public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
         return 0;
     }
 
-    /**
-     * 扫描本地图片上的二维码
-     *
-     * @param v
-     */
-    public void pickPictureFromAblum(View v) {
-        Intent mIntent =
-                new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(mIntent, 1);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.app.Activity#onActivityResult(int, int,
-     * android.content.Intent) 对相册获取的结果进行分析
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case 1:
-                    Uri selectedImage = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    Cursor cursor =
-                            getContentResolver()
-                                    .query(selectedImage, filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
-
-                    final Result resultString = scanImageQR(picturePath);
-                    if (resultString == null) {
-                        Toast.makeText(
-                                        getApplicationContext(),
-                                        getString(R.string.scan_fail),
-                                        Toast.LENGTH_LONG)
-                                .show();
-                    } else {
-                        // 扫描成功
-                        handleDecode(resultString);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    /**
-     * 解析QR图内容
-     *
-     * @return Result
-     */
-    private Result scanImageQR(String picturePath) {
-
-        if (TextUtils.isEmpty(picturePath)) {
-            return null;
-        }
-
-        Collection<BarcodeFormat> decodeFormats = EnumSet.noneOf(BarcodeFormat.class);
-        decodeFormats.addAll(DecodeFormatManager.PRODUCT_FORMATS);
-        decodeFormats.addAll(DecodeFormatManager.INDUSTRIAL_FORMATS);
-        decodeFormats.addAll(DecodeFormatManager.QR_CODE_FORMATS);
-        decodeFormats.addAll(DecodeFormatManager.DATA_MATRIX_FORMATS);
-        decodeFormats.addAll(DecodeFormatManager.AZTEC_FORMATS);
-        decodeFormats.addAll(DecodeFormatManager.PDF417_FORMATS);
-
-        Map<DecodeHintType, Object> hints = new Hashtable<DecodeHintType, Object>();
-        hints.put(DecodeHintType.CHARACTER_SET, "utf-8");
-        hints.put(DecodeHintType.POSSIBLE_FORMATS, decodeFormats);
-
-        // 获得待解析的图片
-        Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int[] pixels = new int[width * height];
-        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-
-        RGBLuminanceSource source = new RGBLuminanceSource(width, height, pixels);
-        BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
-        QRCodeReader reader = new QRCodeReader();
-        Result result;
-        try {
-            result = reader.decode(bitmap1, (Hashtable<DecodeHintType, Object>) hints);
-            return result;
-        } catch (NotFoundException e) {
-            Toast.makeText(CaptureActivity.this, getString(R.string.scan_fail), Toast.LENGTH_LONG)
-                    .show();
-            e.printStackTrace();
-        } catch (ChecksumException e) {
-            Toast.makeText(CaptureActivity.this, getString(R.string.scan_fail), Toast.LENGTH_LONG)
-                    .show();
-            e.printStackTrace();
-        } catch (com.google.zxing.FormatException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public void handleDecode(Result rawResult) {
         inactivityTimer.onActivity();
         beepManager.playBeepSoundAndVibrate(this);
@@ -403,27 +240,15 @@ public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
         bundle.putString("result", rawResult.getText());
         resultIntent.putExtras(bundle);*/
         String result = rawResult.getText();
-        Intent intent = null;
-        if (result.matches("^[0-9]+$")) {
-            int spot_id = Integer.valueOf(rawResult.getText());
-            /*            intent=new Intent(this,SpotControlActivity.class);
-            intent.putExtra("spot_id",spot_id);*/
-            Log.d(TAG, "扫描结果：纯数字" + result);
-        } else {
-            Log.d(TAG, "扫描结果：非纯数字" + result);
-            /*
-            intent=new Intent(this,WebActivity.class);
-            intent.putExtra("url",result);*/
+        if (mDecodeResultCallback != null) {
+            mDecodeResultCallback.decode(result);
         }
-        startActivity(intent);
-        finish();
-        //        this.setResult(RESULT_OK, resultIntent);
     }
 
     private void displayFrameworkBugMessageAndExit() {
         // camera error
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.app_name));
+        builder.setTitle("应用名称");
         builder.setMessage("Camera error");
         builder.setPositiveButton(
                 "OK",
@@ -443,5 +268,13 @@ public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
                     }
                 });
         builder.show();
+    }
+
+    public static void setDecodeResultCallback(DecodeResultCallback decodeResultCallback) {
+        mDecodeResultCallback = decodeResultCallback;
+    }
+
+    public interface DecodeResultCallback {
+        void decode(String result);
     }
 }

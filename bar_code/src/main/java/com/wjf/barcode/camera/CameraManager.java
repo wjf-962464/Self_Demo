@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wjf.self_demo.Zxing.camera;
+package com.wjf.barcode.camera;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -34,19 +34,27 @@ import java.io.IOException;
  * @author dswitkin@google.com (Daniel Switkin)
  */
 @SuppressWarnings("deprecation") // camera APIs
-public final class CameraManager {
+public class CameraManager {
 
+    public static final int NO_REQUESTED_CAMERA = -1;
     private static final String TAG = CameraManager.class.getSimpleName();
-
     private static final int MIN_FRAME_WIDTH = 240;
     private static final int MIN_FRAME_HEIGHT = 240;
-    private static final int MAX_FRAME_WIDTH = 1200; // = 5/8 * 1920
-    private static final int MAX_FRAME_HEIGHT = 675; // = 5/8 * 1080
+    /** = 5/8 * 1920 */
+    private static final int MAX_FRAME_WIDTH = 1200;
+    /** = 5/8 * 1080 */
+    private static final int MAX_FRAME_HEIGHT = 675;
 
     private final Context context;
+    /** 相机配置管理 */
     private final CameraConfigurationManager configManager;
+    /** 回调 */
+    private final PreviewCallback previewCallback;
+
     private Camera camera;
+    /** 自动聚焦管理 */
     private AutoFocusManager autoFocusManager;
+
     private Rect framingRect;
     private boolean initialized;
     private boolean previewing;
@@ -54,17 +62,26 @@ public final class CameraManager {
     private int requestedFramingRectWidth;
     private int requestedFramingRectHeight;
 
-
     /**
      * Preview frames are delivered here, which we pass on to the registered handler. Make sure to
      * clear the handler so it will only receive one message.
      */
-    private final PreviewCallback previewCallback;
-
     public CameraManager(Context context) {
         this.context = context;
         this.configManager = new CameraConfigurationManager(context);
-        previewCallback = new PreviewCallback(configManager);
+        this.previewCallback = new PreviewCallback(configManager);
+    }
+
+    private static int findDesiredDimensionInRange(int resolution, int hardMin, int hardMax) {
+        // Target 5/8 of each dimension
+        int dim = 5 * resolution / 8;
+        if (dim < hardMin) {
+            return hardMin;
+        }
+        if (dim > hardMax) {
+            return hardMax;
+        }
+        return dim;
     }
 
     /**
@@ -86,7 +103,7 @@ public final class CameraManager {
 
         if (!initialized) {
             initialized = true;
-            configManager.initFromCameraParameters(theCamera,requestedCameraId);
+            configManager.initFromCameraParameters(theCamera, requestedCameraId);
             if (requestedFramingRectWidth > 0 && requestedFramingRectHeight > 0) {
                 setManualFramingRect(requestedFramingRectWidth, requestedFramingRectHeight);
                 requestedFramingRectWidth = 0;
@@ -95,7 +112,8 @@ public final class CameraManager {
         }
 
         Camera.Parameters parameters = theCamera.getParameters();
-        String parametersFlattened = parameters == null ? null : parameters.flatten(); // Save these, temporarily
+        String parametersFlattened =
+                parameters == null ? null : parameters.flatten(); // Save these, temporarily
         try {
             configManager.setDesiredCameraParameters(theCamera, false);
         } catch (RuntimeException re) {
@@ -118,13 +136,12 @@ public final class CameraManager {
         theCamera.setPreviewDisplay(holder);
     }
 
-
     /**
      * Opens the requested camera with {@link Camera#open(int)}, if one exists.
      *
-     * @param cameraId camera ID of the camera to use. A negative value
-     *                 or {@link #NO_REQUESTED_CAMERA} means "no preference", in which case a rear-facing
-     *                 camera is returned if possible or else any camera
+     * @param cameraId camera ID of the camera to use. A negative value or {@link
+     *     #NO_REQUESTED_CAMERA} means "no preference", in which case a rear-facing camera is
+     *     returned if possible or else any camera
      * @return handle to {@link Camera} that was opened
      */
     private Camera open(int cameraId) {
@@ -136,13 +153,13 @@ public final class CameraManager {
         }
 
         boolean explicitRequest = cameraId >= 0;
-//        Camera.CameraInfo selectedCameraInfo = null;
+        //        Camera.CameraInfo selectedCameraInfo = null;
         int index;
         if (explicitRequest) {
-            //有明确需求的摄像头
+            // 有明确需求的摄像头
             index = cameraId;
         } else {
-            //没有明确需求的摄像头，遍历所有摄像头，找到后置摄像
+            // 没有明确需求的摄像头，遍历所有摄像头，找到后置摄像
             index = 0;
             while (index < numCameras) {
                 Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
@@ -163,7 +180,11 @@ public final class CameraManager {
                 Log.w(TAG, "Requested camera does not exist: " + cameraId);
                 camera = null;
             } else {
-                Log.i(TAG, "No camera facing " + Camera.CameraInfo.CAMERA_FACING_BACK + "; returning camera #0");
+                Log.i(
+                        TAG,
+                        "No camera facing "
+                                + Camera.CameraInfo.CAMERA_FACING_BACK
+                                + "; returning camera #0");
                 camera = Camera.open(0);
             }
         }
@@ -173,19 +194,13 @@ public final class CameraManager {
         }
         requestedCameraId = index;
         return camera;
-
     }
-
-    public static final int NO_REQUESTED_CAMERA = -1;
 
     public synchronized boolean isOpen() {
         return camera != null;
     }
 
-
-    /**
-     * Closes the camera driver if still in use.
-     */
+    /** Closes the camera driver if still in use. */
     public synchronized void closeDriver() {
         if (camera != null) {
             camera.release();
@@ -196,9 +211,7 @@ public final class CameraManager {
         }
     }
 
-    /**
-     * Asks the camera hardware to begin drawing preview frames to the screen.
-     */
+    /** Asks the camera hardware to begin drawing preview frames to the screen. */
     public synchronized void startPreview() {
         Camera theCamera = camera;
         if (theCamera != null && !previewing) {
@@ -208,9 +221,7 @@ public final class CameraManager {
         }
     }
 
-    /**
-     * Tells the camera to stop drawing preview frames.
-     */
+    /** Tells the camera to stop drawing preview frames. */
     public synchronized void stopPreview() {
         if (autoFocusManager != null) {
             autoFocusManager.stop();
@@ -223,18 +234,23 @@ public final class CameraManager {
         }
     }
 
-
-    public synchronized void setTorch(boolean newSetting) {
+    /**
+     * 设置手电筒状态
+     *
+     * @param ifTorch 是否打开手电筒
+     */
+    public synchronized void setTorch(boolean ifTorch) {
         Camera theCamera = camera;
-        if (theCamera != null && newSetting != configManager.getTorchState(theCamera)) {
-            configManager.setTorch(theCamera, newSetting);
+        if (theCamera != null && ifTorch != configManager.getTorchState(theCamera)) {
+            // 如果闪光灯状态发生变动
+            configManager.setTorch(theCamera, ifTorch);
         }
     }
 
     /**
-     * A single preview frame will be returned to the handler supplied. The data will arrive as byte[]
-     * in the message.obj field, with width and height encoded as message.arg1 and message.arg2,
-     * respectively.
+     * A single preview frame will be returned to the handler supplied. The data will arrive as
+     * byte[] in the message.obj field, with width and height encoded as message.arg1 and
+     * message.arg2, respectively.
      *
      * @param handler The handler to send the message to.
      * @param message The what field of the message to be sent.
@@ -247,21 +263,9 @@ public final class CameraManager {
         }
     }
 
-
-    private static int findDesiredDimensionInRange(int resolution, int hardMin, int hardMax) {
-        int dim = 5 * resolution / 8; // Target 5/8 of each dimension
-        if (dim < hardMin) {
-            return hardMin;
-        }
-        if (dim > hardMax) {
-            return hardMax;
-        }
-        return dim;
-    }
-
     /**
-     * Allows third party apps to specify the camera ID, rather than determine
-     * it automatically based on available cameras and their orientation.
+     * Allows third party apps to specify the camera ID, rather than determine it automatically
+     * based on available cameras and their orientation.
      *
      * @param cameraId camera ID of the camera to use. A negative value means "no preference".
      */
@@ -273,7 +277,7 @@ public final class CameraManager {
      * Allows third party apps to specify the scanning rectangle dimensions, rather than determine
      * them automatically based on screen resolution.
      *
-     * @param width  The width in pixels to scan.
+     * @param width The width in pixels to scan.
      * @param height The height in pixels to scan.
      */
     public synchronized void setManualFramingRect(int width, int height) {
@@ -303,6 +307,4 @@ public final class CameraManager {
     public Point getBestPreviewSize() {
         return configManager.getBestPreviewSize();
     }
-
-
 }

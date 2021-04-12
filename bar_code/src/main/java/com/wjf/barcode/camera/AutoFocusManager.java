@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wjf.self_demo.Zxing.camera;
+package com.wjf.barcode.camera;
 
 import android.content.Context;
 import android.hardware.Camera;
@@ -49,7 +49,9 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
         this.camera = camera;
         String currentFocusMode = camera.getParameters().getFocusMode();
         useAutoFocus = FOCUS_MODES_CALLING_AF.contains(currentFocusMode);
-        Log.i(TAG, "Current focus mode '" + currentFocusMode + "'; use auto focus? " + useAutoFocus);
+        Log.i(
+                TAG,
+                "Current focus mode '" + currentFocusMode + "'; use auto focus? " + useAutoFocus);
         start();
     }
 
@@ -123,5 +125,4 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
             return null;
         }
     }
-
 }

@@ -1,5 +1,4 @@
-
-package com.wjf.self_demo.Zxing;
+package com.wjf.barcode;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -12,10 +11,7 @@ import android.util.Log;
 
 import java.util.concurrent.RejectedExecutionException;
 
-
-/**
- * @author asus
- */
+/** @author asus */
 public final class InactivityTimer {
 
     private static final String TAG = InactivityTimer.class.getSimpleName();
@@ -58,7 +54,8 @@ public final class InactivityTimer {
         if (registered) {
             Log.w(TAG, "PowerStatusReceiver was already registered?");
         } else {
-            activity.registerReceiver(powerStatusReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+            activity.registerReceiver(
+                    powerStatusReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
             registered = true;
         }
         onActivity();
@@ -104,5 +101,4 @@ public final class InactivityTimer {
             return null;
         }
     }
-
 }
