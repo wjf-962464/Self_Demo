@@ -31,44 +31,51 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:textSize="15sp"
-                android:text="略略略" />
+                android:background="@drawable/radius_text"
+                android:text="略略略"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="略略略2略略略2略略略2" />
+                android:background="@drawable/radius_text"
+                android:text="红霉素眼膏"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="略略略2" />
+                android:background="@drawable/radius_text"
+                android:text="克林霉素"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="第八个工作室" />
+                android:background="@drawable/radius_text"
+                android:text="第八个工作室"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="Debug工作室" />
+                android:background="@drawable/radius_text"
+                android:text="Debug工作室"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="略略略2" />
+                android:background="@drawable/radius_text"
+                android:text="盐酸左氧氟沙星"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="略略略2" />
+                android:background="@drawable/radius_text"
+                android:text="略略略2"
+                android:textSize="15sp" />
         </com.wjf.self_demo.view.FlowListView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

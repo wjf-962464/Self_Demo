@@ -14,7 +14,7 @@
         <attr name="img_color" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="MyIcon">
+    <declare-styleable name="Icon">
         <attr name="icon_src" format="reference" />
         <attr name="icon_text_selected" format="reference|color" />
         <attr name="color_normal" format="reference|color" />
@@ -22,7 +22,13 @@
         <attr name="icon_size" format="dimension" />
         <attr name="text_size" format="dimension" />
         <attr name="icon_text" format="string" />
-        <attr name="icon_text_margin" format="dimension" />/>
+        <attr name="icon_text_margin" format="dimension" />
+        <attr name="icon_position" format="enum">
+            <enum name="top" value="0" />
+            <enum name="right" value="1" />
+            <enum name="bottom" value="2" />
+            <enum name="left" value="3" />
+        </attr>
     </declare-styleable>
 
 
@@ -32,4 +38,15 @@
             <enum name="use_padding_top" value="1" />
         </attr>
     </declare-styleable>
+
+    <!--    <declare-styleable name="Icon">
+            <attr name="icon_src" format="reference" />
+            <attr name="icon_text_selected" format="reference|color" />
+            <attr name="color_normal" format="reference|color" />
+            <attr name="color_selected" format="reference|color" />
+            <attr name="icon_size" format="dimension" />
+            <attr name="text_size" format="dimension" />
+            <attr name="icon_text" format="string" />
+            <attr name="icon_text_margin" format="dimension" />/>
+        </declare-styleable>-->
 </resources>

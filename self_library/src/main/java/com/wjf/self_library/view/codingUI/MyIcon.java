@@ -33,21 +33,21 @@ public class MyIcon extends BaseUi<UiIconBinding> {
 
     @Override
     protected int[] setStyleable() {
-        return R.styleable.MyIcon;
+        return R.styleable.Icon;
     }
 
     @Override
     protected void getTypeArray(TypedArray typedArray) {
-        text = typedArray.getString(R.styleable.MyIcon_icon_text);
-        iconSrc = typedArray.getResourceId(R.styleable.MyIcon_icon_src, R.drawable.ic_launcher);
-        normalColor = typedArray.getColor(R.styleable.MyIcon_color_normal, Color.BLACK);
-        selectedColor = typedArray.getColor(R.styleable.MyIcon_color_selected, normalColor);
+        text = typedArray.getString(R.styleable.Icon_icon_text);
+        iconSrc = typedArray.getResourceId(R.styleable.Icon_icon_src, R.drawable.ic_launcher);
+        normalColor = typedArray.getColor(R.styleable.Icon_color_normal, Color.BLACK);
+        selectedColor = typedArray.getColor(R.styleable.Icon_color_selected, normalColor);
         // 默认20dp，所有默认值都对于480dpi，即像素密度比为1:3
-        iconSize = typedArray.getDimension(R.styleable.MyIcon_icon_size, 60);
+        iconSize = typedArray.getDimension(R.styleable.Icon_icon_size, 60);
         // 默认13sp
-        textSize = typedArray.getDimension(R.styleable.MyIcon_text_size, 39);
+        textSize = typedArray.getDimension(R.styleable.Icon_text_size, 39);
         // 默认1dp
-        iconTextMargin = typedArray.getDimension(R.styleable.MyIcon_icon_text_margin, 3);
+        iconTextMargin = typedArray.getDimension(R.styleable.Icon_icon_text_margin, 3);
     }
 
     public void setText(String text) {
