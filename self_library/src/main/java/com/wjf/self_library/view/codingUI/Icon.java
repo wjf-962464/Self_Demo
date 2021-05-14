@@ -30,11 +30,6 @@ public class Icon extends View {
     private float iconSize, textSize, iconTextMargin;
     private int normalColor, selectedColor;
 
-    /** 自定义View的宽 */
-    private int mWidth;
-    /** 自定义View的高 */
-    private int mHeight;
-
     private Paint mPaint;
 
     private Rect mTextBound;
@@ -61,16 +56,6 @@ public class Icon extends View {
      * @param typedArray 样式数组
      */
     protected void getTypeArray(TypedArray typedArray) {
-        text = typedArray.getString(R.styleable.Icon_icon_text);
-        iconSrc =
-                BitmapFactory.decodeResource(
-                        getResources(),
-                        typedArray.getResourceId(
-                                R.styleable.Icon_icon_src, R.drawable.ic_launcher));
-
-        normalColor = typedArray.getColor(R.styleable.Icon_color_normal, Color.BLACK);
-        selectedColor = typedArray.getColor(R.styleable.Icon_color_selected, normalColor);
-
         iconSize =
                 typedArray.getDimension(
                         R.styleable.Icon_icon_size,
@@ -79,23 +64,36 @@ public class Icon extends View {
                                         TypedValue.COMPLEX_UNIT_DIP,
                                         20,
                                         getResources().getDisplayMetrics()));
+
         textSize =
                 typedArray.getDimension(
                         R.styleable.Icon_text_size,
-                        (int)
-                                TypedValue.applyDimension(
-                                        TypedValue.COMPLEX_UNIT_SP,
-                                        13,
-                                        getResources().getDisplayMetrics()));
+                        TypedValue.applyDimension(
+                                TypedValue.COMPLEX_UNIT_SP,
+                                13,
+                                getResources().getDisplayMetrics()));
+
+        text = typedArray.getString(R.styleable.Icon_icon_text);
+        iconSrc =
+                Bitmap.createScaledBitmap(
+                        BitmapFactory.decodeResource(
+                                getResources(),
+                                typedArray.getResourceId(
+                                        R.styleable.Icon_icon_src, R.drawable.ic_launcher)),
+                        (int) iconSize,
+                        (int) iconSize,
+                        false);
+
+        normalColor = typedArray.getColor(R.styleable.Icon_color_normal, Color.BLACK);
+        selectedColor = typedArray.getColor(R.styleable.Icon_color_selected, normalColor);
 
         iconTextMargin =
                 typedArray.getDimension(
                         R.styleable.Icon_icon_text_margin,
-                        (int)
-                                TypedValue.applyDimension(
-                                        TypedValue.COMPLEX_UNIT_DIP,
-                                        3,
-                                        getResources().getDisplayMetrics()));
+                        TypedValue.applyDimension(
+                                TypedValue.COMPLEX_UNIT_DIP,
+                                3,
+                                getResources().getDisplayMetrics()));
         iconPosition = typedArray.getInt(R.styleable.Icon_icon_position, 0);
         typedArray.recycle();
 
@@ -127,48 +125,64 @@ public class Icon extends View {
         // 计算描绘字体需要的范围
         mPaint.getTextBounds(text, 0, text.length(), mTextBound);
 
-        int specMode = MeasureSpec.getMode(widthMeasureSpec);
-        int specSize = MeasureSpec.getSize(widthMeasureSpec);
+        int selfWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int selfHeight = MeasureSpec.getSize(heightMeasureSpec);
 
-        if (specMode == MeasureSpec.EXACTLY) {
-            mWidth = specSize;
-        } else {
-            // 自定义View的宽度，由左右填充和图片宽度决定
-            int desireByImg = getPaddingLeft() + getPaddingRight() + iconSrc.getWidth();
-            // 由左右填充和字体绘制范围的宽度决定
-            int desireByTitle = getPaddingLeft() + getPaddingRight() + mTextBound.width();
+        int needWith, needHeight;
 
-            if (specMode == MeasureSpec.AT_MOST) {
-                int desire = Math.max(desireByImg, desireByTitle);
-                mWidth = Math.min(desire, specSize);
-            }
+        // 根据摆放方位，计算对应的长宽
+        IconPosition distribution = null;
+        try {
+            distribution = IconPosition.create(iconPosition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (distribution == null) {
+            distribution = IconPosition.ICON_TOP;
+        }
+        switch (distribution) {
+            case ICON_TOP:
+            case ICON_BOTTOM:
+                needWith =
+                        Math.max(iconSrc.getWidth(), mTextBound.width())
+                                + getPaddingLeft()
+                                + getPaddingRight();
+                needHeight =
+                        iconSrc.getHeight()
+                                + mTextBound.height()
+                                + getPaddingTop()
+                                + getPaddingBottom();
+                break;
+            case ICON_LEFT:
+            case ICON_RIGHT:
+                needWith =
+                        iconSrc.getWidth()
+                                + mTextBound.width()
+                                + +getPaddingLeft()
+                                + getPaddingRight();
+                needHeight =
+                        Math.max(iconSrc.getHeight(), mTextBound.height())
+                                + getPaddingTop()
+                                + getPaddingBottom();
+                break;
+            default:
+                needWith = needHeight = 0;
+                break;
         }
 
-        specMode = MeasureSpec.getMode(heightMeasureSpec);
-        specSize = MeasureSpec.getSize(heightMeasureSpec);
-        if (specMode == MeasureSpec.EXACTLY) {
-            // 设置了明确的值或者是MATCH_PARENT
-            mHeight = specSize;
-        } else {
-            // 由上下填充、图片的高度和字体绘制范围的高度决定
-            int desire =
-                    getPaddingTop()
-                            + getPaddingBottom()
-                            + iconSrc.getHeight()
-                            + mTextBound.height();
-            if (specMode == MeasureSpec.AT_MOST) {
-                // wrap_content
-                mHeight = Math.min(desire, specSize);
-            }
-        }
-        // 为控件指定大小
-        setMeasuredDimension(mWidth, mHeight);
+        int widMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int realWidth = widMode == MeasureSpec.EXACTLY ? selfWidth : needWith;
+        int realHeight = heightMode == MeasureSpec.EXACTLY ? selfHeight : needHeight;
+        setMeasuredDimension(realWidth, realHeight);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mPaint.setColor(normalColor);
+        int mWidth = getWidth();
+        int mHeight = getHeight();
 
         rect.left = (int) ((getWidth() - getPaddingLeft() - getPaddingRight()) / 2 - iconSize / 2);
         rect.right = (int) (rect.left + iconSize);
@@ -213,5 +227,31 @@ public class Icon extends View {
 
             canvas.drawBitmap(mImage, null, rect, mPaint);
         }*/
+    }
+
+    enum IconPosition {
+        /** 上图下文 */
+        ICON_TOP(0),
+        ICON_RIGHT(1),
+        ICON_BOTTOM(2),
+        ICON_LEFT(3);
+        private final int position;
+
+        IconPosition(int i) {
+            this.position = i;
+        }
+
+        public static IconPosition create(int position) throws Exception {
+            for (IconPosition type : IconPosition.values()) {
+                if (type.position() == position) {
+                    return type;
+                }
+            }
+            throw new Exception("IconPosition 无法转换为对应的枚举类");
+        }
+
+        public int position() {
+            return position;
+        }
     }
 }
