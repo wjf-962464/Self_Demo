@@ -7,6 +7,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.ViewActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.wjf.self_library.view.codingUI.CommonToolbar
+                android:id="@+id/commonToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backText="返回"
+                app:titleText="自定义控件"
+                app:dark_theme="false"
+                app:background_color="@color/colorPrimary"/>
+            <ImageView
+                android:id="@+id/barcode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+        </LinearLayout>
+
 
         <ImageView
             android:layout_alignParentBottom="true"
@@ -24,15 +42,34 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/color_yellow"
                 app:icon_text="略略略"
-                app:icon_position="right"
+                app:icon_position="left"
                 app:icon_size="30dp"
                 app:icon_src="@drawable/icon_pwd" />
-
             <com.wjf.self_library.view.codingUI.Icon
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/color_green"
+                app:icon_text="图标呀"
+                app:icon_position="top"
+                app:icon_size="30dp"
+                app:icon_src="@drawable/icon_pwd" />
+            <com.wjf.self_library.view.codingUI.Icon
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/grey"
+                app:icon_text="图标呀"
+                app:icon_position="bottom"
+                app:icon_size="30dp"
+                app:icon_src="@drawable/icon_pwd" />
+            <com.wjf.self_library.view.codingUI.Icon
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
                 app:icon_text="图标呀"
                 app:icon_position="right"
                 app:icon_size="30dp"

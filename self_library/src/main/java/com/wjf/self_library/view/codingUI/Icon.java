@@ -33,6 +33,8 @@ public class Icon extends View {
     private Paint mPaint;
 
     private Rect mTextBound;
+    private TextPaint textPaint;
+    private IconPosition distribution = null;
     /** 需要绘制的整个矩形范围 */
     private Rect rect;
 
@@ -84,6 +86,7 @@ public class Icon extends View {
                         (int) iconSize,
                         false);
 
+
         normalColor = typedArray.getColor(R.styleable.Icon_color_normal, Color.BLACK);
         selectedColor = typedArray.getColor(R.styleable.Icon_color_selected, normalColor);
 
@@ -95,21 +98,30 @@ public class Icon extends View {
                                 3,
                                 getResources().getDisplayMetrics()));
         iconPosition = typedArray.getInt(R.styleable.Icon_icon_position, 0);
+        try {
+            distribution = IconPosition.create(iconPosition);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (distribution == null) {
+            distribution = IconPosition.ICON_TOP;
+        }
         typedArray.recycle();
-
         Log.d(
                 "WJF_DEBUG",
                 "iconPosition:"
-                        + iconPosition
+                        + distribution.toString()
                         + "\ntextSize:"
                         + textSize
                         + "\niconSize:"
                         + iconSize
                         + "\niconTextMargin:"
                         + iconTextMargin);
+
         rect = new Rect();
 
         mPaint = new Paint();
+        textPaint = new TextPaint(mPaint);
         mTextBound = new Rect();
         // 抗锯齿
         mPaint.setAntiAlias(true);
@@ -131,15 +143,6 @@ public class Icon extends View {
         int needWith, needHeight;
 
         // 根据摆放方位，计算对应的长宽
-        IconPosition distribution = null;
-        try {
-            distribution = IconPosition.create(iconPosition);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (distribution == null) {
-            distribution = IconPosition.ICON_TOP;
-        }
         switch (distribution) {
             case ICON_TOP:
             case ICON_BOTTOM:
@@ -175,6 +178,16 @@ public class Icon extends View {
         int realWidth = widMode == MeasureSpec.EXACTLY ? selfWidth : needWith;
         int realHeight = heightMode == MeasureSpec.EXACTLY ? selfHeight : needHeight;
         setMeasuredDimension(realWidth, realHeight);
+        if (mTextBound.width() > realWidth) {
+            text =
+                    TextUtils.ellipsize(
+                                    text,
+                                    textPaint,
+                                    (float) realWidth - getPaddingLeft() - getPaddingRight(),
+                                    TextUtils.TruncateAt.END)
+                            .toString();
+            mPaint.getTextBounds(text, 0, text.length(), mTextBound);
+        }
     }
 
     @Override
@@ -184,49 +197,51 @@ public class Icon extends View {
         int mWidth = getWidth();
         int mHeight = getHeight();
 
-        rect.left = (int) ((getWidth() - getPaddingLeft() - getPaddingRight()) / 2 - iconSize / 2);
-        rect.right = (int) (rect.left + iconSize);
-        rect.top = getPaddingTop();
-        rect.bottom = (int) (rect.top + iconSize);
-
         mPaint.setColor(normalColor);
 
-        /** 当前设置的宽度小于字体需要的宽度，将字体改为xxx... */
-        if (mTextBound.width() > mWidth) {
-            TextPaint paint = new TextPaint(mPaint);
-            String msg =
-                    TextUtils.ellipsize(
-                                    text,
-                                    paint,
-                                    (float) mWidth - getPaddingLeft() - getPaddingRight(),
-                                    TextUtils.TruncateAt.END)
-                            .toString();
-            canvas.drawText(msg, getPaddingLeft(), mHeight - getPaddingBottom(), mPaint);
+        switch (distribution) {
+            case ICON_TOP:
+                rect.left = (int) (mWidth * 1.0f / 2 - iconSize / 2);
+                rect.right = (int) (rect.left + iconSize);
+                rect.top = getPaddingTop();
+                rect.bottom = (int) (rect.top + iconSize);
+                canvas.drawText(
+                        text,
+                        mWidth * 1.0f / 2 - mTextBound.width() * 1.0f / 2,
+                        mHeight - getPaddingBottom()-mTextBound.height()*1.0f/2,
+                        mPaint);
 
-        } else {
-            // 正常情况，将字体居中
-            canvas.drawText(
-                    text,
-                    mWidth / 2 - mTextBound.width() * 1.0f / 2,
-                    mHeight - getPaddingBottom(),
-                    mPaint);
+                break;
+            case ICON_BOTTOM:
+                rect.left = (int) (mWidth * 1.0f / 2 - iconSize / 2);
+                rect.right = (int) (rect.left + iconSize);
+                rect.top = getPaddingTop() + mTextBound.height();
+                rect.bottom = (int) (rect.top + iconSize);
+                canvas.drawText(
+                        text,
+                        mWidth * 1.0f / 2 - mTextBound.width() * 1.0f / 2,
+                        getPaddingTop()+mTextBound.height(),
+                        mPaint);
+                break;
+            case ICON_LEFT:
+                rect.top = (int) (mHeight * 1.0f / 2 - iconSize / 2);
+                rect.bottom = (int) (rect.top + iconSize);
+                rect.left = getPaddingLeft();
+                rect.right = (int) (rect.left + iconSize);
+                canvas.drawText(text, mWidth - getPaddingRight()-mTextBound.width(), mHeight * 1.0f / 2+mTextBound.height()*1.0f/2, mPaint);
+                break;
+            case ICON_RIGHT:
+                rect.top = (int) (mHeight * 1.0f / 2 - iconSize / 2);
+                rect.bottom = (int) (rect.top + iconSize);
+                rect.right = mWidth-getPaddingRight();
+                rect.left = (int) (rect.right - iconSize);
+                canvas.drawText(text, getPaddingLeft(), mHeight * 1.0f / 2+mTextBound.height()*1.0f/2, mPaint);
+
+                break;
+            default:
+                break;
         }
-
-        // 取消使用掉的块
-        rect.bottom -= mTextBound.height();
         canvas.drawBitmap(iconSrc, null, rect, mPaint);
-        /*        if (mImageScale == IMAGE_SCALE_FITXY) {
-            // 绘制image
-            canvas.drawBitmap(mImage, null, rect, mPaint);
-        } else {
-            // 计算居中的矩形范围
-            rect.left = mWidth / 2 - mImage.getWidth() / 2;
-            rect.right = mWidth / 2 + mImage.getWidth() / 2;
-            rect.top = (mHeight - mTextBound.height()) / 2 - mImage.getHeight() / 2;
-            rect.bottom = (mHeight - mTextBound.height()) / 2 + mImage.getHeight() / 2;
-
-            canvas.drawBitmap(mImage, null, rect, mPaint);
-        }*/
     }
 
     enum IconPosition {

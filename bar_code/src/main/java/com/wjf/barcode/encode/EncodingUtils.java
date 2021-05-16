@@ -2,6 +2,9 @@ package com.wjf.barcode.encode;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -119,5 +122,76 @@ public class EncodingUtils {
             e.getStackTrace();
         }
         return bitmap;
+    }
+
+    private static final int BLACK = 0xff000000;
+    private static final int WHITE = 0xFFFFFFFF;
+    private static BarcodeFormat barcodeFormat = BarcodeFormat.CODE_128;
+
+    public static Bitmap createBarcode(String contents, int desiredWidth, int desiredHeight) {
+        MultiFormatWriter writer = new MultiFormatWriter();
+        BitMatrix result = null;
+        try {
+            result = writer.encode(contents, barcodeFormat, desiredWidth, desiredHeight);
+        } catch (WriterException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        int width = result.getWidth();
+        int height = result.getHeight();
+        int[] pixels = new int[width * height];
+        // All are 0, or black, by default
+        for (int y = 0; y < height; y++) {
+            int offset = y * width;
+            for (int x = 0; x < width; x++) {
+                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
+            }
+        }
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return bitmap;
+    }
+
+    public static void bindBarCode(String content, ImageView imageView){
+        ViewTreeObserver vto = imageView.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener( new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                imageView.getViewTreeObserver().removeGlobalOnLayoutListener( this );
+                EncodingUtils.createOneDCode(content,imageView);
+            }
+        });
+    }
+    /**
+     * 用于将给定的内容生成成一维码 注：目前生成内容为中文的话将直接报错，要修改底层jar包的内容
+     *
+     * @param content 将要生成一维码的内容
+     * @throws WriterException WriterException异常
+     */
+    public static void createOneDCode(String content, ImageView imageView) {
+        // 生成一维条码,编码时指定大小,不要生成了图片以后再进行缩放,这样会模糊导致识别失败
+        BitMatrix matrix = null;
+        Log.d("WJF_DEBUG", "width:" + imageView.getWidth() + "\nheight:" + imageView.getHeight());
+        try {
+            matrix = new MultiFormatWriter().encode(content, BarcodeFormat.CODE_128, (int) (imageView.getWidth()*0.8), (int) (imageView.getHeight()*0.8));
+        } catch (WriterException e) {
+            e.printStackTrace();
+            Log.e("barcode", "创建条形码失败：" + e.getMessage(), e);
+        }
+        int width = matrix.getWidth();
+        int height = matrix.getHeight();
+        int[] pixels = new int[width * height];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (matrix.get(x, y)) {
+                    pixels[y * width + x] = 0xff000000;
+                }
+            }
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        // 通过像素数组生成bitmap,具体参考api
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        imageView.setImageBitmap(bitmap);
     }
 }

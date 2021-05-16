@@ -33,7 +33,20 @@ android {
         targetCompatibility rootProject.ext.targetCompatibilityVersion
     }
 }
+task makeJar(type: Jar) {
+    baseName "barcode"
+    version "1.0.0"
+    extension "jar"
 
+    //设置文件来源
+    from('build\\intermediates\\javac\\release\\classes/')
+    //排除文件
+    exclude("**/BuildConfig.class")
+    //删除存在的
+    delete('build/libs/')
+    //输出目录
+    destinationDir file('build/libs')
+}
 dependencies {
     implementation dep.supportDesign
     implementation dep.supportV7

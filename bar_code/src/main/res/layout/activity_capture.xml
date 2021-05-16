@@ -96,6 +96,7 @@
             android:drawableTop="@drawable/btn_scan_flashlight"
             android:drawablePadding="8dp"
             android:gravity="center"
+            android:visibility="gone"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="30dp" />
@@ -103,6 +104,7 @@
         <com.wjf.self_library.view.codingUI.CommonToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/status_bar_height"
             app:titleText="扫码"
             app:dark_theme="false" />
     </RelativeLayout>
