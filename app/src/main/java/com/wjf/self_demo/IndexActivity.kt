@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wjf.barcode.CaptureActivity
-import com.wjf.self_demo.activity.DemoActivity
-import com.wjf.self_demo.activity.FishActivity
-import com.wjf.self_demo.activity.MainActivity
-import com.wjf.self_demo.activity.ViewActivity
+import com.wjf.self_demo.activity.*
 import com.wjf.self_demo.adapter.IndexListAdapter
 import com.wjf.self_demo.databinding.ActivityIndexBinding
 import com.wjf.self_demo.entity.IndexListMenu
@@ -38,6 +35,8 @@ class IndexActivity :
         data.add(IndexListMenu(DemoActivity::class.java, "案例"))
         data.add(IndexListMenu(CaptureActivity::class.java, "二维码"))
         data.add(IndexListMenu(ViewActivity::class.java, "自定义控件"))
+        data.add(IndexListMenu(PhoneCallActivity::class.java,"自动拨号"))
+        data.add(IndexListMenu(AccessibilityActivity::class.java,"辅助功能"))
         CaptureActivity.setDecodeResultCallback { result: String ->
             Log.d(
                 "WJF_DEBUG",

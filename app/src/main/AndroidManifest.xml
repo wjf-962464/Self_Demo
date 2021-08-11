@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.wjf.self_demo">
 
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.modify_phone_state" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.any" />
     <uses-feature
@@ -43,7 +48,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ViewActivity"></activity>
+        <activity android:name=".activity.AccessibilityActivity"></activity>
+        <activity android:name=".activity.PhoneCallActivity" />
+        <activity android:name=".activity.ViewActivity" />
         <activity android:name=".activity.DemoActivity" />
         <activity android:name=".activity.FishActivity" />
         <activity android:name=".IndexActivity">
@@ -54,6 +61,21 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
+
+        <service
+            android:name=".util.AccessibilitySampleService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config" />
+        </service>
     </application>
+
 
 </manifest>

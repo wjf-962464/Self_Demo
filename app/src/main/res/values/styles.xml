@@ -6,5 +6,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <!--Dialog从底部进入退出动画-->
+    <style name="BottomDialog.Animation" parent="Animation.AppCompat.Dialog">
+        <!--        弹入动画-->
+        <item name="android:windowEnterAnimation">@anim/common_dialog_in_anim</item>
+        <!--        弹出动画-->
+        <item name="android:windowExitAnimation">@anim/common_dialog_out_anim</item>
+    </style>
+    <!--Dialog全屏样式-->
+    <style name="FullScreenDialogStyle" parent="@android:style/Theme.Holo.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+    </style>
 </resources>

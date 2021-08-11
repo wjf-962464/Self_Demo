@@ -35,9 +35,11 @@ android {
 }
 
 dependencies {
-    implementation dep.supportDesign
-    implementation dep.supportV7
-    implementation dep.supportCardview
-    implementation dep.supportConstraintLayout
+    api dep.supportDesign
+    api dep.supportV7
+    api dep.supportCardview
+    api dep.supportConstraintLayout
     testImplementation dep.junit
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api 'androidx.core:core-ktx:1.3.1'
 }

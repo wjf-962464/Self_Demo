@@ -4,12 +4,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
+import android.view.LayoutInflater;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import com.wjf.self_library.R;
 
@@ -17,9 +19,9 @@ import com.wjf.self_library.R;
  * @author : Wangjf
  * @date : 2021/1/19
  */
-public abstract class BaseDialog extends Dialog {
+public abstract class BaseDialog<T extends ViewDataBinding> extends Dialog {
     protected final Context context;
-    private final Builder builder;
+    protected final Builder<BaseDialog<T>> builder;
 
     public BaseDialog(@NonNull Builder builder) {
         super(builder.context, R.style.FullScreenDialogStyle);
@@ -40,9 +42,9 @@ public abstract class BaseDialog extends Dialog {
             window.setWindowAnimations(builder.windowAnimations);
             window.setDimAmount(0.4f);
         }
-        this.setCanceledOnTouchOutside(false);
-        View view = View.inflate(context, setLayout(), null);
-        this.setContentView(view);
+        this.setCanceledOnTouchOutside(builder.ifCancelOnTouch);
+        T view = DataBindingUtil.inflate(LayoutInflater.from(context), setLayout(), null, false);
+        this.setContentView(view.getRoot());
         initView(view);
     }
 
@@ -51,7 +53,7 @@ public abstract class BaseDialog extends Dialog {
      *
      * @param view 视图
      */
-    protected abstract void initView(View view);
+    protected abstract void initView(T view);
 
     /**
      * 指定布局文件
@@ -94,35 +96,41 @@ public abstract class BaseDialog extends Dialog {
         void confirm(T value);
     }
 
-    public abstract static class Builder {
-        public final Context context;
+    public abstract static class Builder<T extends BaseDialog> {
+        private final Context context;
         private int gravity = Gravity.BOTTOM;
         @StyleRes
         private int windowAnimations = R.style.BottomDialog_Animation;
-        private int width = WindowManager.LayoutParams.MATCH_PARENT;
+        private int width = WindowManager.LayoutParams.WRAP_CONTENT;
         private int height = WindowManager.LayoutParams.WRAP_CONTENT;
+        private boolean ifCancelOnTouch=false;
 
         public Builder(@NonNull Context context) {
             this.context = context;
         }
 
-        public Builder gravity(int gravity) {
+        public Builder<T> gravity(int gravity) {
             this.gravity = gravity;
             return this;
         }
 
-        public Builder windowAnimations(@StyleRes int windowAnimations) {
+        public Builder<T> windowAnimations(@StyleRes int windowAnimations) {
             this.windowAnimations = windowAnimations;
             return this;
         }
 
-        public Builder width(int width) {
+        public Builder<T> width(int width) {
             this.width = width;
             return this;
         }
 
-        public Builder height(int height) {
+        public Builder<T> height(int height) {
             this.height = height;
+            return this;
+        }
+
+        public Builder<T> cancelOnTouch(boolean ifCanceled){
+            this.ifCancelOnTouch=ifCanceled;
             return this;
         }
 
@@ -131,6 +139,6 @@ public abstract class BaseDialog extends Dialog {
          *
          * @return BaseDialog
          */
-        public abstract BaseDialog build();
+        public abstract T build();
     }
 }

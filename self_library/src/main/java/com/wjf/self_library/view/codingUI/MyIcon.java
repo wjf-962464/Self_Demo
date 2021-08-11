@@ -43,11 +43,20 @@ public class MyIcon extends BaseUi<UiIconBinding> {
         normalColor = typedArray.getColor(R.styleable.Icon_color_normal, Color.BLACK);
         selectedColor = typedArray.getColor(R.styleable.Icon_color_selected, normalColor);
         // 默认20dp，所有默认值都对于480dpi，即像素密度比为1:3
-        iconSize = typedArray.getDimension(R.styleable.Icon_icon_size, 60);
+        iconSize = typedArray.getDimension(R.styleable.Icon_icon_size, TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                20,
+                getResources().getDisplayMetrics()));
         // 默认13sp
-        textSize = typedArray.getDimension(R.styleable.Icon_text_size, 39);
+        textSize = typedArray.getDimension(R.styleable.Icon_text_size, TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP,
+                13,
+                getResources().getDisplayMetrics()));
         // 默认1dp
-        iconTextMargin = typedArray.getDimension(R.styleable.Icon_icon_text_margin, 3);
+        iconTextMargin = typedArray.getDimension(R.styleable.Icon_icon_text_margin, TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                1,
+                getResources().getDisplayMetrics()));
     }
 
     public void setText(String text) {
