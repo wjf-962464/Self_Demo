@@ -49,7 +49,7 @@ public class FishDrawable extends Drawable {
     /** 中心点坐标 */
     private PointF middlePoint;
     /** 朝向角度 */
-    private float fishMainAngle = 90;
+    private final float fishMainAngle = 90;
 
     private float currentValue = 0;
 

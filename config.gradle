@@ -1,7 +1,7 @@
 ext {
     //SDK版本
     compileSdkVersion = 30//用于编译的SDK版本
-    buildToolsVersion = '30.0.2'// 用于Gradle编译项目的工具版本
+    buildToolsVersion = '30.0.3'// 用于Gradle编译项目的工具版本
 
     minSdkVersion = 20// 最低支持Android版本
     targetSdkVersion = 30// 目标版本

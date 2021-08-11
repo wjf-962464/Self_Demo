@@ -28,15 +28,15 @@ public class IndexListAdapter extends CommonAdapter<ItemListIndexBinding, IndexL
     @Override
     protected void setHolder(IndexListMenu entity, ItemListIndexBinding view) {
         view.menuText.setText(entity.getDes());
-        view.menuText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(context, entity.getGotoClass());
-                context.startActivity(intent);
-            }
-        });
+        view.menuText.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.putExtra("data", entity.getData());
+                        intent.setClass(context, entity.getGotoClass());
+                        context.startActivity(intent);
+                    }
+                });
     }
-
-
 }

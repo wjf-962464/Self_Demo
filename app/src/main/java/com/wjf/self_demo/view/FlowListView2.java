@@ -19,17 +19,17 @@ import java.util.List;
  * @author : Wangjf
  * @date : 2021/4/1
  */
-public class FlowListView extends ViewGroup {
+public class FlowListView2 extends ViewGroup {
     private final int mVerticalSpace = 20;
     private final int mHorizontalSpace = 20;
     private List<List<View>> allLines;
     private List<Integer> lineHeights;
 
-    public FlowListView(Context context) {
+    public FlowListView2(Context context) {
         super(context);
     }
 
-    public FlowListView(Context context, AttributeSet attrs) {
+    public FlowListView2(Context context, AttributeSet attrs) {
         super(context, attrs);
         Log.i("debug", "构造2");
     }
@@ -60,73 +60,86 @@ public class FlowListView extends ViewGroup {
                 paddingBottom = getPaddingBottom();
         int selfWidth = MeasureSpec.getSize(widthMeasureSpec);
         int selfHeight = MeasureSpec.getSize(heightMeasureSpec);
-        List<View> lineView = new ArrayList<>();
-        int lineWidth = 0, lineHeight = 0;
-        int parentNeedWidth = paddingLeft + paddingRight,
-                parentNeedHeight = paddingTop + paddingBottom;
 
+        int needWidth = 0, needHeight = 0;
+
+        int lineWidth = 0, lineHeight = 0;
         for (int i = 0, len = getChildCount(); i < len; i++) {
             View childView = getChildAt(i);
-            LayoutParams childParams = childView.getLayoutParams();
+            LayoutParams layoutParams = childView.getLayoutParams();
 
             int childWidthMeasureSpec =
                     getChildMeasureSpec(
-                            widthMeasureSpec, paddingLeft + paddingRight, childParams.width);
+                            widthMeasureSpec, paddingLeft + paddingRight, layoutParams.width);
             int childHeightMeasureSpec =
                     getChildMeasureSpec(
-                            heightMeasureSpec, paddingTop + paddingBottom, childParams.height);
+                            heightMeasureSpec, paddingTop + paddingBottom, layoutParams.height);
             childView.measure(childWidthMeasureSpec, childHeightMeasureSpec);
 
             int childWidth = childView.getMeasuredWidth();
             int childHeight = childView.getMeasuredHeight();
 
-            if (childWidth + lineWidth > selfWidth) {
-                allLines.add(lineView);
+            if (lineWidth + childWidth + mHorizontalSpace > selfWidth) {
+                // 这里作换行
+                needWidth = Math.max(needWidth, lineWidth);
                 lineHeights.add(lineHeight);
-                parentNeedWidth = Math.max(parentNeedWidth, lineWidth + mHorizontalSpace);
-                parentNeedHeight = parentNeedHeight + lineHeight + mVerticalSpace;
-                lineView = new ArrayList<>();
-
-                lineWidth = 0;
+                needHeight += lineHeight + mVerticalSpace;
                 lineHeight = 0;
+                lineWidth = 0;
             }
-
-            lineWidth = lineWidth + childWidth + mHorizontalSpace;
             lineHeight = Math.max(lineHeight, childHeight);
-            lineView.add(childView);
+            lineWidth += childWidth + mHorizontalSpace;
+
             if (i == len - 1) {
-                allLines.add(lineView);
+                // 最后一行
                 lineHeights.add(lineHeight);
-                parentNeedWidth = Math.max(parentNeedWidth, lineWidth + mHorizontalSpace);
-                parentNeedHeight = parentNeedHeight + lineHeight;
+                needWidth = Math.max(needWidth, lineWidth);
+                needHeight += lineHeight;
             }
         }
-        int widMode = MeasureSpec.getMode(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int realNeedWidth = widMode == MeasureSpec.EXACTLY ? selfWidth : parentNeedWidth;
-        int realNeedHeight = heightMode == MeasureSpec.EXACTLY ? selfHeight : parentNeedHeight;
-        setMeasuredDimension(realNeedWidth, realNeedHeight);
+
+        int realWidth =
+                MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY
+                        ? selfWidth
+                        : needWidth;
+        int realHeight =
+                MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY
+                        ? selfHeight
+                        : needHeight;
+
+        setMeasuredDimension(realWidth, realHeight);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         Log.i("debug", "onLayout");
-        int paddingLeft = getPaddingLeft();
-        int curT = getPaddingTop();
-        for (int i = 0, len1 = allLines.size(); i < len1; i++) {
-            int curL = paddingLeft;
-            List<View> lineView = allLines.get(i);
-            for (int j = 0, len2 = lineView.size(); j < len2; j++) {
-                View childView = lineView.get(j);
-                int top = curT;
-                int left = curL;
-                int right = left + childView.getMeasuredWidth();
-                int bottom = top + childView.getMeasuredHeight();
-                childView.layout(left, top, right, bottom);
-                curL = right + mHorizontalSpace;
+        int width = getWidth(), height = getHeight();
+        int curT = getPaddingTop(), curL = getPaddingLeft();
+        int line = 0;
+        for (int i = 0, len = getChildCount(); i < len; i++) {
+            int lineHeight = lineHeights.get(line);
+            View childView = getChildAt(i);
+            int childWidth = childView.getMeasuredWidth();
+            int childHeight = childView.getMeasuredHeight();
+
+            if (curL + childWidth + mHorizontalSpace > width) {
+                // 换行
+                Log.d("wjf", "换行");
+                curT += lineHeight + mVerticalSpace;
+                Log.d("wjf", "curT" + curT);
+                curL = getPaddingLeft();
+                line++;
+                lineHeight = lineHeights.get(line);
             }
-            curT += lineHeights.get(i);
-            curT = i == len1 - 1 ? curT : curT + mVerticalSpace;
+            int half = childHeight / 2;
+            int midHeight = curT + lineHeight / 2;
+            int childTop = midHeight - half;
+            int childLeft = curL;
+            int childRight = childLeft + childWidth;
+            int childBottom = midHeight + half;
+            childView.layout(childLeft, childTop, childRight, childBottom);
+
+            curL += childWidth + mHorizontalSpace;
         }
     }
 

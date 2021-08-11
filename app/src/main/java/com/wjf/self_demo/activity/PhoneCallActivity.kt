@@ -90,7 +90,7 @@ class PhoneCallActivity : BaseActivity<ActivityPhoneCallBinding>(),
     fun openSpeaker() {
         try {
             if (!audioManager?.isSpeakerphoneOn!!) {
-                audioManager?.isSpeakerphoneOn = true;
+                audioManager?.isSpeakerphoneOn = true
                 currVolume?.let {
                     audioManager?.setStreamVolume(
                         AudioManager.STREAM_VOICE_CALL,

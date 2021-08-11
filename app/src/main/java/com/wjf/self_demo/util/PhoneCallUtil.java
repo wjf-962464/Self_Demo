@@ -7,13 +7,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class PhoneCallUtil {
-    public static void openVoice(AudioManager audioManager){
+    public static void openVoice(AudioManager audioManager) {
         if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
             audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
         }
         try {
             Class clazz = Class.forName("android.media.AudioSystem");
-            Method m = clazz.getMethod("setForceUse", new Class[]{int.class, int.class});
+            Method m = clazz.getMethod("setForceUse", int.class, int.class);
             m.setAccessible(true);
             m.invoke(null, 1, 1);
             Log.d("ZZM", "免提hook111");

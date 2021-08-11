@@ -13,14 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:backText="返回"
-            app:background_color="@color/color_yellow"
-            app:dark_theme="false"
+            app:background_color="@color/color_green"
+            app:dark_theme="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleText="标题" />
+            app:titleText="标题23123" />
 
-        <com.wjf.self_demo.view.FlowListView
+        <com.wjf.self_demo.view.FlowListView2
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/radius_text"
-                android:text="红霉素眼膏"
+                android:text="红\n霉\n素\n眼\n膏"
                 android:textSize="15sp" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/radius_text"
-                android:text="Debug工作室"
+                android:text="工作室"
                 android:textSize="15sp" />
 
             <TextView
@@ -76,7 +76,7 @@
                 android:background="@drawable/radius_text"
                 android:text="略略略2"
                 android:textSize="15sp" />
-        </com.wjf.self_demo.view.FlowListView>
+        </com.wjf.self_demo.view.FlowListView2>
 
         <LinearLayout
             android:layout_width="wrap_content"

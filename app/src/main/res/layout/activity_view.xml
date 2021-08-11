@@ -43,9 +43,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/color_yellow"
-                app:icon_text="略略略"
+                app:icon_text="略略asda略"
                 app:icon_position="left"
-                app:icon_size="30dp"
+                app:icon_size="20dp"
                 app:icon_src="@drawable/icon_pwd" />
             <com.wjf.self_library.view.codingUI.Icon
                 android:layout_width="0dp"

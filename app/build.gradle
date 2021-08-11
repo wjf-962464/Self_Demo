@@ -23,6 +23,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField "String", "TAG", "\"main_app\""
     }
 
     buildTypes {
@@ -41,6 +43,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -48,7 +52,4 @@ dependencies {
     implementation project(':self_library')
     implementation project(':bar_code')
 
-}
-repositories {
-    mavenCentral()
 }

@@ -3,6 +3,7 @@ package com.wjf.self_library.common;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Window;
@@ -76,6 +77,7 @@ public abstract class BaseDialog<T extends ViewDataBinding> extends Dialog {
             return;
         }
         // 获取配置参数
+        Log.d("wjf","sadasd");
         WindowManager.LayoutParams layoutParams = window.getAttributes();
         // 设置为屏幕正中
         layoutParams.gravity = builder.gravity;

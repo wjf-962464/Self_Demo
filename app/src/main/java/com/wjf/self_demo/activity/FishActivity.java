@@ -18,7 +18,5 @@ public class FishActivity extends BaseActivity<ActivityFishBinding> {
     }
 
     @Override
-    protected void initData() {
-
-    }
+    protected void initData() {}
 }

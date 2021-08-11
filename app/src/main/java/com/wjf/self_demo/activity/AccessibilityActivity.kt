@@ -16,11 +16,11 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
         if (!AccessibilitySampleService.isStart()) {
             try {
                 Logger.d("not start")
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
             } catch (e: Exception) {
                 Logger.d("already start")
-                startActivity(Intent(Settings.ACTION_SETTINGS));
-                e.printStackTrace();
+                startActivity(Intent(Settings.ACTION_SETTINGS))
+                e.printStackTrace()
             }
         }
     }

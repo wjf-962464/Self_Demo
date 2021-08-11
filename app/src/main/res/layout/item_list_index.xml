@@ -10,7 +10,10 @@
         app:cardBackgroundColor="@color/white"
         app:cardElevation="3dp"
         android:layout_marginTop="15dp">
-
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/blank_view"/>
         <TextView
             android:id="@+id/menuText"
             android:layout_width="match_parent"

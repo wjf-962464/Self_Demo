@@ -1,8 +1,5 @@
 package com.wjf.self_demo.activity;
 
-import android.graphics.Bitmap;
-import android.view.ViewTreeObserver;
-
 import com.wjf.barcode.encode.EncodingUtils;
 import com.wjf.self_demo.R;
 import com.wjf.self_demo.databinding.ActivityViewBinding;
@@ -19,10 +16,7 @@ public class ViewActivity extends BaseActivity<ActivityViewBinding> {
     @Override
     protected void initView() {
 
-
-
-        EncodingUtils.bindBarCode("sadad",view.barcode);
-
+        EncodingUtils.bindBarCode("sadad", view.barcode);
     }
 
     @Override

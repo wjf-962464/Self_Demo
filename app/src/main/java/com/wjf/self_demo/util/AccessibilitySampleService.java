@@ -7,11 +7,15 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.wjf.barcode.Logger;
 
 public class AccessibilitySampleService extends AccessibilityService {
+    public static AccessibilitySampleService mService;
     private final String TAG = getClass().getName();
 
-    public static AccessibilitySampleService mService;
+    /** 辅助功能是否启动 */
+    public static boolean isStart() {
+        return mService != null;
+    }
 
-    //初始化
+    // 初始化
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
@@ -19,7 +23,7 @@ public class AccessibilitySampleService extends AccessibilityService {
         mService = this;
     }
 
-    //实现辅助功能
+    // 实现辅助功能
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         Logger.d("onAccessibilityEvent");
@@ -30,7 +34,7 @@ public class AccessibilitySampleService extends AccessibilityService {
                 Logger.d("==============Start====================");
                 eventText = "TYPE_VIEW_CLICKED";
                 AccessibilityNodeInfo noteInfo = event.getSource();
-                Logger.d( noteInfo.toString());
+                Logger.d(noteInfo.toString());
                 Logger.d("=============END=====================");
                 break;
             case AccessibilityEvent.TYPE_VIEW_FOCUSED:
@@ -84,22 +88,12 @@ public class AccessibilitySampleService extends AccessibilityService {
         mService = null;
     }
 
+    // 公共方法
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         Logger.d("%>_<%\r\n红包功能已关闭");
         mService = null;
     }
-
-
-    // 公共方法
-
-
-    /**
-     * 辅助功能是否启动
-     */
-    public static boolean isStart() {
-        return mService != null;
-    }
-
 }

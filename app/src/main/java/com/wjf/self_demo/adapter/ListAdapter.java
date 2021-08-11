@@ -9,9 +9,7 @@ import com.wjf.self_library.common.CommonAdapter;
 
 import java.util.List;
 
-/**
- * @author Wangjf2-DESKTOP
- */
+/** @author Wangjf2-DESKTOP */
 public class ListAdapter extends CommonAdapter<ItemListTestBinding, UserInfo> {
 
     public ListAdapter(Context context, List<UserInfo> data) {
