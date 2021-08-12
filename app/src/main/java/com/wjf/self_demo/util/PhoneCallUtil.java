@@ -1,7 +1,8 @@
 package com.wjf.self_demo.util;
 
 import android.media.AudioManager;
-import android.util.Log;
+
+import com.wjf.barcode.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,7 +17,7 @@ public class PhoneCallUtil {
             Method m = clazz.getMethod("setForceUse", int.class, int.class);
             m.setAccessible(true);
             m.invoke(null, 1, 1);
-            Log.d("ZZM", "免提hook111");
+            Logger.d("免提hook111");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
@@ -30,6 +31,6 @@ public class PhoneCallUtil {
         if (!audioManager.isSpeakerphoneOn()) {
             audioManager.setSpeakerphoneOn(true);
         }
-        Log.d("ZZM", "免提hook222");
+        Logger.d("免提hook222");
     }
 }

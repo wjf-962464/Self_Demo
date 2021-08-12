@@ -13,7 +13,7 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
     override fun setLayout(): Int = R.layout.activity_accessibility
 
     override fun initView() {
-        if (!AccessibilitySampleService.isStart()) {
+        if (!AccessibilitySampleService.isStart) {
             try {
                 Logger.d("not start")
                 startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
@@ -22,6 +22,14 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
                 startActivity(Intent(Settings.ACTION_SETTINGS))
                 e.printStackTrace()
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (AccessibilitySampleService.isStart){
+            startActivity(Intent(this,PhoneCallActivity::class.java))
+            finish()
         }
     }
 

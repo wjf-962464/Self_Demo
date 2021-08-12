@@ -6,6 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.AccessibilityActivity">
-
+    <com.wjf.self_library.view.codingUI.CommonToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/commonToolbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleText="辅助功能"
+        app:dark_theme="false"
+        app:background_color="@color/colorPrimary"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

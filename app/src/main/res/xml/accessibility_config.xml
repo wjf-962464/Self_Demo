@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     android:accessibilityEventTypes="typeAllMask"
-    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFeedbackType="feedbackAllMask"
+    android:accessibilityFlags="flagIncludeNotImportantViews|flagReportViewIds|flagRetrieveInteractiveWindows|flagRequestEnhancedWebAccessibility|flagRequestFilterKeyEvents"
     android:canPerformGestures="true"
-    android:canRetrieveWindowContent="true"
-    android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows|flagIncludeNotImportantViews"
+    android:canRequestEnhancedWebAccessibility="true"
     android:canRequestFilterKeyEvents="true"
+    android:canRetrieveWindowContent="true"
     android:description="@string/accessibility_desc"
-    android:notificationTimeout="100">
+    android:notificationTimeout="100"
+    android:packageNames="com.android.incallui">
 </accessibility-service>
+<!--
+canRetrieveWindowContent屏幕内容获取
+canPerformGestures手势监听
+canRequestFilterKeyEvents按键监听
+typeAllMask指不区分单击、长按、滑动等事件，全部监听
+-->

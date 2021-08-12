@@ -3,7 +3,8 @@ package com.wjf.self_demo.util;
 import android.content.Context;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.Log;
+
+import com.wjf.barcode.Logger;
 
 public class CallingStateListener extends PhoneStateListener {
 
@@ -11,10 +12,14 @@ public class CallingStateListener extends PhoneStateListener {
     private int CALL_STATE = TelephonyManager.CALL_STATE_IDLE; // 电话状态
 
     private TelephonyManager mTelephonyManager = null;
-    /** 回调 */
+    /**
+     * 回调
+     */
     private OnCallStateChangedListener mOnCallStateChangedListener = null;
 
-    /** @param context 上下文 */
+    /**
+     * @param context 上下文
+     */
     public CallingStateListener(Context context) {
         mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
     }
@@ -48,23 +53,25 @@ public class CallingStateListener extends PhoneStateListener {
     }
 
     /**
-     * @param state 状态
+     * @param state       状态
      * @param mobilePhone 手机号
      */
     @Override
     public void onCallStateChanged(int state, String mobilePhone) {
-        Log.d("ZZM", "当前state为" + state);
+        Logger.d("当前state为" + state);
         switch (state) {
-                // 当前状态为挂断
+
             case TelephonyManager.CALL_STATE_IDLE:
+                // 当前状态为挂断
                 if (mOnCallStateChangedListener != null) {
                     mOnCallStateChangedListener.onCallStateChanged(
                             OnCallStateChangedListener.STATE_IDLE, mobilePhone);
                 }
                 CALL_STATE = state;
                 break;
-                // 当前状态为接听或拨打
+
             case TelephonyManager.CALL_STATE_OFFHOOK:
+                // 当前状态为接听或拨打
                 if (mOnCallStateChangedListener != null) {
                     mOnCallStateChangedListener.onCallStateChanged(
                             CALL_STATE == TelephonyManager.CALL_STATE_RINGING
@@ -74,13 +81,16 @@ public class CallingStateListener extends PhoneStateListener {
                 }
                 CALL_STATE = state;
                 break;
-                // 当前状态为响铃
+
             case TelephonyManager.CALL_STATE_RINGING:
+                // 当前状态为响铃
                 if (mOnCallStateChangedListener != null) {
                     mOnCallStateChangedListener.onCallStateChanged(
                             OnCallStateChangedListener.STATE_RINGING, mobilePhone);
                 }
                 CALL_STATE = state;
+                break;
+            default:
                 break;
         }
     }
@@ -95,7 +105,9 @@ public class CallingStateListener extends PhoneStateListener {
         this.mOnCallStateChangedListener = onCallStateChangedListener;
     }
 
-    /** 监听回调 */
+    /**
+     * 监听回调
+     */
     public interface OnCallStateChangedListener {
 
         int STATE_IDLE = 0; // 已挂断
@@ -104,7 +116,7 @@ public class CallingStateListener extends PhoneStateListener {
         int STATE_RINGING = 3; // 未接听，正在响铃
 
         /**
-         * @param state 状态
+         * @param state  状态
          * @param number 手机号
          */
         void onCallStateChanged(int state, String number);

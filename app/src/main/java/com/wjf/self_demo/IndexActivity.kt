@@ -35,10 +35,11 @@ class IndexActivity :
         data.add(IndexListMenu(DemoActivity::class.java, "案例"))
         data.add(IndexListMenu(CaptureActivity::class.java, "二维码"))
         data.add(IndexListMenu(ViewActivity::class.java, "自定义控件"))
-        data.add(IndexListMenu(PhoneCallActivity::class.java, "自动拨号"))
         data.add(IndexListMenu(LiveDataActivity::class.java, "LiveData&&LiveDataBus"))
         data.add(IndexListMenu(DataBindingActivity::class.java, "DataBinding"))
         data.add(IndexListMenu(ViewModelActivity::class.java, "ViewModel"))
+        data.add(IndexListMenu(PhoneCallActivity::class.java, "自动拨号"))
+        data.add(IndexListMenu(AccessibilityActivity::class.java, "辅助功能"))
         CaptureActivity.setDecodeResultCallback { result: String ->
             Log.d(
                 "WJF_DEBUG",

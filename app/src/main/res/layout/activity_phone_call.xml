@@ -1,26 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="bean"
+            type="com.wjf.self_demo.entity.PhoneCallBean" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.PhoneCallActivity">
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
+    <com.wjf.self_library.view.codingUI.CommonToolbar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/commonToolbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="自动拨打号码"/>
+        app:titleText="自动拨号"
+        app:dark_theme="false"
+        app:background_color="@color/colorPrimary"/>
+    <LinearLayout
+        android:id="@+id/contentHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+            android:id="@+id/hintText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="呼叫号码："
+            android:textSize="@dimen/mid_text_size"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/text_black"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="18001866502"
+            android:textSize="@dimen/Big_text_size"
+            android:textColor="@color/text_black"
+            android:text='@={bean.phoneNum}'/>
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_btn_normal"
+        android:textColor="@color/white"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"/>
+        app:layout_constraintTop_toBottomOf="@+id/contentHint"
+        tools:text="停止连续呼叫"
+        android:text='@{bean.callFlag?"停止连续呼叫":"开始连续呼叫"}'/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
