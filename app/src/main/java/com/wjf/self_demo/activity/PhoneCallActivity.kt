@@ -30,10 +30,6 @@ class PhoneCallActivity : BaseActivity<ActivityPhoneCallBinding>(),
     private var mHandler: Handler? = null
     private var mIntent: Intent? = null
     private var phoneCallBean: PhoneCallBean = PhoneCallBean(false, "01062300568")
-    private val PERMISSIONS_REQUEST: Int = 0x001
-    private val permissionString = arrayOf(
-        Manifest.permission.CALL_PHONE
-    )
     private var dialog: EditTextDialog? = null
 
     override fun setLayout(): Int = R.layout.activity_phone_call
@@ -72,7 +68,7 @@ class PhoneCallActivity : BaseActivity<ActivityPhoneCallBinding>(),
     }
 
     override fun initData() {
-        requestPermission()
+        addPermission(Manifest.permission.CALL_PHONE).requestPermission()
         phoneCallBean.phoneNum = "01062300568"
     }
 
@@ -103,71 +99,8 @@ class PhoneCallActivity : BaseActivity<ActivityPhoneCallBinding>(),
         }
     }
 
-    private fun requestPermission() {
-        Logger.d("requestPermission")
-        if (checkPermissionAllGranted(permissionString)) {
-            phoneCallListener?.startListener()
-            Logger.d("onRequestPermissionsResult granted")
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                permissionString, PERMISSIONS_REQUEST
-            );
-        }
-    }
-
-    /**
-     * 检查是否拥有指定的所有权限
-     */
-    private fun checkPermissionAllGranted(permissions: Array<String>): Boolean {
-        for (permission in permissions) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    permission
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                Logger.e("error $permission 没有授权")
-                return false
-            }
-        }
-        return true
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            PERMISSIONS_REQUEST -> {
-                var isAllGranted = true
-                for (grant in grantResults) {
-                    if (grant != PackageManager.PERMISSION_GRANTED) {
-                        isAllGranted = false
-                    }
-                }
-                if (isAllGranted) {
-                    Logger.d("onRequestPermissionsResult granted")
-                    phoneCallListener?.startListener()
-                } else {
-                    Logger.d("onRequestPermissionsResult denied")
-                    showWaringDialog()
-                }
-                return
-            }
-        }
-    }
-
-    private fun showWaringDialog() {
-        val dialog: AlertDialog = AlertDialog.Builder(this)
-            .setTitle("警告！")
-            .setMessage("请前往设置->应用->PermissionDemo->权限中打开相关权限，否则功能无法正常运行！")
-            .setPositiveButton(
-                "确定"
-            ) { dialog, which -> // 一般情况下如果用户不授权的话，功能是无法运行的，做退出处理
-                finish()
-            }.show()
+    override fun doSomethingAfterGranted() {
+        phoneCallListener?.startListener()
     }
 
     override fun onDestroy() {
