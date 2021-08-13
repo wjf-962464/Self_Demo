@@ -48,12 +48,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ViewModelActivity"/>
+        <activity android:name=".activity.PaletteActivity"></activity>
+        <activity android:name=".activity.ViewModelActivity" />
         <activity android:name=".activity.DataBindingActivity" />
         <activity android:name=".activity.LiveDataBusActivity" />
         <activity android:name=".activity.LiveDataActivity" />
         <activity android:name=".activity.ViewActivity" />
-        <activity android:name=".activity.AccessibilityActivity"/>
+        <activity android:name=".activity.AccessibilityActivity" />
         <activity android:name=".activity.PhoneCallActivity" />
         <activity android:name=".activity.DemoActivity" />
         <activity android:name=".activity.FishActivity" />

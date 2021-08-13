@@ -40,6 +40,7 @@ class IndexActivity :
         data.add(IndexListMenu(ViewModelActivity::class.java, "ViewModel"))
         data.add(IndexListMenu(PhoneCallActivity::class.java, "自动拨号"))
         data.add(IndexListMenu(AccessibilityActivity::class.java, "辅助功能"))
+        data.add(IndexListMenu(PaletteActivity::class.java, "调色板"))
         CaptureActivity.setDecodeResultCallback { result: String ->
             Log.d(
                 "WJF_DEBUG",

@@ -47,13 +47,12 @@ class PhoneCallActivity : BaseActivity<ActivityPhoneCallBinding>(),
         phoneCallListener?.setOnCallStateChangedListener(this)
 
         mHandler = Handler(Looper.getMainLooper())
-        dialog = EditTextDialog.Builder(this).setListener {
+        dialog = EditTextDialog(this).setSubmitListener {
             phoneCallBean.phoneNum = it
         }.width(WindowManager.LayoutParams.MATCH_PARENT)
             .height(WindowManager.LayoutParams.WRAP_CONTENT)
             .cancelOnTouch(true)
-            .gravity(Gravity.BOTTOM)
-            .build()
+            .gravity(Gravity.BOTTOM) as EditTextDialog?
 
         view.bean = phoneCallBean
         btn.click {

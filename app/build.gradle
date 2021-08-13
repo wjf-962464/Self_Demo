@@ -52,4 +52,7 @@ dependencies {
     implementation project(':self_library')
     implementation project(':bar_code')
 
+
+//    调色板
+    implementation 'androidx.palette:palette:1.0.0'
 }

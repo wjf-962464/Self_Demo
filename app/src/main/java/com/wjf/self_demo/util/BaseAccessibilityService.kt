@@ -56,7 +56,7 @@ class BaseAccessibilityService : AccessibilityService() {
      *
      * @param nodeInfo nodeInfo
      */
-    fun performViewClick(nodeInfo: AccessibilityNodeInfo?) {
+    private fun performViewClick(nodeInfo: AccessibilityNodeInfo?) {
         var nodeInfo: AccessibilityNodeInfo? = nodeInfo ?: return
         while (nodeInfo != null) {
             if (nodeInfo.isClickable) {

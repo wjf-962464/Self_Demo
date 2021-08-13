@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.PaletteActivity">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/colorBar"/>
+        <ImageView
+            android:id="@+id/colorImg"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_1"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+</layout>
