@@ -20,12 +20,13 @@ class MainActivity :
 
     override fun initView() {
         val myDialog1 =
-            MyDialog(this).address("中骏广场").hint("已为您切换收货地址为")
+            MyDialog(this).addData("address", "中骏广场").addData("hint", "已为您切换收货地址为")
                 .height(WindowManager.LayoutParams.MATCH_PARENT)
                 .width(WindowManager.LayoutParams.MATCH_PARENT).gravity(Gravity.CENTER)
                 .cancelOnTouch(true)
         val myDialog2 =
-            MyDialog(this).address("中骏广场超长文案超长文案超长文案超长文案超长文案").hint("已为您切换收货地址为")
+            MyDialog(this).addData("address", "中骏广场超长文案超长文案超长文案超长文案超长文案")
+                .addData("hint", "已为您切换收货地址为")
                 .height(WindowManager.LayoutParams.MATCH_PARENT)
                 .width(WindowManager.LayoutParams.MATCH_PARENT).gravity(Gravity.CENTER)
                 .cancelOnTouch(true)

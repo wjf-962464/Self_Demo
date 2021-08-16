@@ -1,6 +1,7 @@
 package com.wjf.self_demo.view;
 
 import android.content.Context;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -24,10 +25,13 @@ public class EditTextDialog extends BaseDialog<DialogEditBinding> {
     }
 
     public EditTextDialog setSubmitListener(BaseDialog.DialogClickListener<String> listener){
-        view.submitBtn.setOnClickListener(v->{
-            listener.onClick(view.inputEdit.getText().toString().trim());
-            view.inputEdit.setText("");
-            dismiss();
+        view.submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(view.inputEdit.getText().toString().trim());
+                view.inputEdit.setText("");
+                EditTextDialog.this.dismiss();
+            }
         });
         return this;
     }

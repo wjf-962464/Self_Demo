@@ -16,9 +16,7 @@ import java.util.List;
  * @date : 2021/4/6
  */
 public class IndexListAdapter extends CommonAdapter<ItemListIndexBinding, IndexListMenu> {
-    public IndexListAdapter(Context context, List<IndexListMenu> data) {
-        super(context, data);
-    }
+
 
     @Override
     protected int setLayout() {

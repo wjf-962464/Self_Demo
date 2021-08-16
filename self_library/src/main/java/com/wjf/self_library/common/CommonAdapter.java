@@ -1,6 +1,5 @@
 package com.wjf.self_library.common;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,18 +20,17 @@ import java.util.List;
 public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
         extends RecyclerView.Adapter<CommonAdapter.ViewHolder> {
     protected final List<T> data;
-    protected final Context context;
+    protected Context context;
     private Holder holder;
 
-    protected CommonAdapter(Context context, List<T> data) {
-        this.context = context;
+    protected CommonAdapter() {
         this.data = new ArrayList<>();
-        this.data.addAll(data);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        this.context = parent.getContext();
         View root = LayoutInflater.from(context).inflate(setLayout(), parent, false);
         holder = DataBindingUtil.bind(root);
         return new ViewHolder(root);
@@ -46,10 +44,9 @@ public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size();
+        return data.size();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void submitList(List<T> data) {
         this.data.addAll(data);
         notifyDataSetChanged();

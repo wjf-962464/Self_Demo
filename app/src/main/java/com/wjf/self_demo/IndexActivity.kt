@@ -25,7 +25,7 @@ class IndexActivity :
 
     override fun initView() {
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        adapter = IndexListAdapter(this, data)
+        adapter = IndexListAdapter()
         recyclerView.adapter = adapter
     }
 
@@ -47,6 +47,6 @@ class IndexActivity :
                 "扫描结果：$result"
             )
         }
-        adapter!!.notifyDataSetChanged()
+        adapter?.submitList(data)
     }
 }

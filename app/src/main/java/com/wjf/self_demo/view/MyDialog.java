@@ -12,18 +12,7 @@ import com.wjf.self_library.common.BaseDialog;
  * @author WJF
  */
 public class MyDialog extends BaseDialog<DialogMyBinding> {
-    private String address = "";
-    private String hint = "";
 
-    public MyDialog address(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public MyDialog hint(String hint) {
-        this.hint = hint;
-        return this;
-    }
 
     public MyDialog(@NonNull Context context) {
         super(context);
@@ -31,8 +20,8 @@ public class MyDialog extends BaseDialog<DialogMyBinding> {
 
     @Override
     protected void initView(DialogMyBinding view) {
-        view.tvAddress.setText(address);
-        view.tvHint.setText(hint);
+        view.tvAddress.setText(getData("address"));
+        view.tvHint.setText(getData("hint"));
 
     }
 

@@ -16,18 +16,17 @@ public class UserModel extends ViewModel {
         this.age=new MutableLiveData<>(age);
     }
 
-    @Bindable
-    public MutableLiveData<String> getName() {
-        return name;
+
+    public String getName() {
+        return name.getValue();
     }
 
-    public MutableLiveData<Integer> getAge() {
-        return age;
+    public Integer getAge() {
+        return age.getValue();
     }
 
     public void setName(String name) {
         this.name.setValue(name);
-
     }
 
     public void setAge(int age) {
