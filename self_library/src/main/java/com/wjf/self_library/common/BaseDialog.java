@@ -73,6 +73,7 @@ public abstract class BaseDialog<T extends ViewDataBinding> extends Dialog {
 
     public BaseDialog(@NonNull Context context) {
         super(context, R.style.FullScreenDialogStyle);
+        view= DataBindingUtil.inflate(LayoutInflater.from(context), setLayout(), null, false);
         this.context = context;
     }
 
@@ -90,7 +91,6 @@ public abstract class BaseDialog<T extends ViewDataBinding> extends Dialog {
             window.setDimAmount(0.4f);
         }
         this.setCanceledOnTouchOutside(ifCancelOnTouch);
-        view=DataBindingUtil.inflate(LayoutInflater.from(context), setLayout(), null, false);
         setContentView(view.getRoot());
         initView(view);
     }

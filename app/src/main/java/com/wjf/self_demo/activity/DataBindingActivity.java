@@ -3,11 +3,13 @@ package com.wjf.self_demo.activity;
 import com.wjf.self_demo.R;
 import com.wjf.self_demo.databinding.ActivityDataBindingBinding;
 import com.wjf.self_demo.jetpack.User;
+import com.wjf.self_demo.jetpack.UserModel;
 import com.wjf.self_library.common.BaseActivity;
 
 /** @author asus */
 public class DataBindingActivity extends BaseActivity<ActivityDataBindingBinding> {
     private User user;
+    private UserModel userModel;
 
     @Override
     public int setLayout() {
@@ -18,6 +20,10 @@ public class DataBindingActivity extends BaseActivity<ActivityDataBindingBinding
     protected void initView() {
         user = new User("王佳峰", "11");
         view.setUser(user);
+        view.setLifecycleOwner(this);
+        userModel=new UserModel("王佳峰",10);
+
+        view.setViewModel(userModel);
 
         new Thread(
                         () -> {
@@ -31,6 +37,7 @@ public class DataBindingActivity extends BaseActivity<ActivityDataBindingBinding
                             }
                         })
                 .start();
+        userModel.setName("章志民");
     }
 
     @Override

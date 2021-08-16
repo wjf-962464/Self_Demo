@@ -12,9 +12,15 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.wjf.barcode.Logger
 
-
 class AccessibilitySampleService : AccessibilityService() {
     private val mHandler: Handler = Handler(Looper.getMainLooper())
+    private val audioButtonArray = arrayListOf(
+        "com.android.incallui:id/audioButton",
+        "com.android.incallui:id/audioButtonlayout",
+        "com.android.incallui:id/showAudio",
+        "com.android.incallui:id/showAudioButton"
+
+    )
 
     // 初始化
     override fun onServiceConnected() {
@@ -23,11 +29,6 @@ class AccessibilitySampleService : AccessibilityService() {
         mService = this
         performBackClick()
         performBackClick()
-        performBackClick()
-    }
-
-    override fun findFocus(focus: Int): AccessibilityNodeInfo {
-        return super.findFocus(focus)
     }
 
     // 实现辅助功能
@@ -57,7 +58,11 @@ class AccessibilitySampleService : AccessibilityService() {
                     } else {
                         findViewByID("com.android.incallui:id/single_call_status")
                     }
-                listenCallStatus(phoneStatusBtn)
+//                listenCallStatus(phoneStatusBtn)
+                openVoice()
+/*                if (!HAND_FREE) {
+                    getAllIds(rootInActiveWindow)
+                }*/
             }
         }
         if (eventText.isNotEmpty()) {
@@ -67,6 +72,7 @@ class AccessibilitySampleService : AccessibilityService() {
 
     private fun listenCallStatus(phoneStatusBtn: AccessibilityNodeInfo?) {
         if (phoneStatusBtn != null && phoneStatusBtn.text != null) {
+            openVoice()
             when (phoneStatusBtn.text) {
                 "通话结束" -> {
                     clickTextViewByID("com.android.incallui:id/endButton")
@@ -77,13 +83,51 @@ class AccessibilitySampleService : AccessibilityService() {
             }
             if (phoneStatusBtn.text.contains(":")) {
                 Logger.e("接通了！！！")
-                if (!HAND_FREE) {
-                    Logger.e("自动免提")
-                    clickTextViewByID("com.android.incallui:id/audioButton")
-                    clickTextViewByID("com.android.incallui:id/audioButtonlayout")
+            }
+        } else {
+            Logger.e("都没有")
+        }
+    }
+
+    private fun openVoice() {
+        if (!HAND_FREE) {
+            HAND_FREE = true
+            for (id in audioButtonArray) {
+                val node = findViewByID(id)
+                Logger.e("node ：${node?.isClickable}")
+                if (node?.isChecked == false && node.isClickable) {
+                    performViewClick(node)
+                    node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+                    node.performAction(AccessibilityNodeInfo.ACTION_SELECT)
+                    node.performAction(AccessibilityNodeInfo.ACTION_FOCUS)
                     HAND_FREE = true
+                    performViewClick(node)
+                    return
+                    /*if (node.isChecked) {
+                        Logger.e("自动免提")
+                        HAND_FREE = true
+                        return
+                    } else {
+                        Logger.e("自动免提失败")
+                    }*/
+                } else {
+                    Logger.e("没有找到$id")
                 }
             }
+            HAND_FREE = false
+        }
+    }
+
+    fun getAllIds(node: AccessibilityNodeInfo) {
+        HAND_FREE = true
+        Logger.d("id：${node.viewIdResourceName}")
+        val count = node.childCount
+        if (count <= 0) {
+            return
+        }
+        for (i in 0 until count) {
+            val childNode = node.getChild(i)
+            getAllIds(childNode)
         }
     }
 
@@ -98,7 +142,7 @@ class AccessibilitySampleService : AccessibilityService() {
         val accessibilityNodeInfo = rootInActiveWindow ?: return null
         val nodeInfoList =
             accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id)
-        if (nodeInfoList != null && !nodeInfoList.isEmpty()) {
+        if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
             Log.d("zzm", "findViewByID: " + nodeInfoList.size)
             for (nodeInfo in nodeInfoList) {
                 Log.d("zzm", "findViewByID: $nodeInfo")
@@ -111,10 +155,26 @@ class AccessibilitySampleService : AccessibilityService() {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    fun clickTextViewByID(id: String?) {
-        val accessibilityNodeInfo = rootInActiveWindow ?: return
+    fun clickTextViewByID(id: String?): Boolean {
+        val accessibilityNodeInfo = rootInActiveWindow ?: return false
         val nodeInfoList =
             accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id)
+        if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
+            for (nodeInfo in nodeInfoList) {
+                if (nodeInfo != null) {
+                    performViewClick(nodeInfo)
+                    Logger.i("点击${nodeInfo.contentDescription}")
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    private fun clickTextViewByText(text: String?) {
+        val accessibilityNodeInfo = rootInActiveWindow ?: return
+        val nodeInfoList =
+            accessibilityNodeInfo.findAccessibilityNodeInfosByText(text)
         if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
             for (nodeInfo in nodeInfoList) {
                 if (nodeInfo != null) {
@@ -126,22 +186,6 @@ class AccessibilitySampleService : AccessibilityService() {
         }
     }
 
-    private fun clickTextViewByText(text: String?) {
-        val accessibilityNodeInfo = rootInActiveWindow ?: return
-        val nodeInfoList =
-            accessibilityNodeInfo.findAccessibilityNodeInfosByText(text)
-        if (nodeInfoList != null && !nodeInfoList.isEmpty()) {
-            for (nodeInfo in nodeInfoList) {
-                if (nodeInfo != null) {
-                    performViewClick(nodeInfo)
-                    Logger.i("点击${nodeInfo.text}")
-                    break
-                }
-            }
-        }
-    }
-
-
     /**
      * 查找对应文本的View
      *
@@ -149,7 +193,7 @@ class AccessibilitySampleService : AccessibilityService() {
      * @return View
      */
     private fun findViewByText(text: String): AccessibilityNodeInfo? {
-        return findViewByText(text, false);
+        return findViewByText(text, false)
     }
 
     /**
@@ -161,11 +205,11 @@ class AccessibilitySampleService : AccessibilityService() {
      */
     private fun findViewByText(text: String, clickable: Boolean): AccessibilityNodeInfo? {
         val accessibilityNodeInfo = rootInActiveWindow ?: return null
-        val nodeInfoList = accessibilityNodeInfo.findAccessibilityNodeInfosByText(text);
+        val nodeInfoList = accessibilityNodeInfo.findAccessibilityNodeInfosByText(text)
         if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
             for (nodeInfo in nodeInfoList) {
                 if (nodeInfo != null && (nodeInfo.isClickable == clickable)) {
-                    return nodeInfo;
+                    return nodeInfo
                 }
             }
         }
@@ -179,9 +223,9 @@ class AccessibilitySampleService : AccessibilityService() {
         try {
             Thread.sleep(600)
         } catch (e: InterruptedException) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
-        performGlobalAction(GLOBAL_ACTION_BACK);
+        performGlobalAction(GLOBAL_ACTION_BACK)
     }
 
     /**
@@ -197,7 +241,7 @@ class AccessibilitySampleService : AccessibilityService() {
         while (node != null) {
             if (nodeInfo.isClickable) {
                 nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK)
-                break;
+                break
             }
             node = node.parent
         }
@@ -221,7 +265,8 @@ class AccessibilitySampleService : AccessibilityService() {
                         super.onCompleted(gestureDescription)
                         Logger.i("dispatchGesture onCompleted")
                     }
-                }, mHandler
+                },
+                mHandler
             )
             Logger.i("dispatchGesture result:$result")
         } else {

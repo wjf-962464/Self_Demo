@@ -1,5 +1,6 @@
 package com.wjf.self_library.common;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +26,8 @@ public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
 
     protected CommonAdapter(Context context, List<T> data) {
         this.context = context;
-        this.data = data;
+        this.data = new ArrayList<>();
+        this.data.addAll(data);
     }
 
     @NonNull
@@ -46,6 +49,12 @@ public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
         return data == null ? 0 : data.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void submitList(List<T> data) {
+        this.data.addAll(data);
+        notifyDataSetChanged();
+    }
+
     /**
      * 设置布局
      *
@@ -57,7 +66,7 @@ public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
      * 绑定View
      *
      * @param entity 数据实体
-     * @param view   容器
+     * @param view 容器
      */
     protected abstract void setHolder(T entity, Holder view);
 

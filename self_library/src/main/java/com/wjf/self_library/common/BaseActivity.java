@@ -1,6 +1,5 @@
 package com.wjf.self_library.common;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;

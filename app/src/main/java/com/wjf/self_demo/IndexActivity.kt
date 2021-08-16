@@ -9,13 +9,13 @@ import com.wjf.self_demo.adapter.IndexListAdapter
 import com.wjf.self_demo.databinding.ActivityIndexBinding
 import com.wjf.self_demo.entity.IndexListMenu
 import com.wjf.self_library.common.BaseActivity
-import kotlinx.android.synthetic.main.activity_index.*
 import java.util.*
+import kotlinx.android.synthetic.main.activity_index.*
 
 /** @author Wangjf2-DESKTOP
  */
 class IndexActivity :
-    BaseActivity<ActivityIndexBinding?>() {
+    BaseActivity<ActivityIndexBinding>() {
     private val data: MutableList<IndexListMenu> =
         ArrayList()
     private var adapter: IndexListAdapter? = null

@@ -2,15 +2,11 @@ package com.wjf.self_demo.activity
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.wjf.barcode.Logger
 import com.wjf.self_demo.R
@@ -23,8 +19,8 @@ import com.wjf.self_demo.view.EditTextDialog
 import com.wjf.self_library.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_phone_call.*
 
-
-class PhoneCallActivity : BaseActivity<ActivityPhoneCallBinding>(),
+class PhoneCallActivity :
+    BaseActivity<ActivityPhoneCallBinding>(),
     CallingStateListener.OnCallStateChangedListener {
     private var phoneCallListener: CallingStateListener? = null
     private var mHandler: Handler? = null
@@ -36,12 +32,14 @@ class PhoneCallActivity : BaseActivity<ActivityPhoneCallBinding>(),
 
     override fun initView() {
         mIntent = Intent(Intent.ACTION_CALL)
-        phoneCallBean.phoneNumData.observe(this,
+        phoneCallBean.phoneNumData.observe(
+            this,
             object : Observer<String?> {
                 override fun onChanged(t: String?) {
                     mIntent?.data = Uri.parse("tel:$t")
                 }
-            })
+            }
+        )
 
         phoneCallListener = CallingStateListener(this)
         phoneCallListener?.setOnCallStateChangedListener(this)
@@ -70,7 +68,6 @@ class PhoneCallActivity : BaseActivity<ActivityPhoneCallBinding>(),
         addPermission(Manifest.permission.CALL_PHONE).requestPermission()
         phoneCallBean.phoneNum = "01062300568"
     }
-
 
     override fun onCallStateChanged(state: Int, number: String?) {
         when (state) {

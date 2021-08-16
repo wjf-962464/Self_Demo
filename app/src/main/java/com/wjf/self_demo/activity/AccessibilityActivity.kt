@@ -27,13 +27,12 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (AccessibilitySampleService.isStart){
-            startActivity(Intent(this,PhoneCallActivity::class.java))
+        if (AccessibilitySampleService.isStart) {
+            startActivity(Intent(this, PhoneCallActivity::class.java))
             finish()
         }
     }
 
     override fun initData() {
-
     }
 }

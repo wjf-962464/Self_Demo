@@ -9,7 +9,6 @@ import com.wjf.self_demo.view.MyDialog
 import com.wjf.self_library.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 /**
  * @author Wangjf2-DESKTOP
  */

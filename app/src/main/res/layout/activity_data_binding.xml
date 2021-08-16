@@ -4,6 +4,9 @@
         <variable
             name="user"
             type="com.wjf.self_demo.jetpack.User" />
+        <variable
+            name="viewModel"
+            type="com.wjf.self_demo.jetpack.UserModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,6 +33,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{user.age}"/>
+        <TextView
+            android:id="@+id/userModelName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.name}"/>
+
+        <TextView
+            android:id="@+id/userModelAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.age}"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
