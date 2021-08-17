@@ -52,6 +52,11 @@ public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
         notifyDataSetChanged();
     }
 
+    public void resubmitList(List<T> data) {
+        this.data.clear();
+        submitList(data);
+    }
+
     /**
      * 设置布局
      *

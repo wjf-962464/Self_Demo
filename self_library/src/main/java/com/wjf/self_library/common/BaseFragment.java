@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
+import com.wjf.self_library.BuildConfig;
 import com.wjf.self_library.R;
 import com.wjf.self_library.util.StatusBar.StatusBarUtil;
 import com.wjf.self_library.view.codingUI.CommonToolbar;
@@ -23,9 +24,7 @@ import com.wjf.self_library.view.codingUI.CommonToolbar;
  */
 public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     protected T view;
-    /**
-     * 封装toolbar
-     */
+    /** 封装toolbar */
     protected CommonToolbar commonToolbar;
 
     private boolean isLoaded = false;
@@ -63,7 +62,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (hidden) {
-            Log.i("wjf", "---" + this.getClass().getCanonicalName() + "隐藏");
+            Log.i(BuildConfig.TAG, "---" + this.getClass().getCanonicalName() + "隐藏");
         }
         lazyInit();
     }
@@ -85,9 +84,12 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
             initView();
             initData();
             isLoaded = true;
-            Log.i("wjf", "---" + this.getClass().getCanonicalName() + "加载");
+            Log.i(BuildConfig.TAG, "---" + this.getClass().getCanonicalName() + "加载");
         }
     }
+
+    /** 订阅ViewModel */
+    protected void subscribeUi() {}
 
     /**
      * 设置布局

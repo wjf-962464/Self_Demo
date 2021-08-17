@@ -37,7 +37,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackA
     /** 封装toolbar */
     protected CommonToolbar commonToolbar;
 
-    private ArrayList<String> permissionString = new ArrayList<>();
+    private final ArrayList<String> permissionString = new ArrayList<>();
     protected T view;
     private final int PERMISSIONS_REQUEST = 0x001;
 
@@ -82,8 +82,6 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackA
             disableSwipeOut();
         }
     }
-
-    protected void subscribeUi() {}
 
     /** 黑色主题透明状态栏 */
     public void darkTranslucentStatus() {
@@ -186,6 +184,9 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackA
 
     /** 初始化数据 */
     protected abstract void initData();
+
+    /** 订阅ViewModel */
+    protected void subscribeUi() {}
 
     protected void doSomethingAfterGranted() {}
 
