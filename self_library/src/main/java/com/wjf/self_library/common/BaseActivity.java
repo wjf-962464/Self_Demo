@@ -59,6 +59,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackA
         initColorStatusBar();
         initView();
         initData();
+        subscribeUi();
     }
 
     private void initSwipeActivity() {
@@ -81,6 +82,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends SwipeBackA
             disableSwipeOut();
         }
     }
+
+    protected void subscribeUi() {}
 
     /** 黑色主题透明状态栏 */
     public void darkTranslucentStatus() {

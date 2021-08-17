@@ -58,7 +58,7 @@ class AccessibilitySampleService : AccessibilityService() {
                     } else {
                         findViewByID("com.android.incallui:id/single_call_status")
                     }
-//                listenCallStatus(phoneStatusBtn)
+                listenCallStatus(phoneStatusBtn)
                 openVoice()
 /*                if (!HAND_FREE) {
                     getAllIds(rootInActiveWindow)
@@ -72,7 +72,7 @@ class AccessibilitySampleService : AccessibilityService() {
 
     private fun listenCallStatus(phoneStatusBtn: AccessibilityNodeInfo?) {
         if (phoneStatusBtn != null && phoneStatusBtn.text != null) {
-            openVoice()
+//            openVoice()
             when (phoneStatusBtn.text) {
                 "通话结束" -> {
                     clickTextViewByID("com.android.incallui:id/endButton")
@@ -97,9 +97,9 @@ class AccessibilitySampleService : AccessibilityService() {
                 Logger.e("node ：${node?.isClickable}")
                 if (node?.isChecked == false && node.isClickable) {
                     performViewClick(node)
-                    node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
                     node.performAction(AccessibilityNodeInfo.ACTION_SELECT)
                     node.performAction(AccessibilityNodeInfo.ACTION_FOCUS)
+                    node.performAction(AccessibilityNodeInfo.ACTION_CLICK)
                     HAND_FREE = true
                     performViewClick(node)
                     return
