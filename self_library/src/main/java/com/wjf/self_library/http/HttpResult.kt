@@ -1,45 +1,17 @@
-package com.wjf.self_library.http;
+package com.wjf.self_library.http
 
-import android.support.annotation.NonNull;
+import com.google.gson.Gson
+import java.io.Serializable
 
-import java.io.Serializable;
-
-public class HttpResult<T> implements Serializable {
-    private int resultCode;
-    private String message;
-    private T data;
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "HttpResult{"+
-                "data="+data+
-                ", resultCode="+resultCode+
-                ", message="+message+'\''+
-                '}';
+/**
+ * @author WJF
+ */
+data class HttpResult<T>(
+    var resultCode: Int,
+    var message: String,
+    var data: T
+) : Serializable {
+    override fun toString(): String {
+        return "resultCode：$resultCode\nmessage：$message\ndata：${Gson().toJson(data)}"
     }
 }
