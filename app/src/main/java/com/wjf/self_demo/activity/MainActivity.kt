@@ -4,9 +4,10 @@ import android.view.Gravity
 import android.view.WindowManager
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityMainBinding
-import com.wjf.self_demo.util.click
+
 import com.wjf.self_demo.view.MyDialog
 import com.wjf.self_library.common.BaseActivity
+import com.wjf.self_library.common.click
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**

@@ -83,6 +83,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
         if (!isLoaded && !isHidden()) {
             initView();
             initData();
+            subscribeUi();
             isLoaded = true;
             Log.i(BuildConfig.TAG, "---" + this.getClass().getCanonicalName() + "加载");
         }

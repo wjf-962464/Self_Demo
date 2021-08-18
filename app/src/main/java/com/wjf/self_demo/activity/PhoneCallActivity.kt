@@ -14,9 +14,10 @@ import com.wjf.self_demo.databinding.ActivityPhoneCallBinding
 import com.wjf.self_demo.entity.PhoneCallBean
 import com.wjf.self_demo.util.AccessibilitySampleService
 import com.wjf.self_demo.util.CallingStateListener
-import com.wjf.self_demo.util.click
+
 import com.wjf.self_demo.view.EditTextDialog
 import com.wjf.self_library.common.BaseActivity
+import com.wjf.self_library.common.click
 import kotlinx.android.synthetic.main.activity_phone_call.*
 
 class PhoneCallActivity :
