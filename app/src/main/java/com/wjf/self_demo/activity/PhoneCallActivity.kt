@@ -14,11 +14,10 @@ import com.wjf.self_demo.databinding.ActivityPhoneCallBinding
 import com.wjf.self_demo.entity.PhoneCallBean
 import com.wjf.self_demo.util.AccessibilitySampleService
 import com.wjf.self_demo.util.CallingStateListener
-
 import com.wjf.self_demo.view.EditTextDialog
 import com.wjf.self_library.common.BaseActivity
+import com.wjf.self_library.common.BaseDialog
 import com.wjf.self_library.common.click
-import kotlinx.android.synthetic.main.activity_phone_call.*
 
 class PhoneCallActivity :
     BaseActivity<ActivityPhoneCallBinding>(),
@@ -46,21 +45,24 @@ class PhoneCallActivity :
         phoneCallListener?.setOnCallStateChangedListener(this)
 
         mHandler = Handler(Looper.getMainLooper())
-        dialog = EditTextDialog(this).setSubmitListener {
-            phoneCallBean.phoneNum = it
-        }.width(WindowManager.LayoutParams.MATCH_PARENT)
+        dialog =
+            EditTextDialog(this).setSubmitListener(object : BaseDialog.DialogClickListener<String> {
+            override fun onClick(value: String) {
+                phoneCallBean.phoneNum = value
+            }
+        }).width(WindowManager.LayoutParams.MATCH_PARENT)
             .height(WindowManager.LayoutParams.WRAP_CONTENT)
             .cancelOnTouch(true)
             .gravity(Gravity.BOTTOM) as EditTextDialog?
 
         view.bean = phoneCallBean
-        btn.click {
+        view.btn.click {
             if (!phoneCallBean.isCallFlag) {
                 startActivity(mIntent)
             }
             phoneCallBean.opposeFlag()
         }
-        contentHint.click {
+        view.contentHint.click {
             dialog?.show()
         }
     }

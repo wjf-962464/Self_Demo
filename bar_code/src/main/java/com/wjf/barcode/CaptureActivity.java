@@ -59,7 +59,7 @@ public class CaptureActivity extends BaseActivity<ActivityCaptureBinding>
 
         Animation animationSet = AnimationUtils.loadAnimation(this, R.anim.scan_anim);
         animationSet.setInterpolator(new DecelerateInterpolator());
-        view.captureScanLine.startAnimation(animationSet);
+        getView().captureScanLine.startAnimation(animationSet);
     }
 
     @Override

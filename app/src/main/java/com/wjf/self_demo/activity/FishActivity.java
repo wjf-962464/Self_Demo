@@ -7,6 +7,7 @@ import com.wjf.self_demo.databinding.ActivityFishBinding;
 import com.wjf.self_demo.view.FishDrawable;
 import com.wjf.self_library.common.BaseActivity;
 
+/** @author WJF */
 public class FishActivity extends BaseActivity<ActivityFishBinding> {
 
     @Override
@@ -17,9 +18,9 @@ public class FishActivity extends BaseActivity<ActivityFishBinding> {
     @Override
     protected void initView() {
         view.fishImg.setImageDrawable(new FishDrawable());
-        addPermission(Manifest.permission.CALL_PHONE).addPermission(Manifest.permission.ACCEPT_HANDOVER).requestPermission();
-
-
+        addPermission(Manifest.permission.CALL_PHONE)
+                .addPermission(Manifest.permission.ACCEPT_HANDOVER)
+                .requestPermission();
     }
 
     @Override

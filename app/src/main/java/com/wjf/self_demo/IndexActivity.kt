@@ -42,6 +42,7 @@ class IndexActivity :
         data.add(IndexListMenu(AccessibilityActivity::class.java, "辅助功能"))
         data.add(IndexListMenu(PaletteActivity::class.java, "调色板"))
         data.add(IndexListMenu(HttpActivity::class.java, "网络请求"))
+        data.add(IndexListMenu(TabActivity::class.java, "Tab分页"))
         CaptureActivity.setDecodeResultCallback { result: String ->
             Log.d(
                 "WJF_DEBUG",

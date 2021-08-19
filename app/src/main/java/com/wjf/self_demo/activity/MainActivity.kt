@@ -4,7 +4,6 @@ import android.view.Gravity
 import android.view.WindowManager
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityMainBinding
-
 import com.wjf.self_demo.view.MyDialog
 import com.wjf.self_library.common.BaseActivity
 import com.wjf.self_library.common.click
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @author Wangjf2-DESKTOP
  */
 class MainActivity :
-    BaseActivity<ActivityMainBinding?>() {
+    BaseActivity<ActivityMainBinding>() {
     override fun setLayout(): Int {
         return R.layout.activity_main
     }
@@ -31,7 +30,7 @@ class MainActivity :
                 .height(WindowManager.LayoutParams.MATCH_PARENT)
                 .width(WindowManager.LayoutParams.MATCH_PARENT).gravity(Gravity.CENTER)
                 .cancelOnTouch(true)
-        btn1.click {
+        view.btn1.click {
             myDialog1.show()
         }
         btn2.click {

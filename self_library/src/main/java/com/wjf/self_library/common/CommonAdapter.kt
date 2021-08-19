@@ -1,60 +1,47 @@
-package com.wjf.self_library.common;
+package com.wjf.self_library.common
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
+import java.util.*
 
 /**
  * @author : Wangjf
  * @date : 2021/1/19
  */
-public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
-        extends RecyclerView.Adapter<CommonAdapter.ViewHolder> {
-    protected final List<T> data;
-    protected Context context;
-    private Holder holder;
-
-    protected CommonAdapter() {
-        this.data = new ArrayList<>();
+abstract class CommonAdapter<Holder : ViewDataBinding, T> protected constructor() :
+    RecyclerView.Adapter<CommonAdapter.ViewHolder>() {
+    protected val data: MutableList<T>
+    protected lateinit var context: Context
+    private lateinit var holder: Holder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context = parent.context
+        holder = DataBindingUtil.inflate(LayoutInflater.from(context), setLayout(), parent, false)
+        return ViewHolder(holder.root)
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        this.context = parent.getContext();
-        View root = LayoutInflater.from(context).inflate(setLayout(), parent, false);
-        holder = DataBindingUtil.bind(root);
-        return new ViewHolder(root);
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val entity = data[position]
+        setHolder(entity, this.holder)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final T entity = data.get(position);
-        setHolder(entity, this.holder);
+    override fun getItemCount(): Int {
+        return data.size
     }
 
-    @Override
-    public int getItemCount() {
-        return data.size();
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(data: List<T>?) {
+        this.data.addAll(data!!)
+        notifyDataSetChanged()
     }
 
-    public void submitList(List<T> data) {
-        this.data.addAll(data);
-        notifyDataSetChanged();
-    }
-
-    public void resubmitList(List<T> data) {
-        this.data.clear();
-        submitList(data);
+    fun clearList() {
+        this.data.clear()
     }
 
     /**
@@ -62,7 +49,7 @@ public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
      *
      * @return 布局id
      */
-    protected abstract int setLayout();
+    protected abstract fun setLayout(): Int
 
     /**
      * 绑定View
@@ -70,11 +57,10 @@ public abstract class CommonAdapter<Holder extends ViewDataBinding, T>
      * @param entity 数据实体
      * @param view 容器
      */
-    protected abstract void setHolder(T entity, Holder view);
+    protected abstract fun setHolder(entity: T, view: Holder)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
+    init {
+        data = ArrayList()
     }
 }

@@ -1,7 +1,6 @@
 package com.wjf.self_demo.view;
 
 import android.content.Context;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -9,30 +8,20 @@ import com.wjf.self_demo.R;
 import com.wjf.self_demo.databinding.DialogEditBinding;
 import com.wjf.self_library.common.BaseDialog;
 
-/**
- * @author WJF
- */
+/** @author WJF */
 public class EditTextDialog extends BaseDialog<DialogEditBinding> {
-
 
     public EditTextDialog(@NonNull Context context) {
         super(context);
     }
 
-    @Override
-    protected void initView(DialogEditBinding view) {
-
-    }
-
-    public EditTextDialog setSubmitListener(BaseDialog.DialogClickListener<String> listener){
-        view.submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onClick(view.inputEdit.getText().toString().trim());
-                view.inputEdit.setText("");
-                EditTextDialog.this.dismiss();
-            }
-        });
+    public EditTextDialog setSubmitListener(BaseDialog.DialogClickListener<String> listener) {
+        view.submitBtn.setOnClickListener(
+                v -> {
+                    listener.onClick(getView().inputEdit.getText().toString().trim());
+                    getView().inputEdit.setText("");
+                    EditTextDialog.this.dismiss();
+                });
         return this;
     }
 
@@ -41,4 +30,6 @@ public class EditTextDialog extends BaseDialog<DialogEditBinding> {
         return R.layout.dialog_edit;
     }
 
+    @Override
+    protected void initView(@NonNull DialogEditBinding view) {}
 }
