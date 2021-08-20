@@ -19,7 +19,7 @@ import com.wjf.self_library.view.codingUI.CommonToolbar
  * @date : 2021/1/19
  */
 abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
-    protected lateinit var view: T
+    protected lateinit var bind: T
 
     /** 封装toolbar  */
     protected var commonToolbar: CommonToolbar? = null
@@ -31,9 +31,9 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        view = DataBindingUtil.inflate(inflater, setLayout(), container, false)
-        initColorStatusBar(view.root)
-        return view.root
+        bind = DataBindingUtil.inflate(inflater, setLayout(), container, false)
+        initColorStatusBar(bind.root)
+        return bind.root
     }
 
     private fun initColorStatusBar(view: View) {
