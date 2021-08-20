@@ -7,16 +7,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".activity.PaletteActivity">
+
         <View
+            android:id="@+id/colorBar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/colorBar"/>
+            android:layout_height="200dp" />
+
         <ImageView
             android:id="@+id/colorImg"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/img_1"
-            android:scaleType="fitXY"/>
+            android:layout_marginTop="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_1" />
     </LinearLayout>
 </layout>
