@@ -1,13 +1,14 @@
 package com.wjf.self_library.common
 
-import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.wjf.self_library.BuildConfig
 import java.util.*
 
 /**
@@ -27,6 +28,8 @@ abstract class CommonAdapter<Holder : ViewDataBinding, T> protected constructor(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val entity = data[position]
+        holder.setIsRecyclable(false)
+        Log.d(BuildConfig.TAG, "position:$position")
         setHolder(entity, this.holder)
     }
 
@@ -34,9 +37,8 @@ abstract class CommonAdapter<Holder : ViewDataBinding, T> protected constructor(
         return data.size
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitList(data: List<T>?) {
-        this.data.addAll(data!!)
+    fun submitList(data: List<T>) {
+        this.data.addAll(data)
         notifyDataSetChanged()
     }
 
@@ -58,6 +60,7 @@ abstract class CommonAdapter<Holder : ViewDataBinding, T> protected constructor(
      * @param view 容器
      */
     protected abstract fun setHolder(entity: T, view: Holder)
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     init {

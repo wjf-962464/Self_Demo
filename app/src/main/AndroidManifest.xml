@@ -51,11 +51,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.TabActivity"
-            android:exported="true" />
+            android:name=".activity.TabActivity" />
         <activity
-            android:name=".activity.HttpActivity"
-            android:exported="true" />
+            android:name=".activity.HttpActivity" />
         <activity android:name=".activity.PaletteActivity" />
         <activity android:name=".activity.ViewModelActivity" />
         <activity android:name=".activity.DataBindingActivity" />
