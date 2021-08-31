@@ -6,9 +6,9 @@ import android.widget.Toast
 import com.orhanobut.logger.Logger
 import com.wjf.self_library.BuildConfig
 import com.wjf.self_library.common.BaseApplication
-import rx.Subscriber
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+import rx.Subscriber
 
 /** @author WJF
  */
@@ -17,14 +17,14 @@ class BaseSubscriber<T>(private val isLoading: Boolean, val success: ((HttpResul
     private val context: Context? by lazy { BaseApplication.context.get() }
     override fun onStart() {
         if (isLoading) {
-            //显示加载库
+            // 显示加载库
             Log.i(BuildConfig.TAG, "need loading")
         }
     }
 
     override fun onCompleted() {
         if (isLoading) {
-            //关闭加载库
+            // 关闭加载库
             Log.i(BuildConfig.TAG, "close loading")
         }
     }

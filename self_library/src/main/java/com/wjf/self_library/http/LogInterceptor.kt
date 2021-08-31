@@ -3,11 +3,11 @@ package com.wjf.self_library.http
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
 import com.wjf.self_library.util.common.TimeUtils
+import java.nio.charset.Charset
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import okio.Buffer
-import java.nio.charset.Charset
 
 /**
  * @author WJF

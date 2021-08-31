@@ -1,10 +1,10 @@
 package com.wjf.self_library.http
 
+import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 /** @author WJF
  */
@@ -59,7 +59,4 @@ class HttpManager private constructor(builder: Builder) {
             return this
         }
     }
-
-
 }
-

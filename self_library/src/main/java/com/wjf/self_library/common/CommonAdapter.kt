@@ -1,14 +1,12 @@
 package com.wjf.self_library.common
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.wjf.self_library.BuildConfig
 import java.util.*
 
 /**
@@ -27,10 +25,12 @@ abstract class CommonAdapter<Holder : ViewDataBinding, T> protected constructor(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val entity = data[position]
-        holder.setIsRecyclable(false)
-        Log.d(BuildConfig.TAG, "position:$position")
+        val entity = data[holder.layoutPosition]
         setHolder(entity, this.holder)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     override fun getItemCount(): Int {
