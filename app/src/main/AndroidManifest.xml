@@ -50,17 +50,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activity.TabActivity" />
-        <activity
-            android:name=".activity.HttpActivity" />
+        <activity android:name=".activity.TabActivity" />
+        <activity android:name=".activity.HttpActivity" />
         <activity android:name=".activity.PaletteActivity" />
         <activity android:name=".activity.ViewModelActivity" />
         <activity android:name=".activity.DataBindingActivity" />
         <activity android:name=".activity.LiveDataBusActivity" />
         <activity android:name=".activity.LiveDataActivity" />
         <activity android:name=".activity.ViewActivity" />
-        <activity android:name=".activity.AccessibilityActivity" />
+        <activity android:name=".activity.AccessibilityActivity"></activity>
         <activity android:name=".activity.PhoneCallActivity" />
         <activity android:name=".activity.DemoActivity" />
         <activity android:name=".activity.FishActivity" />
@@ -85,6 +83,19 @@
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_config" />
+        </service>
+        <service
+            android:name=".util.AccessibilityClockService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_clock_config" />
         </service>
     </application>
 

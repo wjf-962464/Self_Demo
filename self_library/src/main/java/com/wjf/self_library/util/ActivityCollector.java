@@ -5,9 +5,7 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Wangjf2-DESKTOP
- */
+/** @author Wangjf2-DESKTOP */
 public class ActivityCollector {
     private static final List<Activity> ACT_LIST = new ArrayList<>();
 
