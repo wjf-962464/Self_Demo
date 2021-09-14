@@ -6,4 +6,7 @@
     <string name="accessibility_clock_desc">辅助打卡</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="device_admin_description">设备管理者描述</string>
+    <string name="device_admin">设备管理者</string>
 </resources>

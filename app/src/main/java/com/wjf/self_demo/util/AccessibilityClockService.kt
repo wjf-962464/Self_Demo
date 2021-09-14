@@ -2,6 +2,7 @@ package com.wjf.self_demo.util
 
 import android.accessibilityservice.AccessibilityService
 import android.app.Notification
+import android.app.admin.DevicePolicyManager
 import android.os.Handler
 import android.os.Looper
 import android.view.accessibility.AccessibilityEvent
@@ -15,8 +16,11 @@ class AccessibilityClockService : AccessibilityService() {
     private val PACKAGE_NAME_QQ = "com.tencent.mobileqq"
     private val offArray = arrayOf("工作台", "打卡", "下班打卡")
     private var offIndex = 0
-    private val onArray = arrayOf("工作台", "打卡", "下班打卡")
+    private val onArray = arrayOf("工作台", "打卡", "上班打卡")
     private var onIndex = 0
+    private val devicePolicyManager: DevicePolicyManager by lazy {
+        getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
+    }
 
     // 初始化
     override fun onServiceConnected() {
@@ -30,7 +34,7 @@ class AccessibilityClockService : AccessibilityService() {
 
     // 实现辅助功能
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        Logger.d("onAccessibilityEvent${event.eventType}")
+        Logger.v("onAccessibilityEvent${event.eventType}")
         val eventType = event.eventType
         var eventText = ""
         when (eventType) {
@@ -66,7 +70,7 @@ class AccessibilityClockService : AccessibilityService() {
             }
         }
         if (eventText.isNotEmpty()) {
-            Logger.d(" \r\n======\r\n||eventText：$eventText\r\n||eventType：$eventType\r\n=====")
+            Logger.v(" \r\n======\r\n||eventText：$eventText\r\n||eventType：$eventType\r\n=====")
         }
     }
 
@@ -78,6 +82,7 @@ class AccessibilityClockService : AccessibilityService() {
     private fun listenNotification(pkn: String, msg: String) {
         when (pkn) {
             PACKAGE_NAME_QQ -> {
+                Logger.d("$pkn 的消息：$msg")
                 when (msg) {
                     "上班" -> {
                         openClockPage(true)
@@ -85,6 +90,10 @@ class AccessibilityClockService : AccessibilityService() {
                     "下班" -> {
                         openClockPage(false)
                         Logger.d("下班")
+                    }
+                    "锁屏" -> {
+                        devicePolicyManager.lockNow()
+                        ScreenLockManager.wakeAndUnlock(this, false)
                     }
                     else -> {
                         Logger.d("$pkn 的消息：$msg")
@@ -98,6 +107,7 @@ class AccessibilityClockService : AccessibilityService() {
      * 执行打卡流程
      */
     private fun openClockPage(workSwitch: Boolean) {
+        ScreenLockManager.wakeAndUnlock(this, true)
         AccessibilityHelper.openCLD(this)
         Thread.sleep(5000L)
         if (workSwitch) {
@@ -106,6 +116,21 @@ class AccessibilityClockService : AccessibilityService() {
         } else {
             offIndex = switchWork(offArray, offIndex)
             onceFlag = offIndex == offArray.size - 1
+        }
+        checkClock(onceFlag, workSwitch)
+    }
+
+    private fun checkClock(flag: Boolean, switch: Boolean) {
+        if (flag) {
+            // TODO 检查操作
+            Thread.sleep(5000L)
+            onceFlag = false
+            if (switch) {
+                onIndex = 0
+            } else {
+                offIndex = 0
+            }
+            devicePolicyManager.lockNow()
         }
     }
 
@@ -121,7 +146,7 @@ class AccessibilityClockService : AccessibilityService() {
         var endIndex = startIndex
         var tab: String
         for (index in startIndex until len) {
-            tab = offArray[index]
+            tab = workArray[index]
             if (!openTab(tab)) {
                 endIndex = index
                 break
@@ -155,10 +180,10 @@ class AccessibilityClockService : AccessibilityService() {
             Logger.d("${node}不可点击")
             val nodeParent = node.parent
             if (nodeParent == null) {
-                Logger.d("${node}没爹")
+                Logger.v("${node}没爹")
                 false
             } else {
-                Logger.d("${node}有爹")
+                Logger.v("${node}有爹")
                 doClickableTab(nodeParent)
             }
         } else {
