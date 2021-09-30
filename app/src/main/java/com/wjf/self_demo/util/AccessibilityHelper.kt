@@ -5,6 +5,7 @@ import android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK
 import android.accessibilityservice.GestureDescription
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.app.ActivityManager
 import android.app.PendingIntent
 import android.app.PendingIntent.CanceledException
 import android.content.ComponentName
@@ -18,43 +19,76 @@ import android.os.Handler
 import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
 import com.orhanobut.logger.Logger
+import com.wjf.self_demo.entity.AccessibilityTab
 
 class AccessibilityHelper {
     companion object {
         const val PACKAGE_WEWORK = "com.tencent.wework"
+        const val PACKAGE_NAME_QQ = "com.tencent.mobileqq"
+        const val PACKAGE_NAME_MY_DEBUG = "com.wjf.self_demo.debug"
+        const val PACKAGE_NAME_MIUI = "com.miui.home"
+        const val PACKAGE_NAME_SYSTEMUI = "com.android.systemui"
+
+        fun closeApp(context: Context, pkn: String) {
+            try {
+                val am =
+                    context.getSystemService(AccessibilityService.ACTIVITY_SERVICE) as ActivityManager
+                val method =
+                    Class.forName(pkn).getMethod(
+                        "forceStopPackage", String::class.java
+                    )
+                method.isAccessible = true
+                method.invoke(am, PACKAGE_NAME_MY_DEBUG)
+            } catch (e: Exception) {
+                Logger.e("closeApp error", e)
+            }
+        }
 
         @SuppressLint("QueryPermissionsNeeded")
-        fun openCLD(context: Context) {
+        fun openApp(context: Context, pkn: String) {
             val packageManager = context.packageManager
             var packageInfo: PackageInfo? = null
             try {
-                packageInfo = packageManager.getPackageInfo(PACKAGE_WEWORK, 0)
+                packageInfo = packageManager.getPackageInfo(pkn, 0)
             } catch (e: PackageManager.NameNotFoundException) {
                 Logger.e("packageManager.getPackageInfo error", e)
             }
+            if (packageInfo == null) {
+                return
+            }
+
             val resolveIntent = Intent(Intent.ACTION_MAIN, null)
             resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER)
-            resolveIntent.setPackage(packageInfo?.packageName)
-            val apps = packageManager.queryIntentActivities(resolveIntent, 0)
-            val ri = apps.iterator().next()
-            if (ri != null) {
-                val className = ri.activityInfo.name
+            resolveIntent.setPackage(packageInfo.packageName)
+            // 通过getPackageManager()的queryIntentActivities方法遍历
+            val resolveInfoList = packageManager.queryIntentActivities(resolveIntent, 0)
+            val resolveInfo = resolveInfoList.iterator().next()
+            if (resolveInfo != null) {
+                val className = resolveInfo.activityInfo.name
+                val packageName = resolveInfo.activityInfo.packageName
+                Logger.v("className$className")
                 val intent = Intent(Intent.ACTION_MAIN)
                 intent.addCategory(Intent.CATEGORY_LAUNCHER)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                val cn = ComponentName(PACKAGE_WEWORK, className)
+                val cn = ComponentName(packageName, className)
                 intent.component = cn
 //            context.startActivity(intent);
                 //            context.startActivity(intent);
                 val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
                 try {
-                    pendingIntent.send()
+//                    pendingIntent.send()
+                    context.startActivity(intent)
+                    Logger.v("已打开$pkn")
                 } catch (e: CanceledException) {
                     Logger.e(" pendingIntent.send() error", e)
                 }
             }
         }
     }
+}
+
+internal fun AccessibilityService.findViewByID(id: String, pkn: String): AccessibilityNodeInfo? {
+    return findViewByID("$pkn:id/$id")
 }
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -76,7 +110,7 @@ internal fun AccessibilityService.findViewByID(id: String?): AccessibilityNodeIn
 
 internal fun AccessibilityService.getAllIds(node: AccessibilityNodeInfo) {
     AccessibilitySampleService.HAND_FREE = true
-    Logger.d("id：${node.viewIdResourceName}")
+    Logger.v("id：${node.viewIdResourceName}；text：${node.text}；toString：$node")
     val count = node.childCount
     if (count <= 0) {
         return
@@ -103,7 +137,7 @@ internal fun AccessibilityService.clickTextViewByID(id: String?): Boolean {
         for (nodeInfo in nodeInfoList) {
             if (nodeInfo != null) {
                 performViewClick(nodeInfo)
-                Logger.i("点击${nodeInfo.contentDescription}")
+                Logger.v("点击${nodeInfo.contentDescription}")
                 return true
             }
         }
@@ -119,7 +153,7 @@ internal fun AccessibilityService.clickTextViewByText(text: String?) {
         for (nodeInfo in nodeInfoList) {
             if (nodeInfo != null) {
                 performViewClick(nodeInfo)
-                Logger.i("点击${nodeInfo.text}")
+                Logger.v("点击${nodeInfo.text}")
                 break
             }
         }
@@ -152,6 +186,28 @@ internal fun AccessibilityService.findViewByText(
     if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
         for (nodeInfo in nodeInfoList) {
             if (nodeInfo != null && (nodeInfo.isClickable == clickable)) {
+                return nodeInfo
+            }
+        }
+    }
+    return null
+}
+
+/**
+ * 查找对应文本的View
+ *
+ * @param text      text
+ * @param clickable 该View是否可以点击
+ * @return View
+ */
+internal fun AccessibilityService.findViewByTab(
+    tab: AccessibilityTab
+): AccessibilityNodeInfo? {
+    val accessibilityNodeInfo = rootInActiveWindow ?: return null
+    val nodeInfoList = accessibilityNodeInfo.findAccessibilityNodeInfosByText(tab.text)
+    if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
+        for (nodeInfo in nodeInfoList) {
+            if (nodeInfo != null && nodeInfo.viewIdResourceName == tab.fullId) {
                 return nodeInfo
             }
         }
@@ -209,17 +265,17 @@ internal fun AccessibilityService.doFigureClick(x: Float, y: Float, handler: Han
             object : AccessibilityService.GestureResultCallback() {
                 override fun onCancelled(gestureDescription: GestureDescription?) {
                     super.onCancelled(gestureDescription)
-                    Logger.i("dispatchGesture onCancelled")
+                    Logger.v("dispatchGesture onCancelled")
                 }
 
                 override fun onCompleted(gestureDescription: GestureDescription?) {
                     super.onCompleted(gestureDescription)
-                    Logger.i("dispatchGesture onCompleted")
+                    Logger.v("dispatchGesture onCompleted")
                 }
             },
             handler
         )
-        Logger.i("dispatchGesture result:$result")
+        Logger.v("dispatchGesture result:$result")
     } else {
         Logger.e("dispatchGesture版本不够")
     }

@@ -2,6 +2,7 @@ package com.wjf.self_demo.activity
 
 import android.view.Gravity
 import android.view.WindowManager
+import com.orhanobut.logger.Logger
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityMainBinding
 import com.wjf.self_demo.view.MyDialog
@@ -46,6 +47,20 @@ class MainActivity :
                                 new UserInfo("吴一鸣", "大帅哥"))));
         view.recyclerView.setLayoutManager(
                 new LinearLayoutManager(this, RecyclerView.VERTICAL, false));*/
+
+        val sp = getSharedPreferences(packageName, MODE_PRIVATE)
+        val edit = sp.edit()
+        edit.putString("key", "")
+        edit.commit()
+        val value = sp.getString("key", "sss")
+        Logger.d("key is ${value ?: "aaa"}")
+        Logger.d(
+            "key is ${
+            value?.ifEmpty {
+                "aaaaa"
+            }
+            }"
+        )
     }
 
     override fun initData() {}

@@ -43,6 +43,8 @@ class IndexActivity :
         data.add(IndexListMenu(PaletteActivity::class.java, "调色板"))
         data.add(IndexListMenu(HttpActivity::class.java, "网络请求"))
         data.add(IndexListMenu(TabActivity::class.java, "Tab分页"))
+        data.add(IndexListMenu(ConstraintLayoutStateActivity::class.java, "约束布局状态"))
+        data.add(IndexListMenu(LoadLayoutActivity::class.java, "LoadLayout"))
         CaptureActivity.setDecodeResultCallback { result: String ->
             Log.d(
                 "WJF_DEBUG",

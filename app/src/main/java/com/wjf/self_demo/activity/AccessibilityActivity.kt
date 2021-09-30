@@ -44,7 +44,6 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
                 }
             } else {
                 Logger.d("已启动")
-                AccessibilityClockService.mService?.clockProcess()
             }
         }
     }

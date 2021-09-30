@@ -23,4 +23,9 @@ ext {
             supportConstraintLayout: 'androidx.constraintlayout:constraintlayout:1.1.3',
     ]
 
+    depends = [
+            [name: 'self_library', enable: true],
+            [name: 'bar_code', enable: true],
+            [name: 'loadLayout', enable: true]
+    ]
 }

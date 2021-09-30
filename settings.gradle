@@ -1,4 +1,19 @@
-include ':self_library'
+apply from: file('config.gradle')
+def includeLibrary =
+        {
+            println "=============Start============="
+            depends.each { depend ->
+                println "library is ${depend.name}, enable is ${depend.enable}"
+                if (depend.enable) {
+                    include ":${depend.name}"
+                }
+            }
+            println "============= End ============="
+        }
+
 include ':app'
 rootProject.name = "Self_Demo"
-include ':bar_code'
+includeLibrary()
+
+
+include ':loadLayout'

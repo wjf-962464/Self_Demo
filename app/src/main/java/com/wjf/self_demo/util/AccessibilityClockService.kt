@@ -8,16 +8,24 @@ import android.os.Looper
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.orhanobut.logger.Logger
+import com.wjf.self_demo.entity.AccessibilityTab
+import com.wjf.self_demo.entity.WxAccessibilityTab
 
 class AccessibilityClockService : AccessibilityService() {
     private val handler: Handler = Handler(Looper.getMainLooper())
     private var onceFlag = false
     private val TIME_DELAY = 1000L
-    private val PACKAGE_NAME_QQ = "com.tencent.mobileqq"
-    private val offArray = arrayOf("工作台", "打卡", "下班打卡")
-    private var offIndex = 0
-    private val onArray = arrayOf("工作台", "打卡", "上班打卡")
-    private var onIndex = 0
+
+    private val offArray = listOf<AccessibilityTab>(
+        WxAccessibilityTab("f1n", "工作台"),
+        WxAccessibilityTab("frq", "打卡"),
+        WxAccessibilityTab("b4k", "下班打卡")
+    )
+    private val onArray = listOf<AccessibilityTab>(
+        WxAccessibilityTab("f1n", "工作台"),
+        WxAccessibilityTab("frq", "打卡"),
+        WxAccessibilityTab("b4k", "上班打卡")
+    )
     private val devicePolicyManager: DevicePolicyManager by lazy {
         getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
     }
@@ -42,9 +50,7 @@ class AccessibilityClockService : AccessibilityService() {
                 eventText = "TYPE_VIEW_CLICKED"
                 val noteInfo = event.source
                 noteInfo?.let {
-                    Logger.d("==============Start====================")
-                    Logger.d(noteInfo.toString())
-                    Logger.d("=============END=====================")
+                    Logger.v("==============Start====================\n ${noteInfo}\n=============END=====================")
                 }
             }
             AccessibilityEvent.TYPE_VIEW_SELECTED -> eventText = "TYPE_VIEW_SELECTED"
@@ -62,8 +68,8 @@ class AccessibilityClockService : AccessibilityService() {
                 val text = notification.extras.getString(Notification.EXTRA_TEXT)
                 val pkn = intent.creatorPackage
                 if (pkn != null && text != null) {
-                    listenNotification(pkn, text)
                     Logger.i("消息来了$title :$text---${intent.creatorPackage}|${notification.tickerText}")
+                    listenNotification(pkn, text)
                 }
             }
             else -> {
@@ -74,14 +80,9 @@ class AccessibilityClockService : AccessibilityService() {
         }
     }
 
-    fun clockProcess() {
-        Logger.d("clockProcess")
-        AccessibilityHelper.openCLD(this)
-    }
-
     private fun listenNotification(pkn: String, msg: String) {
         when (pkn) {
-            PACKAGE_NAME_QQ -> {
+            AccessibilityHelper.PACKAGE_NAME_QQ -> {
                 Logger.d("$pkn 的消息：$msg")
                 when (msg) {
                     "上班" -> {
@@ -91,9 +92,35 @@ class AccessibilityClockService : AccessibilityService() {
                         openClockPage(false)
                         Logger.d("下班")
                     }
+                    "更新" -> {
+                        ScreenLockManager.wakeAndUnlock(this, true)
+                        AccessibilityHelper.openApp(this, AccessibilityHelper.PACKAGE_WEWORK)
+                        Thread.sleep(5000L)
+                        val node = findViewByID("${AccessibilityHelper.PACKAGE_WEWORK}:id/jbp")
+                        if (node == null) {
+                            Logger.d("没有找到")
+                        }
+                        node?.let {
+                            Logger.d("text：${node.text}；clickable：${node.isClickable}")
+                            node.performClick()
+                            Thread.sleep(5000L)
+                            findTabAndClick(WxAccessibilityTab("b4k", "更新下班卡"))
+                            Thread.sleep(10000L)
+
+//                            devicePolicyManager.lockNow()
+                        }
+                    }
                     "锁屏" -> {
                         devicePolicyManager.lockNow()
                         ScreenLockManager.wakeAndUnlock(this, false)
+                    }
+                    "关闭企微" -> {
+                        AccessibilityHelper.closeApp(this, AccessibilityHelper.PACKAGE_WEWORK)
+                    }
+                    "打开企微" -> {
+                        val intent =
+                            packageManager.getLaunchIntentForPackage(AccessibilityHelper.PACKAGE_WEWORK)
+                        startActivity(intent)
                     }
                     else -> {
                         Logger.d("$pkn 的消息：$msg")
@@ -106,30 +133,68 @@ class AccessibilityClockService : AccessibilityService() {
     /**
      * 执行打卡流程
      */
-    private fun openClockPage(workSwitch: Boolean) {
-        ScreenLockManager.wakeAndUnlock(this, true)
-        AccessibilityHelper.openCLD(this)
-        Thread.sleep(5000L)
-        if (workSwitch) {
-            onIndex = switchWork(onArray, onIndex)
-            onceFlag = onIndex == onArray.size - 1
-        } else {
-            offIndex = switchWork(offArray, offIndex)
-            onceFlag = offIndex == offArray.size - 1
+    private fun openClockPage(
+        workSwitch: Boolean,
+        wakeSwitch: Boolean = true,
+        pageSwitch: Boolean = true
+    ) {
+        if (wakeSwitch) {
+            ScreenLockManager.wakeAndUnlock(this, true)
+            Thread.sleep(2000L)
         }
-        checkClock(onceFlag, workSwitch)
+        if (pageSwitch) {
+            AccessibilityHelper.openApp(this, AccessibilityHelper.PACKAGE_WEWORK)
+            handler.postDelayed({
+                val array: List<AccessibilityTab> = if (workSwitch) {
+                    onArray
+                } else {
+                    offArray
+                }
+                val startIndex = relocation(array)
+                if (startIndex == -1) {
+                    getAllIds(rootInActiveWindow)
+                    Logger.e("在其他页面")
+                    if (findViewByID("btnOk", AccessibilityHelper.PACKAGE_NAME_MIUI) != null) {
+                        Logger.w("在桌面")
+                        openClockPage(workSwitch, false)
+                    }
+                    if (findViewByID(
+                            "status_bar_container",
+                            AccessibilityHelper.PACKAGE_NAME_SYSTEMUI
+                        ) != null
+                    ) {
+                        Logger.w("在锁屏页")
+                        openClockPage(workSwitch, true)
+                    }
+                    return@postDelayed
+                }
+                val endIndex = switchWork(array, startIndex)
+                onceFlag = endIndex == offArray.size - 1
+                checkClock(onceFlag)
+            }, 2000L)
+        }
     }
 
-    private fun checkClock(flag: Boolean, switch: Boolean) {
+    private fun relocation(workArray: List<AccessibilityTab>): Int {
+        var realIndex = -1
+        val len = workArray.size
+        var tab: AccessibilityTab
+        for (i in 0 until len) {
+            tab = workArray[i]
+            if (findTabAndClick(tab, false)) {
+                realIndex = i
+                Logger.i("重定向到$workArray 的${tab.text}")
+                continue
+            }
+        }
+        return realIndex
+    }
+
+    private fun checkClock(flag: Boolean) {
         if (flag) {
             // TODO 检查操作
             Thread.sleep(5000L)
             onceFlag = false
-            if (switch) {
-                onIndex = 0
-            } else {
-                offIndex = 0
-            }
             devicePolicyManager.lockNow()
         }
     }
@@ -137,21 +202,21 @@ class AccessibilityClockService : AccessibilityService() {
     /**
      *  上下班切换
      */
-    private fun switchWork(workArray: Array<String>, startIndex: Int): Int {
+    private fun switchWork(workArray: List<AccessibilityTab>, startIndex: Int): Int {
         if (onceFlag) {
             return startIndex
         }
         onceFlag = true
         val len = workArray.size
         var endIndex = startIndex
-        var tab: String
+        var tab: AccessibilityTab
         for (index in startIndex until len) {
             tab = workArray[index]
-            if (!openTab(tab)) {
+            if (!findTabAndClick(tab)) {
                 endIndex = index
                 break
             } else {
-                Logger.i("已打开$tab")
+                Logger.i("已打开${tab.text}")
                 Thread.sleep(TIME_DELAY)
             }
         }
@@ -161,14 +226,17 @@ class AccessibilityClockService : AccessibilityService() {
     /**
      * 打开页面
      */
-    private fun openTab(text: String): Boolean {
-        val controlTab = findViewByText(text)
+    private fun findTabAndClick(tab: AccessibilityTab, doClick: Boolean = true): Boolean {
+        val controlTab = findViewByTab(tab)
         return if (controlTab == null) {
-            Logger.d("找不到$text")
+            Logger.d("找不到${tab.text}")
             false
         } else {
-            Logger.d("找到$text")
-            doClickableTab(controlTab)
+            Logger.d("找到${tab.text}")
+            if (doClick) {
+                return doClickableTab(controlTab)
+            }
+            return true
         }
     }
 

@@ -10,15 +10,6 @@ import rx.schedulers.Schedulers
 /**
  * RxJava快捷订阅
  */
-/*fun <T> Observable<HttpResult<T>>.toSubscribe(block: (HttpResult<T>) -> Unit) {
-    val subscriber = BaseSubscriber(block)
-
-    subscribeOn(Schedulers.io())
-        .unsubscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(subscriber)
-}*/
-
 fun <T> Observable<HttpResult<T>>.toSubscribe(
     isLoading: Boolean = false,
     block: (HttpResult<T>) -> Unit
