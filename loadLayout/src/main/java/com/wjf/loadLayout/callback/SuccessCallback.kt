@@ -4,7 +4,7 @@ import android.view.View
 
 class SuccessCallback() : ICallback() {
     constructor(view: View) : this() {
-        bindView(view)
+        bindLayout(view)
     }
 
     override fun layoutResource(): Int = 0

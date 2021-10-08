@@ -2,7 +2,6 @@ package com.wjf.loadLayout.callback
 
 import android.content.Context
 import android.view.View
-import com.orhanobut.logger.Logger
 import com.wjf.self_library.common.click
 
 abstract class ICallback() {
@@ -10,7 +9,7 @@ abstract class ICallback() {
     private var rootView: View? = null
     private var context: Context? = null
 
-    constructor(callOnListener: CallOnListener) : this() {
+    constructor(callOnListener: CallOnListener?) : this() {
         this.callOnListener = callOnListener
     }
 
@@ -24,7 +23,7 @@ abstract class ICallback() {
 
     fun getRootView(): View? {
         val resId = layoutResource()
-        if (resId == 0 && rootView != null) {
+        if (resId == 0 || rootView != null) {
             return rootView
         }
         if (context == null) {
@@ -32,13 +31,12 @@ abstract class ICallback() {
         }
         rootView = View.inflate(context, resId, null)
         rootView?.click {
-            Logger.d("点击了")
             callOnListener?.statusResponse()
         }
         return rootView
     }
 
-    fun bindView(view: View) {
+    fun bindLayout(view: View) {
         rootView = view
     }
 

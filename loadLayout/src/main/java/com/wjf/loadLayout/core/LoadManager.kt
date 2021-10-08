@@ -2,16 +2,17 @@ package com.wjf.loadLayout.core
 
 import androidx.lifecycle.Lifecycle
 import com.wjf.loadLayout.callback.ICallback
+import com.wjf.loadLayout.callback.SuccessCallback
 import com.wjf.loadLayout.target.ActivityTarget
 import com.wjf.loadLayout.target.ITarget
 
-class LoadLayoutManager private constructor(private val builder: Builder) {
+class LoadManager private constructor(private val builder: Builder) {
 
     private constructor() : this(Builder())
 
     companion object {
-        val instance: LoadLayoutManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            LoadLayoutManager()
+        val INSTANCE: LoadManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            LoadManager()
         }
     }
 
@@ -27,13 +28,22 @@ class LoadLayoutManager private constructor(private val builder: Builder) {
         val targetList: MutableList<ITarget> = mutableListOf(ActivityTarget())
         val callbacks: MutableList<ICallback> = mutableListOf()
 
+        init {
+            callbacks.add(SuccessCallback())
+        }
+
         fun addCallBack(callback: ICallback): Builder {
             callbacks.add(callback)
             return this
         }
 
-        fun build(): LoadLayoutManager {
-            return LoadLayoutManager(this)
+        fun setDefaultCallback(callback: ICallback): Builder {
+            callbacks[0] = callback
+            return this
+        }
+
+        fun build(): LoadManager {
+            return LoadManager(this)
         }
     }
 }

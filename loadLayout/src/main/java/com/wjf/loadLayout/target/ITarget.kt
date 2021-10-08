@@ -1,9 +1,9 @@
 package com.wjf.loadLayout.target
 
-import com.wjf.loadLayout.core.LoadLayout
+import android.widget.FrameLayout
 
 interface ITarget {
     override fun equals(target: Any?): Boolean
 
-    fun replaceView(target: Any): LoadLayout
+    fun replaceView(target: Any): FrameLayout
 }
