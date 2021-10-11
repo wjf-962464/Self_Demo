@@ -5,7 +5,9 @@ import android.os.Looper
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.get
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.wjf.loadLayout.callback.ICallback
 import com.wjf.loadLayout.util.Constants
 import com.wjf.loadLayout.util.LoadUtil
@@ -13,16 +15,25 @@ import com.wjf.loadLayout.util.LoadUtil
 class LoadService(
     private val loadLayout: FrameLayout,
     builder: LoadManager.Builder,
-    private val lifecycle: Lifecycle
-) {
+    lifecycle: Lifecycle
+) : DefaultLifecycleObserver {
     private val callbacks: MutableMap<Class<out ICallback>, ICallback> = mutableMapOf()
     private var defaultCallback: ICallback? = null
     private var preCallback: ICallback? = null
     private val handler: Handler
 
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+        preCallback = null
+        defaultCallback = null
+        callbacks.clear()
+        handler.removeCallbacksAndMessages(null)
+    }
+
     init {
         initCallbacks(builder)
         handler = Handler(Looper.getMainLooper())
+        lifecycle.addObserver(this)
     }
 
     private fun initCallbacks(builder: LoadManager.Builder) {
@@ -48,6 +59,9 @@ class LoadService(
                 }
             } else {
                 showLayout(callback)
+            }
+            LoadUtil.doInMainThread(handler) {
+                showLayout(it)
             }
         }
     }

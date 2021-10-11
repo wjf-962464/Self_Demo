@@ -28,3 +28,12 @@ fun <T> Observable<HttpResult<T>>.toSubscribe(
 fun View.click(block: View.() -> Unit) {
     this.setOnClickListener(block)
 }
+
+inline fun repeat(rounds: Int, block: (index: Int) -> Unit) {
+    if (rounds <= 0) {
+        throw IllegalArgumentException("=== fun repeat does not allow rounds smaller than num one ===")
+    }
+    for (i in 0 until rounds) {
+        block(i)
+    }
+}
