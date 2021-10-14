@@ -9,10 +9,11 @@ import android.content.Context
 import android.graphics.*
 import android.os.Build
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
+import com.orhanobut.logger.Logger
 import com.wjf.loadLayout.R
+import kotlin.math.*
 
 /** Description： @Author：桑小年 @Data：2016/7/20 17:35  */
 class BasicPathView2 : LinearLayout {
@@ -20,6 +21,7 @@ class BasicPathView2 : LinearLayout {
     private lateinit var mPaint: Paint
     private lateinit var linePath: Path
     private lateinit var movePath: Path
+    private lateinit var controlPath: Path
     private val startPoint = PointF()
     private val endPoint = PointF()
     private val touchPoint = PointF()
@@ -32,7 +34,7 @@ class BasicPathView2 : LinearLayout {
     private val cube = RectF()
     private val cubePoint = PointF()
     private lateinit var imageView: RoundImageView
-    private val percent = 3L
+    private val percent = 2L
     private val layoutParams = LayoutParams(productWidth.toInt(), productHeight.toInt())
 
     constructor(context: Context) : super(context) {
@@ -57,6 +59,7 @@ class BasicPathView2 : LinearLayout {
         mPaint.isAntiAlias = true
         linePath = Path()
         movePath = Path()
+        controlPath = Path()
         pointPaint = Paint()
         pointPaint.isAntiAlias = true
         pointPaint.isDither = true
@@ -155,6 +158,12 @@ class BasicPathView2 : LinearLayout {
             endPoint.x - productWidth / 2,
             endPoint.y - productHeight / 2
         )
+
+        mPaint.color = Color.YELLOW
+        controlPath.reset()
+        controlPath.moveTo(startPoint.x, startPoint.y)
+        controlPath.lineTo(touchPoint.x, touchPoint.y)
+        canvas.drawPath(controlPath, mPaint)
     }
 
     private fun drawPoint(color: Int, pointF: PointF, canvas: Canvas) {
@@ -162,11 +171,106 @@ class BasicPathView2 : LinearLayout {
         canvas.drawCircle(pointF.x, pointF.y, 6f, pointPaint)
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        touchPoint.x = event.x
-        touchPoint.y = event.y
-        postInvalidate()
-        return true
+    /**
+     * @param startPoint 起始点坐标
+     * @param length 要求的点到起始点的直线距离 -- 线长
+     * @param angle 与x轴的夹角角度
+     * @return
+     */
+    private fun calculatePoint(startPoint: PointF, length: Float, angle: Float): PointF {
+        // Math.cos传参是弧度，Math.toRadians用于将角度转换为弧度
+        // x差值，a=cosα *c
+        val deltaX = (cos(Math.toRadians(angle.toDouble())) * length).toFloat()
+        // y差值，b=sinα *c，这里由于坐标系翻转，所以正弦值要偏移π°，sin(x+180)=-sinx
+        val deltaY = (sin(Math.toRadians((180 - angle).toDouble())) * length).toFloat()
+        return PointF(startPoint.x + deltaX, startPoint.y + deltaY)
+    }
+
+    private fun includeAngle(O: PointF, A: PointF, B: PointF): Float {
+        // cosAOB=OA*OB向量内积/（|OA|*|OB|模积）
+        // OA*OB 向量=(Ax-Ox)(Bx-Ox)+(Ay-Oy)*(By-Oy)
+        val AOB = (A.x - O.x) * (B.x - O.x) + (A.y - O.y) * (B.y - O.y)
+        val OALength = getPointBetweenDistance(A, O)
+
+        // OB 的长度
+        val OBLength = getPointBetweenDistance(B, O)
+        val cosAOB = AOB / (OALength * OBLength)
+
+        // Math.acos反余弦得到角弧度，Math.toDegrees将弧度转换成角度，此时的角度是不带方向的
+        val angleAOB = Math.toDegrees(acos(cosAOB.toDouble())).toFloat()
+
+        // AB连线与X的夹角的tan值 - OB与x轴的夹角的tan值，点b对于AO连线的方向，>0为左
+        val direction = if (A.x == B.x || O.x == B.x) {
+            0f
+        } else {
+            (A.y - B.y) / (A.x - B.x) - (O.y - B.y) / (O.x - B.x)
+        }
+        val result = when {
+            direction == 0f -> {
+                /*            if (AOB >= 0) {
+                                180f
+                            } else {
+                                0f
+                            }*/
+                -180f
+            }
+            direction > 0 -> {
+                -angleAOB
+            }
+            else -> {
+                if (angleAOB == 0f) {
+                    return 180f
+                }
+                angleAOB
+            }
+        }
+        Logger.d(
+            "angleAOB:$angleAOB；direction：$direction;result:$result;"
+        )
+        return result
+    }
+
+    private fun getPointBetweenDistance(A: PointF, B: PointF): Float {
+        val x2 = (A.x - B.x).toDouble().pow(2)
+        val y2 = (A.y - B.y).toDouble().pow(2)
+        return sqrt(x2 + y2).toFloat()
+    }
+
+    /*    override fun onTouchEvent(event: MotionEvent): Boolean {
+            touchPoint.x = event.x
+            touchPoint.y = event.y
+            postInvalidate()
+            return true
+        }*/
+    private fun setControlPoint() {
+        val controlPoint1 = PointF(startPoint.x, startPoint.y - productHeight / 2)
+        // 大角一半
+//        val angle = includeAngle(startPoint, endPoint, controlPoint1) / 4
+        Logger.d("-----angle-----")
+        val bigAngle = includeAngle(startPoint, controlPoint1, endPoint)
+        val angle = bigAngle / 4
+        val xPoint = PointF(startPoint.x + 1, startPoint.y)
+/*        val xAngle = includeAngle(
+            startPoint,
+            xPoint,
+            controlPoint1
+        )*/
+        Logger.d("-----xAngle-----")
+        val xAngle = includeAngle(
+            startPoint,
+            controlPoint1,
+            xPoint
+        )
+        // 切角
+        val delta = (xAngle - angle)
+        // 控制点2 的坐标
+        Logger.d(
+            "现在:$delta；angle：$angle;xagle:$xAngle;大角：$bigAngle"
+        )
+        val length = getPointBetweenDistance(startPoint, endPoint) / 3
+        val pointF = calculatePoint(startPoint, length, delta)
+        touchPoint.x = pointF.x
+        touchPoint.y = pointF.y
     }
 
     fun setStartX(startX: Float, startY: Float, endX: Float, endY: Float) {
@@ -186,6 +290,7 @@ class BasicPathView2 : LinearLayout {
         cart.right = endPoint.x + cartWidth / 2
         imageView.x = startX - productWidth / 2
         imageView.y = startY - productHeight / 2
+        setControlPoint()
         invalidate()
     }
 }

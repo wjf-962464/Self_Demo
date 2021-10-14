@@ -55,7 +55,13 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity2" />
+        <activity android:name=".activity.BezierActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.LoadLayoutActivity2" />
         <activity android:name=".activity.LoadLayoutActivity" />
         <activity android:name=".activity.ConstraintLayoutStateActivity" />
@@ -72,11 +78,7 @@
         <activity android:name=".activity.DemoActivity" />
         <activity android:name=".activity.FishActivity" />
         <activity android:name=".IndexActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
         <!--

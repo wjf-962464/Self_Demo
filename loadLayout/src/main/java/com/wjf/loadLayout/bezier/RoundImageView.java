@@ -12,13 +12,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
-import androidx.core.widget.ImageViewCompat;
-
 /**
  * @author lyudony
  * @date 2020/7/29. description：
  */
-public class RoundImageView extends ImageViewCompat {
+public class RoundImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     // 圆角大小，默认为10
     private int borderRadius = 10;
