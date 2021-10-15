@@ -62,7 +62,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoadLayoutActivity2" />
+        <activity android:name=".activity.LoadLayoutActivity2">
+
+        </activity>
         <activity android:name=".activity.LoadLayoutActivity" />
         <activity android:name=".activity.ConstraintLayoutStateActivity" />
         <activity android:name=".activity.TabActivity" />

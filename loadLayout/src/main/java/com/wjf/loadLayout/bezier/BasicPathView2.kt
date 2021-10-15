@@ -36,6 +36,7 @@ class BasicPathView2 : LinearLayout {
     private lateinit var imageView: RoundImageView
     private val percent = 2L
     private val layoutParams = LayoutParams(productWidth.toInt(), productHeight.toInt())
+    private val params = IntArray(4)
 
     constructor(context: Context) : super(context) {
         initView(context)
@@ -248,7 +249,7 @@ class BasicPathView2 : LinearLayout {
 //        val angle = includeAngle(startPoint, endPoint, controlPoint1) / 4
         Logger.d("-----angle-----")
         val bigAngle = includeAngle(startPoint, controlPoint1, endPoint)
-        val angle = bigAngle / 4
+        val angle = bigAngle / params[1] * params[0]
         val xPoint = PointF(startPoint.x + 1, startPoint.y)
 /*        val xAngle = includeAngle(
             startPoint,
@@ -267,13 +268,22 @@ class BasicPathView2 : LinearLayout {
         Logger.d(
             "现在:$delta；angle：$angle;xagle:$xAngle;大角：$bigAngle"
         )
-        val length = getPointBetweenDistance(startPoint, endPoint) / 3
+        val length = getPointBetweenDistance(startPoint, endPoint) / params[3] * params[2]
         val pointF = calculatePoint(startPoint, length, delta)
         touchPoint.x = pointF.x
         touchPoint.y = pointF.y
     }
 
-    fun setStartX(startX: Float, startY: Float, endX: Float, endY: Float) {
+    fun setStartX(
+        startX: Float,
+        startY: Float,
+        endX: Float,
+        endY: Float,
+        param1: Int,
+        param2: Int,
+        param3: Int,
+        param4: Int
+    ) {
         startPoint.x = startX
         startPoint.y = startY
         endPoint.x = endX
@@ -290,6 +300,10 @@ class BasicPathView2 : LinearLayout {
         cart.right = endPoint.x + cartWidth / 2
         imageView.x = startX - productWidth / 2
         imageView.y = startY - productHeight / 2
+        params[0] = param1
+        params[1] = param2
+        params[2] = param3
+        params[3] = param4
         setControlPoint()
         invalidate()
     }

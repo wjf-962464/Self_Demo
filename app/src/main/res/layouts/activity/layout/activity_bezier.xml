@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -9,6 +10,35 @@
         android:orientation="vertical"
         tools:context=".activity.BezierActivity">
 
+        <com.wjf.self_library.view.codingUI.CommonToolbar
+            android:id="@+id/commonToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:background_color="@color/color_yellow"
+            app:titleText="贝塞尔曲线">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/confirmBtn"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:text="确认" />
+
+                <Button
+                    android:id="@+id/anim"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:text="动画" />
+            </LinearLayout>
+        </com.wjf.self_library.view.codingUI.CommonToolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +54,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="startPointX" />
+                    android:text="SX" />
 
                 <EditText
                     android:id="@+id/startPointX"
@@ -42,7 +72,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="startPointY" />
+                    android:text="SY" />
 
                 <EditText
                     android:id="@+id/startPointY"
@@ -50,12 +80,6 @@
                     android:layout_height="50dp"
                     android:inputType="number" />
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -66,7 +90,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="endPointX  " />
+                    android:text="EX" />
 
                 <EditText
                     android:id="@+id/endPointX"
@@ -84,7 +108,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="endPointY  " />
+                    android:text="EY" />
 
                 <EditText
                     android:id="@+id/endPointY"
@@ -100,18 +124,80 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/confirmBtn"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="确认" />
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/anim"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="∠↑" />
+
+                <EditText
+                    android:id="@+id/angleUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="动画" />
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="∠↓" />
+
+                <EditText
+                    android:id="@+id/angleDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="·↑" />
+
+                <EditText
+                    android:id="@+id/lineUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="·↓" />
+
+                <EditText
+                    android:id="@+id/lineDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
         </LinearLayout>
+
 
         <com.wjf.loadLayout.bezier.BasicPathView2
             android:id="@+id/basic"
