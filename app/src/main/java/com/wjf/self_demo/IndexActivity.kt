@@ -9,8 +9,8 @@ import com.wjf.self_demo.adapter.IndexListAdapter
 import com.wjf.self_demo.databinding.ActivityIndexBinding
 import com.wjf.self_demo.entity.IndexListMenu
 import com.wjf.self_library.common.BaseActivity
-import java.util.*
 import kotlinx.android.synthetic.main.activity_index.*
+import java.util.*
 
 /** @author Wangjf2-DESKTOP
  */
@@ -46,6 +46,7 @@ class IndexActivity :
         data.add(IndexListMenu(ConstraintLayoutStateActivity::class.java, "约束布局状态"))
         data.add(IndexListMenu(LoadLayoutActivity::class.java, "LoadLayout"))
         data.add(IndexListMenu(BezierActivity::class.java, "贝塞尔曲线"))
+        data.add(IndexListMenu(FpsFrameActivity::class.java, "帧率分析"))
         CaptureActivity.setDecodeResultCallback { result: String ->
             Log.d(
                 "WJF_DEBUG",
