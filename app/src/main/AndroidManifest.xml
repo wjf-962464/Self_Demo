@@ -56,16 +56,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.BezierActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.LoadLayoutActivity2">
 
         </activity>
         <activity android:name=".activity.LoadLayoutActivity" />
+        <activity android:name=".activity.FpsFrameActivity">
+
+        </activity>
         <activity android:name=".activity.ConstraintLayoutStateActivity" />
         <activity android:name=".activity.TabActivity" />
         <activity android:name=".activity.HttpActivity" />
@@ -80,7 +79,11 @@
         <activity android:name=".activity.DemoActivity" />
         <activity android:name=".activity.FishActivity" />
         <activity android:name=".IndexActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
         <!--
@@ -98,6 +101,11 @@
                         android:resource="@xml/accessibility_config" />
                 </service>
         -->
+        <receiver android:name=".util.ClockBroadcastReceiver">
+            <intent-filter>
+                <action android:name="wjf.self.clock"/>
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".receiver.AdminReceiver"
             android:description="@string/device_admin_description"

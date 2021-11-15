@@ -207,7 +207,7 @@ internal fun AccessibilityService.findViewByTab(
     val nodeInfoList = accessibilityNodeInfo.findAccessibilityNodeInfosByText(tab.text)
     if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
         for (nodeInfo in nodeInfoList) {
-            if (nodeInfo != null && nodeInfo.viewIdResourceName == tab.fullId) {
+            if (nodeInfo != null && nodeInfo.text == tab.text) {
                 return nodeInfo
             }
         }

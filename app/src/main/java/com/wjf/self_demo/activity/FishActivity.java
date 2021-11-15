@@ -18,9 +18,7 @@ public class FishActivity extends BaseActivity<ActivityFishBinding> {
     @Override
     protected void initView() {
         view.fishImg.setImageDrawable(new FishDrawable());
-        addPermission(Manifest.permission.CALL_PHONE)
-                .addPermission(Manifest.permission.ACCEPT_HANDOVER)
-                .requestPermission();
+
     }
 
     @Override

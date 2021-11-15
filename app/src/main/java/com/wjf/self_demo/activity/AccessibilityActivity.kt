@@ -4,17 +4,20 @@ import android.Manifest
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Intent
+import android.content.IntentFilter
 import android.provider.Settings
 import com.orhanobut.logger.Logger
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityAccessibilityBinding
 import com.wjf.self_demo.receiver.AdminReceiver
 import com.wjf.self_demo.util.AccessibilityClockService
+import com.wjf.self_demo.util.ClockBroadcastReceiver
 import com.wjf.self_library.common.BaseActivity
 import com.wjf.self_library.common.click
 
 class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
     val DPM_REQUEST_CODE = 0x002
+    var receiver: ClockBroadcastReceiver? = null
     private val mComponentName: ComponentName by lazy {
         ComponentName(
             this,
@@ -66,6 +69,14 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
     }
 
     override fun initData() {
+        val filter = IntentFilter("wjf.self.clock")
+        receiver = ClockBroadcastReceiver()
+        registerReceiver(receiver, filter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        receiver?.let { unregisterReceiver(it) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

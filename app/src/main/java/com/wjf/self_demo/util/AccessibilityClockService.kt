@@ -133,17 +133,18 @@ class AccessibilityClockService : AccessibilityService() {
     /**
      * 执行打卡流程
      */
-    private fun openClockPage(
+    open fun openClockPage(
         workSwitch: Boolean,
         wakeSwitch: Boolean = true,
         pageSwitch: Boolean = true
     ) {
-        if (wakeSwitch) {
+/*        if (wakeSwitch) {
             ScreenLockManager.wakeAndUnlock(this, true)
             Thread.sleep(2000L)
-        }
+        }*/
         if (pageSwitch) {
-            AccessibilityHelper.openApp(this, AccessibilityHelper.PACKAGE_WEWORK)
+//            AccessibilityHelper.openApp(this, AccessibilityHelper.PACKAGE_WEWORK)
+            Thread.sleep(2000L)
             handler.postDelayed({
                 val array: List<AccessibilityTab> = if (workSwitch) {
                     onArray
@@ -195,7 +196,7 @@ class AccessibilityClockService : AccessibilityService() {
             // TODO 检查操作
             Thread.sleep(5000L)
             onceFlag = false
-            devicePolicyManager.lockNow()
+//            devicePolicyManager.lockNow()
         }
     }
 
