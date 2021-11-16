@@ -21,7 +21,9 @@ class FpsFrameActivity :
             handler = Handler(it)
         }
         handler?.let {
-
+            it.post {
+                Logger.d("测试代码")
+            }
             it.postDelayed({
                 Logger.d("开始了")
                 var count = 0
