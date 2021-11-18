@@ -3,8 +3,14 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'com.wjf.selfPlugin.HelloGradlePlugin'
 }
-
+wjf {
+    enable = false
+    extension {
+        msg "略略略"
+    }
+}
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion

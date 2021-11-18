@@ -1,0 +1,35 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+    id 'maven'
+}
+
+
+dependencies {
+    //gradle sdk
+    implementation gradleApi()
+    //groovy sdk
+    implementation localGroovy()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            //定义插件的在本地 maven 中的 id
+            groupId 'com.wjf.selfPlugin'
+            artifactId 'HelloGradlePlugin'
+            //定义插件的在本地 maven 中的版本号
+            version '1.0.0'
+
+            from components.java
+        }
+    }
+}
+publishing {
+    repositories {
+        maven {
+            // 发布位置
+            url uri('/Users/wangjiafeng/localMaven')
+        }
+    }
+}
