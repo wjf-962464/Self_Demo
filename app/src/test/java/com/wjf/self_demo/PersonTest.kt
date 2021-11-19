@@ -1,17 +1,14 @@
 package com.wjf.self_demo
 
-import android.net.Uri
+import com.google.gson.Gson
+import com.wjf.self_demo.test.gson.Student
 
 fun main() {
     try {
-        val result =
-            "url=?" + String(
-                java.util.Base64.getDecoder().decode("TUlEPVhYWCZTSUQ9WFhYJkNJRD1YWFg=")
-            )
+        val str = "{\"code\":\"111\",\"name\":\"wjf\"}"
+        val result = Gson().fromJson(str, Student::class.java)
         println(result)
-        val value = Uri.parse(result).getQueryParameter("MID")
-        println(value)
-
+//        GsonBuilder().registerTypeAdapter()
 /*        val count = 2
         for (i in 0 until count) {
             print(i)

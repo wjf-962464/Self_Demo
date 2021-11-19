@@ -8,16 +8,17 @@ plugins {
 dependencies {
     //gradle sdk
     implementation gradleApi()
-    //groovy sdk
+    //java sdk
     implementation localGroovy()
 }
 
+/*
 publishing {
     publications {
         mavenJava(MavenPublication) {
             //定义插件的在本地 maven 中的 id
-            groupId 'com.wjf.selfPlugin'
-            artifactId 'HelloGradlePlugin'
+            groupId 'com.wjf.plugin'
+            artifactId 'WjfPlugin'
             //定义插件的在本地 maven 中的版本号
             version '1.0.0'
 
@@ -31,3 +32,5 @@ publishing {
         }
     }
 }
+*/
+
