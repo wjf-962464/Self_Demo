@@ -9,7 +9,6 @@ import com.wjf.self_demo.adapter.IndexListAdapter
 import com.wjf.self_demo.databinding.ActivityIndexBinding
 import com.wjf.self_demo.entity.IndexListMenu
 import com.wjf.self_library.common.BaseActivity
-import kotlinx.android.synthetic.main.activity_index.*
 import java.util.*
 
 /** @author Wangjf2-DESKTOP
@@ -24,9 +23,9 @@ class IndexActivity :
     }
 
     override fun initView() {
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        view.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         adapter = IndexListAdapter()
-        recyclerView.adapter = adapter
+        view.recyclerView.adapter = adapter
     }
 
     override fun initData() {

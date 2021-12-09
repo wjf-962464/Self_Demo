@@ -3,15 +3,25 @@ plugins {
     id 'maven-publish'
     id 'maven'
 }
+repositories {
+    google()
+    jcenter()
 
+}
 
 dependencies {
     //gradle sdk
     implementation gradleApi()
     //java sdk
     implementation localGroovy()
+//    implementation 'com.android.tools.build:gradle:3.3.2'
+    implementation "com.android.tools.build:gradle:4.1.0"
 }
 
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 /*
 publishing {
     publications {

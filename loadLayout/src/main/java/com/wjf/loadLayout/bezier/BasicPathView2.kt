@@ -178,57 +178,66 @@ class BasicPathView2 : LinearLayout {
      * @param angle 与x轴的夹角角度
      * @return
      */
-    private fun calculatePoint(startPoint: PointF, length: Float, angle: Float): PointF {
+    fun includedAngle(O: PointF, A: PointF, B: PointF): Float {
+        // cosAOB=OA*OB向量内积/（|OA|*|OB|模积）
+        // OA*OB 向量=(Ax-Ox)(Bx-Ox)+(Ay-Oy)*(By-Oy)
+        val vectorProduct = (A.x - O.x) * (B.x - O.x) + (A.y - O.y) * (B.y - O.y)
+        val a = getPointBetweenDistance(A, O)
+
+        // OB 的长度
+        val b = getPointBetweenDistance(B, O)
+        val cosAOB = vectorProduct / (a * b)
+
+        // Math.acos反余弦得到角弧度，Math.toDegrees将弧度转换成角度，此时的角度是不带方向的
+        val angleAOB = Math.toDegrees(acos(cosAOB.toDouble())).toFloat()
+        println("angleAOB：$angleAOB")
+        // AB连线与X的夹角的tan值 - OB与x轴的夹角的tan值，点b对于AO连线的方向，>0为左，但由于Android坐标系顺时针旋转90°过，所以是相反
+        return if (angleAOB == 0f) {
+            180f
+        } else {
+            angleAOB
+        }
+    }
+
+    fun judgeDirection(O: PointF, A: PointF, B: PointF): Int {
+        val direction = if (A.x == B.x || O.x == B.x) {
+            0f
+        } else {
+            (A.y - B.y) / (A.x - B.x) - (O.y - B.y) / (O.x - B.x)
+        }
+        println("direction：$direction")
+        return when {
+            direction >= 0 -> {
+                // 与O点垂直，使其默认向右，180°意为与OA点反向
+                // 朝右为负
+                println("朝右")
+                1
+            }
+            direction < 0 -> {
+                // 朝左为负
+                println("朝左")
+                -1
+            }
+            else -> {
+                1
+            }
+        }
+    }
+
+    /**
+     * 根据角度、长度在射线上得到点坐标
+     * @param startPoint 起始点坐标
+     * @param length 要求的点到起始点的直线距离 -- 线长
+     * @param angle 与x轴的夹角角度
+     * @return 坐标点
+     */
+    fun calculatePoint(startPoint: PointF, length: Float, angle: Float): PointF {
         // Math.cos传参是弧度，Math.toRadians用于将角度转换为弧度
         // x差值，a=cosα *c
         val deltaX = (cos(Math.toRadians(angle.toDouble())) * length).toFloat()
         // y差值，b=sinα *c，这里由于坐标系翻转，所以正弦值要偏移π°，sin(x+180)=-sinx
         val deltaY = (sin(Math.toRadians((180 - angle).toDouble())) * length).toFloat()
         return PointF(startPoint.x + deltaX, startPoint.y + deltaY)
-    }
-
-    private fun includeAngle(O: PointF, A: PointF, B: PointF): Float {
-        // cosAOB=OA*OB向量内积/（|OA|*|OB|模积）
-        // OA*OB 向量=(Ax-Ox)(Bx-Ox)+(Ay-Oy)*(By-Oy)
-        val AOB = (A.x - O.x) * (B.x - O.x) + (A.y - O.y) * (B.y - O.y)
-        val OALength = getPointBetweenDistance(A, O)
-
-        // OB 的长度
-        val OBLength = getPointBetweenDistance(B, O)
-        val cosAOB = AOB / (OALength * OBLength)
-
-        // Math.acos反余弦得到角弧度，Math.toDegrees将弧度转换成角度，此时的角度是不带方向的
-        val angleAOB = Math.toDegrees(acos(cosAOB.toDouble())).toFloat()
-
-        // AB连线与X的夹角的tan值 - OB与x轴的夹角的tan值，点b对于AO连线的方向，>0为左
-        val direction = if (A.x == B.x || O.x == B.x) {
-            0f
-        } else {
-            (A.y - B.y) / (A.x - B.x) - (O.y - B.y) / (O.x - B.x)
-        }
-        val result = when {
-            direction == 0f -> {
-                /*            if (AOB >= 0) {
-                                180f
-                            } else {
-                                0f
-                            }*/
-                -180f
-            }
-            direction > 0 -> {
-                -angleAOB
-            }
-            else -> {
-                if (angleAOB == 0f) {
-                    return 180f
-                }
-                angleAOB
-            }
-        }
-        Logger.d(
-            "angleAOB:$angleAOB；direction：$direction;result:$result;"
-        )
-        return result
     }
 
     private fun getPointBetweenDistance(A: PointF, B: PointF): Float {
@@ -247,29 +256,30 @@ class BasicPathView2 : LinearLayout {
         val controlPoint1 = PointF(startPoint.x, startPoint.y - productHeight / 2)
         // 大角一半
 //        val angle = includeAngle(startPoint, endPoint, controlPoint1) / 4
+        val ifTop = startPoint.y > endPoint.y
         Logger.d("-----angle-----")
-        val bigAngle = includeAngle(startPoint, controlPoint1, endPoint)
+        val bigAngle =
+            if (ifTop) includedAngle(controlPoint1, startPoint, endPoint) else includedAngle(
+                startPoint,
+                controlPoint1,
+                endPoint
+            )
+        println("商品与购物车形成的夹角:$bigAngle")
         val angle = bigAngle / params[1] * params[0]
-        val xPoint = PointF(startPoint.x + 1, startPoint.y)
-/*        val xAngle = includeAngle(
-            startPoint,
-            xPoint,
-            controlPoint1
-        )*/
+        println("夹角得出比例:$angle")
         Logger.d("-----xAngle-----")
-        val xAngle = includeAngle(
-            startPoint,
-            controlPoint1,
-            xPoint
-        )
+        val xAngle = if (!ifTop) -90f else 90f
         // 切角
-        val delta = (xAngle - angle)
+        val delta = xAngle + angle * judgeDirection(startPoint, controlPoint1, endPoint)
+        println("商品重心与商品上点连线与x轴的夹角:$xAngle")
+        println("最终夹角:$delta")
         // 控制点2 的坐标
         Logger.d(
             "现在:$delta；angle：$angle;xagle:$xAngle;大角：$bigAngle"
         )
         val length = getPointBetweenDistance(startPoint, endPoint) / params[3] * params[2]
         val pointF = calculatePoint(startPoint, length, delta)
+//        val pointF = if (ifTop) calculatePoint(controlPoint1, length, delta) else calculatePoint(startPoint, length, delta)
         touchPoint.x = pointF.x
         touchPoint.y = pointF.y
     }

@@ -12,6 +12,32 @@ class BezierActivity : BaseActivity<ActivityBezierBinding>() {
     override fun setLayout(): Int = R.layout.activity_bezier
 
     override fun initView() {
+/*        val startPoint = PointF(2f, 2f)
+        // 购物车重心
+        val endPoint = PointF(2f, 1f)
+        // 商品上点
+        val upPoint = PointF(startPoint.x, startPoint.y - 1)
+        // 商品与购物车形成的夹角
+        val bigAngle = CoordinateTool.includedAngle(startPoint, upPoint, endPoint)
+        println("商品与购物车形成的夹角:$bigAngle")
+        // 夹角得出比例
+        val difAngle = bigAngle * 3 / 11f
+        println("夹角得出比例:$difAngle")
+        // x轴正方向上任意一点
+        val xPoint = PointF(startPoint.x + 1, startPoint.y)
+        // 商品重心与商品上点连线与x轴的夹角
+        val xAngle = CoordinateTool.includedAngle(
+            startPoint,
+            upPoint,
+            xPoint
+        )
+        println("商品重心与商品上点连线与x轴的夹角:$xAngle")
+        // 与x轴夹角，优化边缘算法
+        val delta = xAngle - difAngle
+        // 控制点2 的坐标
+        val length = CoordinateTool.getPointBetweenDistance(startPoint, endPoint) * 7 / 15f
+        val controlPoint = CoordinateTool.calculatePoint(startPoint, length, delta)
+        println("最终控制点坐标:$controlPoint")*/
         view.confirmBtn.setOnClickListener(
             View.OnClickListener {
                 val sx = view.startPointX.text.toString().ifEmpty { "0" }.toFloat()
@@ -37,15 +63,15 @@ class BezierActivity : BaseActivity<ActivityBezierBinding>() {
             }
         }
         view.startPointX.setText("200")
-        view.startPointY.setText("300")
+        view.startPointY.setText("1300")
 
-        view.endPointX.setText("800")
-        view.endPointY.setText("1300")
+        view.endPointX.setText("200")
+        view.endPointY.setText("300")
 
-        view.angleUp.setText("1")
-        view.angleDown.setText("4")
-        view.lineUp.setText("3")
-        view.lineDown.setText("5")
+        view.angleUp.setText("3")
+        view.angleDown.setText("11")
+        view.lineUp.setText("7")
+        view.lineDown.setText("15")
         view.confirmBtn.callOnClick()
     }
 

@@ -10,6 +10,7 @@ object DataCodeUtil {
         map
     }
 
+    @ExperimentalStdlibApi
     fun dataEncode(string: String?): String {
         if (string.isNullOrEmpty()) {
             throw IllegalArgumentException("input string is null or empty")
@@ -43,6 +44,7 @@ object DataCodeUtil {
         return stringBuilder.toString()
     }
 
+    @ExperimentalStdlibApi
     fun dataDecode(string: String?): String {
         if (string.isNullOrEmpty()) {
             throw IllegalArgumentException("input string is null or empty")

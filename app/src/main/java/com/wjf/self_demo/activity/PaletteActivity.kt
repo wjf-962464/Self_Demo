@@ -9,7 +9,6 @@ import androidx.palette.graphics.Palette
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityPaletteBinding
 import com.wjf.self_library.common.BaseActivity
-import kotlinx.android.synthetic.main.activity_palette.*
 
 class PaletteActivity : BaseActivity<ActivityPaletteBinding>() {
 
@@ -45,7 +44,7 @@ class PaletteActivity : BaseActivity<ActivityPaletteBinding>() {
                 val drawable = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors)
                 drawable.cornerRadius = 25F
                 drawable.gradientType = GradientDrawable.RECTANGLE
-                colorBar.background = drawable
+                view.colorBar.background = drawable
             }
     }
 }

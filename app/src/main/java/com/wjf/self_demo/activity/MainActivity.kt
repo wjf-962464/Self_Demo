@@ -8,7 +8,6 @@ import com.wjf.self_demo.databinding.ActivityMainBinding
 import com.wjf.self_demo.view.MyDialog
 import com.wjf.self_library.common.BaseActivity
 import com.wjf.self_library.common.click
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author Wangjf2-DESKTOP
@@ -34,7 +33,7 @@ class MainActivity :
         view.btn1.click {
             myDialog1.show()
         }
-        btn2.click {
+        view.btn2.click {
             myDialog2.show()
         }
 

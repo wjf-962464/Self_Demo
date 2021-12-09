@@ -1,14 +1,10 @@
 package com.wjf.self_demo
 
 import android.app.Activity
-import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
-import android.os.Handler
 import android.os.HandlerThread
-import android.view.Choreographer
 import com.wjf.barcode.BeepManager
 import com.wjf.barcode.CustomException
-import com.wjf.self_demo.frame.fps.FPSFrameCallback2
 import com.wjf.self_library.common.BaseApplication
 import com.wjf.self_library.http.HttpManager
 import com.wjf.self_library.http.HttpManager.Instance.init
@@ -41,11 +37,11 @@ class MyApp : BaseApplication() {
         init(builder)
         BeepManager.init(this, SP_TAG)
         //        BlockCanary.install(this, new AppBlockCanaryContext()).start();
-        mBlockThread.start()
-        Choreographer.getInstance()
-            .postFrameCallback(
-                FPSFrameCallback2(Handler(mBlockThread.looper), stack)
-            )
+//        mBlockThread.start()
+//        Choreographer.getInstance()
+//            .postFrameCallback(
+//                FPSFrameCallback2(Handler(mBlockThread.looper), stack)
+//            )
         //        new HandlerBlockTask().startWork();
 
         registerActivityLifecycleCallbacks(mCallbacks)
