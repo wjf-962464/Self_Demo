@@ -1,36 +1,26 @@
 package com.wjf.self_demo
 
-import android.graphics.PointF
-import com.wjf.self_library.view.CoordinateTool
-
 fun main() {
     try {
-        val startPoint = PointF(2f, 2f)
-        // 购物车重心
-        val endPoint = PointF(1f, 5f)
-        // 商品上点
-        val upPoint = PointF(startPoint.x, startPoint.y - 1)
-        // 商品与购物车形成的夹角
-        val bigAngle = CoordinateTool.includedAngle(startPoint, upPoint, endPoint)
-        println("商品与购物车形成的夹角:$bigAngle")
-        // 夹角得出比例
-        val difAngle = bigAngle * 3 / 11f
-        println("夹角得出比例:$difAngle")
-        // x轴正方向上任意一点
-        val xPoint = PointF(startPoint.x + 1, startPoint.y)
-        // 商品重心与商品上点连线与x轴的夹角
-        val xAngle = CoordinateTool.includedAngle(
-            startPoint,
-            upPoint,
-            xPoint
-        )
-        println("商品重心与商品上点连线与x轴的夹角:$xAngle")
-        // 与x轴夹角，优化边缘算法
-        val delta = xAngle - difAngle
-        // 控制点2 的坐标
-        val length = CoordinateTool.getPointBetweenDistance(startPoint, endPoint) * 7 / 15f
-        val controlPoint = CoordinateTool.calculatePoint(startPoint, length, delta)
-        println("最终控制点坐标:$controlPoint")
+
+/*        for (i in 0..5) {
+            var flag = false
+
+            Timer().schedule(1000L) {
+                if (flag) {
+                    println("任务${i + 1} 已经收到回调")
+                } else {
+                    println("任务${i + 1} 超时")
+                }
+            }
+            val random = Random().nextInt(2)
+            println("任务${i + 1} $random")
+            val time = if (random > 0) 1200L else 500L
+            Timer().schedule(time){
+                flag=true
+                println("任务${i + 1} on final")
+            }
+        }*/
 /*        for (i in 60 downTo 0 step 1) {
             println("$i s后重新获取")
         }
