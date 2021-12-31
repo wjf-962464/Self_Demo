@@ -27,7 +27,7 @@ class HelloGradlePlugin implements Plugin<Project> {
             }
         }
 
-
+        println 'wjf'
     }
 
     private void startApply(Extension extension) {

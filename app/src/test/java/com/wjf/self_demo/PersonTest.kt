@@ -56,3 +56,10 @@ fun main() {
         e.printStackTrace()
     }
 }
+
+object Util {
+
+    fun output1(title: String?, msg: String? = null) {
+        println("title:$title;msg:$msg")
+    }
+}

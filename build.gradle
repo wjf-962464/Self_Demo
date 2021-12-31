@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: rootProject.file('config.gradle')
-
+//apply plugin:MethodTimePlugin2
 buildscript {
     ext.kotlin_version = '1.4.32'
     repositories {

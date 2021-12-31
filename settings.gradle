@@ -1,4 +1,13 @@
+//import com.wjf.plugin.MethodTimePlugin
+
+pluginManagement {
+    plugins {
+        id 'com.wjf.plugins.MethodTimePlugin'
+        id 'com.wjf.selfPlugin.HelloGradlePlugin'
+    }
+}
 apply from: file('config.gradle')
+
 def includeLibrary =
         {
             println "=============Start============="
@@ -16,5 +25,5 @@ rootProject.name = "Self_Demo"
 includeLibrary()
 
 
-include ':loadLayout'
+//include ':loadLayout'
 include ':selfPlugin'
