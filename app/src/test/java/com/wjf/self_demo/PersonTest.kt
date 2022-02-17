@@ -2,6 +2,18 @@ package com.wjf.self_demo
 
 fun main() {
     try {
+        val i = 10
+        when {
+            i > 9 -> {
+                println("大于9")
+            }
+            i > 5 -> {
+                println("大于5")
+            }
+            i < 3 -> {
+                println("小于3")
+            }
+        }
 
 /*        for (i in 0..5) {
             var flag = false

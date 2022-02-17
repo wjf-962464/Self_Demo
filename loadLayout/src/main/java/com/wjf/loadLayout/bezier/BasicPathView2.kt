@@ -9,9 +9,9 @@ import android.content.Context
 import android.graphics.*
 import android.os.Build
 import android.util.AttributeSet
+import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
-import com.orhanobut.logger.Logger
 import com.wjf.loadLayout.R
 import kotlin.math.*
 
@@ -27,8 +27,8 @@ class BasicPathView2 : LinearLayout {
     private val touchPoint = PointF()
     private val cart = RectF()
     private val product = RectF()
-    private val productWidth = 200f
-    private val productHeight = 200f
+    private val productWidth = 200
+    private val productHeight = 200
     private val cartWidth = 100f
     private val cartHeight = 50f
     private val cube = RectF()
@@ -190,8 +190,6 @@ class BasicPathView2 : LinearLayout {
 
         // Math.acos反余弦得到角弧度，Math.toDegrees将弧度转换成角度，此时的角度是不带方向的
         val angleAOB = Math.toDegrees(acos(cosAOB.toDouble())).toFloat()
-        println("angleAOB：$angleAOB")
-        // AB连线与X的夹角的tan值 - OB与x轴的夹角的tan值，点b对于AO连线的方向，>0为左，但由于Android坐标系顺时针旋转90°过，所以是相反
         return if (angleAOB == 0f) {
             180f
         } else {
@@ -200,22 +198,20 @@ class BasicPathView2 : LinearLayout {
     }
 
     fun judgeDirection(O: PointF, A: PointF, B: PointF): Int {
+        // AB连线与X的夹角的tan值 - OB与x轴的夹角的tan值，点b对于AO连线的方向，>0为左
         val direction = if (A.x == B.x || O.x == B.x) {
             0f
         } else {
             (A.y - B.y) / (A.x - B.x) - (O.y - B.y) / (O.x - B.x)
         }
-        println("direction：$direction")
         return when {
             direction >= 0 -> {
                 // 与O点垂直，使其默认向右，180°意为与OA点反向
-                // 朝右为负
-                println("朝右")
+                // 朝右为正
                 1
             }
             direction < 0 -> {
                 // 朝左为负
-                println("朝左")
                 -1
             }
             else -> {
@@ -240,12 +236,6 @@ class BasicPathView2 : LinearLayout {
         return PointF(startPoint.x + deltaX, startPoint.y + deltaY)
     }
 
-    private fun getPointBetweenDistance(A: PointF, B: PointF): Float {
-        val x2 = (A.x - B.x).toDouble().pow(2)
-        val y2 = (A.y - B.y).toDouble().pow(2)
-        return sqrt(x2 + y2).toFloat()
-    }
-
     /*    override fun onTouchEvent(event: MotionEvent): Boolean {
             touchPoint.x = event.x
             touchPoint.y = event.y
@@ -253,35 +243,75 @@ class BasicPathView2 : LinearLayout {
             return true
         }*/
     private fun setControlPoint() {
-        val controlPoint1 = PointF(startPoint.x, startPoint.y - productHeight / 2)
-        // 大角一半
-//        val angle = includeAngle(startPoint, endPoint, controlPoint1) / 4
+        val sideLength = min(productWidth, productHeight)
+        // 较短边的一半
+        val offset = sideLength / 2f
+        val upPoint = PointF(startPoint.x, startPoint.y - offset)
         val ifTop = startPoint.y > endPoint.y
-        Logger.d("-----angle-----")
-        val bigAngle =
-            if (ifTop) includedAngle(controlPoint1, startPoint, endPoint) else includedAngle(
-                startPoint,
-                controlPoint1,
-                endPoint
-            )
-        println("商品与购物车形成的夹角:$bigAngle")
-        val angle = bigAngle / params[1] * params[0]
-        println("夹角得出比例:$angle")
-        Logger.d("-----xAngle-----")
+        // 商品与购物车形成的夹角
+        val bigAngle = if (ifTop)
+        // 转换原点坐标
+            includedAngle(upPoint, startPoint, endPoint) else
+            includedAngle(startPoint, upPoint, endPoint)
+        // 夹角得出比例
+        val difAngle = bigAngle / params[1] * params[0]
+        // 商品重心与商品上点连线与x轴的夹角
         val xAngle = if (!ifTop) -90f else 90f
-        // 切角
-        val delta = xAngle + angle * judgeDirection(startPoint, controlPoint1, endPoint)
-        println("商品重心与商品上点连线与x轴的夹角:$xAngle")
-        println("最终夹角:$delta")
-        // 控制点2 的坐标
-        Logger.d(
-            "现在:$delta；angle：$angle;xagle:$xAngle;大角：$bigAngle"
-        )
+        // 与x轴夹角，优化边缘算法
+        var direction =
+            judgeDirection(startPoint, upPoint, endPoint) * if (ifTop) -1 else 1
+
+        if (sideLength < 200f.dpOfInt) {
+            // 排除商详页
+            val padding =
+                (getPointBetweenDistance(startPoint, endPoint) / 9).dpOfInt
+            if (startPoint.x < padding) {
+                if ((direction < 0 && !ifTop) || (direction > 0 && ifTop)) {
+                    direction *= -1
+                }
+            } else if (startPoint.x > getWindowWidth() - padding) {
+                if ((direction > 0 && !ifTop) || (direction < 0 && ifTop)) {
+                    direction *= -1
+                }
+            }
+        }
+        val delta = xAngle + difAngle * direction
         val length = getPointBetweenDistance(startPoint, endPoint) / params[3] * params[2]
         val pointF = calculatePoint(startPoint, length, delta)
 //        val pointF = if (ifTop) calculatePoint(controlPoint1, length, delta) else calculatePoint(startPoint, length, delta)
         touchPoint.x = pointF.x
         touchPoint.y = pointF.y
+    }
+
+    /**
+     * 求两点之间的距离
+     */
+    fun getPointBetweenDistance(A: PointF, B: PointF): Float {
+        return sqrt((A.x - B.x).toDouble().pow(2) + (A.y - B.y).toDouble().pow(2)).toFloat()
+    }
+
+    fun getWindowWidth(): Int {
+        return context.resources.displayMetrics.widthPixels
+    }
+
+    val Float.dpOfInt
+        get() = dip2px(context, this)
+
+    fun dip2px(context: Context?, dpValue: Float): Int {
+        val scale: Float = context?.resources?.displayMetrics?.density ?: 0f
+        return (dpValue * scale + 0.5f).toInt()
+    }
+
+    /**
+     * 求view的重心坐标
+     */
+    fun getViewGravityPoint(view: View): PointF {
+        val result = PointF()
+        val offset = IntArray(2)
+        view.getLocationInWindow(offset)
+        result.x = offset[0] + view.width / 2.0f
+        result.y = offset[1] + view.height / 2.0f
+        return result
     }
 
     fun setStartX(
