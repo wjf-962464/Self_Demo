@@ -1,72 +1,51 @@
 package com.wjf.self_demo
 
 fun main() {
-    try {
-        val i = 10
-        when {
-            i > 9 -> {
-                println("大于9")
-            }
-            i > 5 -> {
-                println("大于5")
-            }
-            i < 3 -> {
-                println("小于3")
-            }
+/*    a5(
+        {
+            println(it)
+            println("wjf")
+            "周俊峰"
+        },
+        {
+            println("hjy")
+            5
         }
-
-/*        for (i in 0..5) {
-            var flag = false
-
-            Timer().schedule(1000L) {
-                if (flag) {
-                    println("任务${i + 1} 已经收到回调")
-                } else {
-                    println("任务${i + 1} 超时")
-                }
-            }
-            val random = Random().nextInt(2)
-            println("任务${i + 1} $random")
-            val time = if (random > 0) 1200L else 500L
-            Timer().schedule(time){
-                flag=true
-                println("任务${i + 1} on final")
-            }
-        }*/
-/*        for (i in 60 downTo 0 step 1) {
-            println("$i s后重新获取")
-        }
-        val empty: String? = null
-        println(empty.toString().isNullOrEmpty())
-        val string = "173 74134"
-        // ^\\d{3} \\d{4} \\d{4}$
-        val re = Regex("(\\d{3})(\\d{1,4})(\\d{1,4})")
-        println(re.matchEntire(string)?.groupValues ?: "")
-        val result = string.replace(re, "$1 $2 $3")
-        println(result)
-        println(result.length)
-        println('a'.plus(" "))
-        val s = string.toCharArray().toMutableList()
-
-        if (s.size >= 4 && !s[3].isWhitespace()) {
-            s.add(3, ' ')
-        }
-        if (s.size >= 9 && !s[8].isWhitespace()) {
-            s.add(8, ' ')
-        }
-        val a = String(s.toCharArray())
-        println("$a>>>${a.length}")*/
-//        val str = "{\"code\":\"111\",\"name\":\"wjf\"}"
-//        val result = Gson().fromJson(str, Student::class.java)
-//        println(result)
-//        GsonBuilder().registerTypeAdapter()
-/*        val count = 2
-        for (i in 0 until count) {
-            print(i)
-        }*/
-    } catch (e: Exception) {
-        e.printStackTrace()
+    )*/
+    val a = "周俊峰"
+//    stringExtend(a)
+    a.stringExtend2 {
+        println("没吃午饭")
+        it
     }
+}
+fun stringExtend(a: String) {
+    println("name:$a")
+}
+fun String.stringExtend2(block: (String) -> String) {
+    println("name:${block(this)}")
+}
+fun a(printMethod: (Int) -> String, b: Int) {
+    println(printMethod(b))
+}
+
+fun a2(b: Int, printMethod: (Int) -> String) {
+    println(printMethod(b))
+}
+
+fun a3(b: Int, printMethod: (Int) -> String) {
+    printMethod(b)
+}
+
+fun a4(printMethod: (Int) -> String, getInt: () -> Int) {
+    printMethod(getInt())
+}
+fun a6(string: String) {
+    println("输出结果$string")
+}
+
+fun a5(printMethod: (Int) -> String, getInt: () -> Int) {
+    a6(printMethod(getInt()))
 }
 
 object Util {

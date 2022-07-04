@@ -3,7 +3,9 @@
 pluginManagement {
     plugins {
         id 'com.wjf.plugins.MethodTimePlugin'
-        id 'com.wjf.selfPlugin.HelloGradlePlugin'
+        id 'com.android.library' version '4.1.0'
+        id 'org.jetbrains.kotlin.android' version '1.5.30'
+//        id 'com.wjf.selfPlugin.HelloGradlePlugin'
     }
 }
 apply from: file('config.gradle')

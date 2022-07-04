@@ -5,7 +5,6 @@ import android.os.Looper
 import com.orhanobut.logger.Logger
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityFpsFrameBinding
-import com.wjf.self_demo.frame.fps.HandlerBlockTask
 import com.wjf.self_library.common.BaseActivity
 
 class FpsFrameActivity :

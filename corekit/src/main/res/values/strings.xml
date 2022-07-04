@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="network_error_retry_hint">网络无法连接，请检查网络设置</string>
+    <string name="network_error_retry_timeout">网络请求超时，请稍后再试</string>
+    <string name="network_unknow_error">未知的网络异常</string>
+</resources>

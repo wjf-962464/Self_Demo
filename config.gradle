@@ -26,6 +26,7 @@ ext {
     depends = [
             [name: 'self_library', enable: true],
             [name: 'bar_code', enable: true],
-            [name: 'loadLayout', enable: true]
+            [name: 'loadLayout', enable: true],
+            [name: 'corekit', enable: true]
     ]
 }

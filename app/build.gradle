@@ -2,15 +2,15 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'com.wjf.selfPlugin.HelloGradlePlugin'
+//    id 'com.wjf.selfPlugin.HelloGradlePlugin'
     id 'com.wjf.plugins.MethodTimePlugin'
 }
-wjf {
+/*wjf {
     enable = false
     extension {
         msg "略略略"
     }
-}
+}*/
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -88,14 +88,14 @@ dependencies {
         }
     }
 
-
+//    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.3'
 //    调色板
 //    implementation 'androidx.palette:palette:1.0.0'
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
 //    implementation group: "com.tencent.matrix", name: "matrix-android-lib", version: MATRIX_VERSION
 /*    implementation "com.tencent.matrix:matrix-android-lib:${MATRIX_VERSION}"
     implementation group: "com.tencent.matrix", name: "matrix-android-commons", version: MATRIX_VERSION
     implementation group: "com.tencent.matrix", name: "matrix-trace-canary", version: MATRIX_VERSION*/
-    compile 'com.github.markzhai:blockcanary-android:1.5.0'
+    implementation 'com.github.markzhai:blockcanary-android:1.5.0'
 }

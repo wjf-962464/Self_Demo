@@ -55,15 +55,18 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".coordinator.CoordinatorActivity">
-
-        </activity>
-        <activity android:name=".activity.BezierActivity">
+        <activity android:name=".activity.HealthyCodeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".coordinator.CoordinatorActivity">
+
+        </activity>
+        <activity android:name=".activity.BezierActivity">
+
         </activity>
         <activity android:name=".activity.LoadLayoutActivity2"></activity>
         <activity android:name=".activity.LoadLayoutActivity" />
@@ -81,7 +84,9 @@
         <activity android:name=".activity.PhoneCallActivity" />
         <activity android:name=".activity.DemoActivity" />
         <activity android:name=".activity.FishActivity" />
-        <activity android:name=".IndexActivity"></activity>
+        <activity android:name=".IndexActivity">
+
+        </activity>
         <activity android:name=".activity.MainActivity" />
         <!--
         <service
