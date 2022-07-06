@@ -48,6 +48,7 @@ abstract class BaseUi<T : ViewBinding> protected constructor(
     private fun initWidget(attrs: AttributeSet?) {
         getTypeArray(context.obtainStyledAttributes(attrs, setStyleable()))
         val inflater = LayoutInflater.from(context)
+//        inflater.inflate()
         bindLayout(inflater)
         setView()
     }

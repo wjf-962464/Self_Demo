@@ -74,18 +74,22 @@ task androidSourcesJar(type: Jar) {
     } else {
         from sourceSets.main.allSource
     }
-    archiveClassifier.set('sources')
+    classifier "sources"
 }
-
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
 afterEvaluate {
     publishing {
         //发布的 jar 包配置
         publications {
+            //release这个名称可以替换，会生成对应的publishXXXPublicationToMaven的两个Task
             release(MavenPublication) {
                 //aar 文件
                 from components.release
+                // 上传source，这样使用方可以看到方法注释，使用上面的 androidSourcesJar Task
                 artifact androidSourcesJar
-
                 groupId = 'org.jxxt.debug'
                 artifactId = 'corekit'
                 version = '1.0.0-SNAPSHOT'
@@ -96,7 +100,7 @@ afterEvaluate {
             maven {
                 // 凭证
                 credentials {
-                    username  MAVEN_USER// 仓库发布用户名
+                    username MAVEN_USER// 仓库发布用户名
                     password MAVEN_PWD // 仓库发布用户密码
                 }
                 // 地址 REPOSITORY_SNAPSHOT，REPOSITORY

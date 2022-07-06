@@ -81,16 +81,16 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     }
 
     /** 黑色主题透明状态栏  */
-    fun darkTheme(dark: Boolean) {
+    protected fun darkTheme(dark: Boolean) {
         StatusBarUtil.setTranslucentStatus(this, dark)
     }
 
-    fun addPermission(permissionString: String): BaseActivity<T> {
+    protected fun addPermission(permissionString: String): BaseActivity<T> {
         this.permissionString.add(permissionString)
         return this
     }
 
-    fun requestPermission() {
+    protected fun requestPermission() {
         if (checkPermissionAllGranted(permissionString)) {
             doSomethingAfterGranted()
             Log.d(BuildConfig.TAG, "onRequestPermissionsResult granted")

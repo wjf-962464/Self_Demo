@@ -7,6 +7,6 @@ object IconFontManager {
     var iconAsset: Typeface? = null
         private set
     fun initAsset(path: String) {
-        iconAsset = Typeface.createFromAsset(BaseApplication.context()?.assets, path)
+        iconAsset = Typeface.createFromAsset(BaseApplication.context().assets, path)
     }
 }

@@ -36,7 +36,11 @@ class CommonToolbar(context: Context, attrs: AttributeSet?) : BaseUi<UiCommonToo
     var toolbarBackCallback: ToolbarBackCallback? = null
 
     override fun bindLayout(inflater: LayoutInflater) {
-        view = UiCommonToolbarBinding.inflate(inflater)
+        view = UiCommonToolbarBinding.inflate(
+            inflater,
+            this,
+            true
+        )
     }
 
     override fun setStyleable(): IntArray {

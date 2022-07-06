@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar_height">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.Group
         android:id="@+id/backLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:gravity="center_vertical"
+        app:constraint_referenced_ids="toolbarBack,toolbarBackIcon"/>
+    <org.jxxy.debug.widget.IconFont
+        android:id="@+id/toolbarBackIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:textSize="14sp"
+        android:text="@string/icon_back"
+        android:textColor="@color/brownHintText"
         android:visibility="gone"
         tools:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"/>
 
-        <org.jxxy.debug.widget.IconFont
-            android:id="@+id/toolbarBackIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="7dp"
-            android:text="@string/icon_back"
-            android:textColor="@color/brownHintText"
-            android:visibility="gone"
-            tools:visibility="visible"/>
-
-        <TextView
-            android:id="@+id/toolbarBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
-            android:textColor="@color/text_black"
-            android:textSize="15sp"
-            android:visibility="gone"
-            tools:text="返回" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/toolbarBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:textColor="@color/text_black"
+        android:textSize="15sp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="返回"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/toolbarBackIcon"/>
 
 
     <TextView
         android:id="@+id/toolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:textColor="@color/text_black"
         android:textSize="@dimen/title_text_size"
         android:textStyle="bold"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
