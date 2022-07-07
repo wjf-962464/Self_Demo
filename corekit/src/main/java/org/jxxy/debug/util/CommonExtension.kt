@@ -16,16 +16,12 @@ fun Context.toast(msg: String?, shortShow: Boolean = true) {
     if (Looper.myLooper() != Looper.getMainLooper()) {
         GlobalScope.launch(Dispatchers.Main.immediate) {
             Toast.makeText(
-                this@toast,
-                msg,
-                if (shortShow) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
+                this@toast, msg, if (shortShow) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
             ).show()
         }
     } else {
         Toast.makeText(
-            this,
-            msg,
-            if (shortShow) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
+            this, msg, if (shortShow) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
         ).show()
     }
 }
