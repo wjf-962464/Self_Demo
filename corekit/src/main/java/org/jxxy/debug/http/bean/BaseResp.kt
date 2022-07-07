@@ -1,4 +1,4 @@
-package org.jxxy.debug.http
+package org.jxxy.debug.http.bean
 
 class BaseResp<T> {
     val code: Int? = null

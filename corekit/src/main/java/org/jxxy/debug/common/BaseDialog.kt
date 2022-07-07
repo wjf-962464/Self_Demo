@@ -9,7 +9,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.StyleRes
 import androidx.viewbinding.ViewBinding
-import org.jxxy.debug.R
+import org.jxxy.debug.component.corekit.R
 
 /**
  * @author : Wangjf
@@ -67,8 +67,7 @@ abstract class BaseDialog<T : ViewBinding>(context: Context) :
 
     override fun onCreate(savedInstanceState: Bundle) {
         super.onCreate(savedInstanceState)
-        val inflater = LayoutInflater.from(context)
-        bindLayout(inflater)
+        bindLayout(LayoutInflater.from(context))
         val window = window
         // 设置对话框周围的颜色透明度
         if (window != null) {

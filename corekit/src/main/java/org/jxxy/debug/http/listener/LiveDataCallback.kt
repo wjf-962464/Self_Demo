@@ -1,4 +1,7 @@
-package org.jxxy.debug.http
+package org.jxxy.debug.http.listener
+
+import org.jxxy.debug.http.bean.ErrorResponse
+import org.jxxy.debug.http.bean.ResLiveData
 
 interface LiveDataCallback<LiveData, Response> {
     fun success(emit: ResLiveData<LiveData>, msg: String?, data: Response?)

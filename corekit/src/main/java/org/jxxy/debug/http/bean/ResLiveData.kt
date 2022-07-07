@@ -1,4 +1,4 @@
-package org.jxxy.debug.http
+package org.jxxy.debug.http.bean
 
 import androidx.lifecycle.MutableLiveData
 
@@ -23,7 +23,7 @@ class ResLiveData<T> : MutableLiveData<Resource<T>>() {
     /**
      * 错误时发送Throwable
      */
-    fun error(error: ErrorResponse, data: T) {
+    fun error(error: ErrorResponse, data: T? = null) {
         postValue(Resource.error(error, data))
     }
 

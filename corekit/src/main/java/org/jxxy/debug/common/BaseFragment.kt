@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import org.jxxy.debug.BuildConfig
-import org.jxxy.debug.R
+import org.jxxy.debug.component.corekit.BuildConfig
+import org.jxxy.debug.component.corekit.R
 import org.jxxy.debug.util.nullOrNot
 import org.jxxy.debug.widget.CommonToolbar
-import org.jxxy.debug.widget.StatusBar.StatusBarUtil
+import org.jxxy.debug.widget.statusBar.StatusBarUtil
 
 /**
  * @author : WJF

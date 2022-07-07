@@ -6,11 +6,13 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import java.lang.ref.WeakReference
-import org.jxxy.debug.BuildConfig
+import org.jxxy.debug.component.corekit.BuildConfig
+import org.jxxy.debug.http.HttpManager
+import org.jxxy.debug.widget.IconFontManager
 
 /** @author WJF
  */
-open class BaseApplication : Application() {
+abstract class BaseApplication : Application() {
     companion object {
         private var contextReference: WeakReference<Context>? = null
         fun context(): Context {
@@ -20,8 +22,10 @@ open class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        initLog()
         contextReference = WeakReference(applicationContext)
+        initLog()
+        HttpManager.init(HttpManager.Builder().baseUrl(httpBaseUrl()))
+        IconFontManager.initAsset(iconFontPath())
     }
 
     private fun initLog() {
@@ -39,4 +43,7 @@ open class BaseApplication : Application() {
             }
         })
     }
+
+    abstract fun httpBaseUrl(): String
+    abstract fun iconFontPath(): String
 }

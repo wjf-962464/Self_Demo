@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewbinding.ViewBinding
 
@@ -24,7 +25,7 @@ abstract class BaseUi<T : ViewBinding> protected constructor(
      *
      * @return 布局资源id
      */
-    protected abstract fun bindLayout(inflater: LayoutInflater)
+    protected abstract fun bindLayout(inflater: LayoutInflater, parent: ViewGroup): T
 
     /**
      * 设置样式
@@ -46,10 +47,8 @@ abstract class BaseUi<T : ViewBinding> protected constructor(
     protected abstract fun setView()
 
     private fun initWidget(attrs: AttributeSet?) {
+        view = bindLayout(LayoutInflater.from(context), this)
         getTypeArray(context.obtainStyledAttributes(attrs, setStyleable()))
-        val inflater = LayoutInflater.from(context)
-//        inflater.inflate()
-        bindLayout(inflater)
         setView()
     }
 

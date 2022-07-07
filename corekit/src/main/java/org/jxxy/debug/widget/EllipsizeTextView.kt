@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import org.jxxy.debug.R
+import org.jxxy.debug.component.corekit.R
 
 /**
  * 根据字符数进行尾部处理的TextView

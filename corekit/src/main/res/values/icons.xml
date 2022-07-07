@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="icon_back">&#xe600;</string>
-    <string name="icon_back2">\uf0343;</string>
 </resources>

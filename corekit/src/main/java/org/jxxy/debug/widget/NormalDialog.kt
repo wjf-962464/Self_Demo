@@ -3,7 +3,7 @@ package org.jxxy.debug.widget
 import android.content.Context
 import android.view.LayoutInflater
 import org.jxxy.debug.common.BaseDialog
-import org.jxxy.debug.databinding.DialogCommonBinding
+import org.jxxy.debug.component.corekit.databinding.DialogCommonBinding
 import org.jxxy.debug.util.singleClick
 
 class NormalDialog(context: Context) : BaseDialog<DialogCommonBinding>(context) {

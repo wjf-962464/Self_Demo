@@ -3,14 +3,21 @@ package org.jxxy.debug.http
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonParseException
 import com.google.gson.stream.MalformedJsonException
-import kotlinx.coroutines.*
-import org.jxxy.debug.R
-import org.jxxy.debug.util.ResourceUtil
-import org.jxxy.debug.util.toast
-import retrofit2.HttpException
+import com.orhanobut.logger.Logger
 import java.io.EOFException
 import java.net.ConnectException
 import java.net.UnknownHostException
+import kotlinx.coroutines.*
+import org.jxxy.debug.component.corekit.R
+import org.jxxy.debug.http.bean.BaseResp
+import org.jxxy.debug.http.bean.ErrorResponse
+import org.jxxy.debug.http.bean.ErrorType
+import org.jxxy.debug.http.bean.ResLiveData
+import org.jxxy.debug.http.listener.CommonCallback
+import org.jxxy.debug.http.listener.LiveDataCallback
+import org.jxxy.debug.util.ResourceUtil
+import org.jxxy.debug.util.toast
+import retrofit2.HttpException
 
 fun <T, D> BaseResp<D>.process(
     resLiveData: ResLiveData<T>,
@@ -70,6 +77,7 @@ fun <T, D> exceptionHandler(
 ): CoroutineExceptionHandler {
     return CoroutineExceptionHandler { _, e ->
         e.printStackTrace()
+        Logger.e(e, "网络请求发生异常")
         callback?.error(resLiveData, getErrorResponse(e))
     }
 }

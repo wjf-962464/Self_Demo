@@ -1,4 +1,4 @@
-package org.jxxy.debug.widget.StatusBar;
+package org.jxxy.debug.widget.statusBar;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

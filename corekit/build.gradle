@@ -5,6 +5,9 @@ plugins {
     id 'maven-publish'
 }
 
+def GROUP='org.jxxy.debug'
+def MODULE='corekit'
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -19,8 +22,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-
-        buildConfigField "String", "TAG", "\"corekit\""
+        buildConfigField("String", "TAG", "\"${MODULE}\"")
     }
 
     buildTypes {
@@ -51,11 +53,11 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    api 'com.google.code.gson:gson:2.7'
     api 'com.orhanobut:logger:2.2.0'
     //协程依赖
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
+    api 'androidx.activity:activity-ktx:1.1.0'
 
     api 'com.squareup.okhttp3:okhttp:4.3.1'
     api 'com.squareup.retrofit2:retrofit:2.6.2'
@@ -63,6 +65,8 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava:2.6.2'
     api 'com.squareup.retrofit2:converter-scalars:2.6.2'
     api 'com.squareup.okhttp3:logging-interceptor:4.3.1'
+    //数据解析
+    api 'com.google.code.gson:gson:2.7'
 }
 
 task androidSourcesJar(type: Jar) {
@@ -76,10 +80,15 @@ task androidSourcesJar(type: Jar) {
     }
     classifier "sources"
 }
+
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier "sources"
 }
+
+def versionCode="1.0.0.1"
+def snapshotEnable=true
+
 afterEvaluate {
     publishing {
         //发布的 jar 包配置
@@ -90,9 +99,9 @@ afterEvaluate {
                 from components.release
                 // 上传source，这样使用方可以看到方法注释，使用上面的 androidSourcesJar Task
                 artifact androidSourcesJar
-                groupId = 'org.jxxt.debug'
-                artifactId = 'corekit'
-                version = '1.0.0-SNAPSHOT'
+                groupId = GROUP
+                artifactId = MODULE
+                version = "$versionCode${snapshotEnable?'-SNAPSHOT':''}"
             }
         }
         //仓库地址配置

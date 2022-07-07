@@ -1,4 +1,6 @@
-package org.jxxy.debug.http
+package org.jxxy.debug.http.listener
+
+import org.jxxy.debug.http.bean.ErrorResponse
 
 interface CommonCallback<Response> {
     fun success(msg: String?, data: Response?)

@@ -6,10 +6,11 @@ import android.content.res.TypedArray
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.annotation.ColorInt
-import org.jxxy.debug.R
 import org.jxxy.debug.common.BaseUi
-import org.jxxy.debug.databinding.UiCommonToolbarBinding
+import org.jxxy.debug.component.corekit.R
+import org.jxxy.debug.component.corekit.databinding.UiCommonToolbarBinding
 import org.jxxy.debug.util.*
 
 /**
@@ -35,13 +36,8 @@ class CommonToolbar(context: Context, attrs: AttributeSet?) : BaseUi<UiCommonToo
 
     var toolbarBackCallback: ToolbarBackCallback? = null
 
-    override fun bindLayout(inflater: LayoutInflater) {
-        view = UiCommonToolbarBinding.inflate(
-            inflater,
-            this,
-            true
-        )
-    }
+    override fun bindLayout(inflater: LayoutInflater, parent: ViewGroup) =
+        UiCommonToolbarBinding.inflate(inflater, parent, true)
 
     override fun setStyleable(): IntArray {
         return R.styleable.CommonToolbar
@@ -75,16 +71,9 @@ class CommonToolbar(context: Context, attrs: AttributeSet?) : BaseUi<UiCommonToo
             else ResourceUtil.getColor(R.color.white)
 
         if (!ifBack) {
-            view.backLine.gone()
+            view.toolbarBackIcon.gone()
+            view.toolbarBack.gone()
         } else {
-            view.backLine.show()
-            view.backLine.singleClick {
-                toolbarBackCallback?.run {
-                    backActivity(context)
-                    return@singleClick
-                }
-                (context as? Activity)?.finish()
-            }
             if (backText.isNullOrEmpty()) {
                 view.toolbarBack.gone()
             } else {
@@ -92,7 +81,15 @@ class CommonToolbar(context: Context, attrs: AttributeSet?) : BaseUi<UiCommonToo
                 view.toolbarBack.text = backText
                 view.toolbarBack.setTextColor(themeColor)
             }
+
             view.toolbarBackIcon.show()
+            view.toolbarBackIcon.singleClick(increase = true) {
+                toolbarBackCallback?.run {
+                    backActivity(context)
+                    return@singleClick
+                }
+                (context as? Activity)?.finish()
+            }
             view.toolbarBackIcon.setTextColor(themeColor)
         }
 
