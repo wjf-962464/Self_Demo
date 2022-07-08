@@ -57,7 +57,8 @@ dependencies {
     //协程依赖
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
-
+    //viewmodels
+    api 'androidx.activity:activity-ktx:1.1.0'
     api 'com.squareup.okhttp3:okhttp:4.3.1'
     api 'com.squareup.retrofit2:retrofit:2.6.2'
     api 'com.squareup.retrofit2:converter-gson:2.6.2'
@@ -66,6 +67,7 @@ dependencies {
     api 'com.squareup.okhttp3:logging-interceptor:4.3.1'
     //数据解析
     api 'com.google.code.gson:gson:2.7'
+    api 'com.google.auto.service:auto-service-annotations:1.0-rc6'
 }
 
 task androidSourcesJar(type: Jar) {
@@ -77,15 +79,10 @@ task androidSourcesJar(type: Jar) {
     } else {
         from sourceSets.main.allSource
     }
-    classifier "sources"
+    archiveClassifier.set('sources')
 }
 
-task generateSourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier "sources"
-}
-
-def versionCode="1.0.0.1"
+def versionCode="1.0.0.3"
 def snapshotEnable=true
 
 afterEvaluate {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar_height">
-    <org.jxxy.debug.widget.IconFont
+    <org.jxxy.debug.corekit.widget.IconFont
         android:id="@+id/toolbarBackIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
