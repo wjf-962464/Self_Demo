@@ -17,6 +17,7 @@ import org.jxxy.debug.corekit.util.AppUtils
 import org.jxxy.debug.corekit.util.nullOrNot
 import org.jxxy.debug.corekit.widget.CommonToolbar
 import org.jxxy.debug.corekit.widget.NormalDialog
+import org.jxxy.debug.corekit.widget.statusBar.StatusBarUtil
 
 /**
  * @author : WJF
@@ -72,12 +73,12 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
             val color = it.backgroundNormalColor
             if (color == 0) {
                 // 透明，默认同样透明主题
-                org.jxxy.debug.corekit.widget.statusBar.StatusBarUtil.setTranslucentStatus(
+                StatusBarUtil.setTranslucentStatus(
                     this,
                     it.isDarkTheme
                 )
             } else {
-                org.jxxy.debug.corekit.widget.statusBar.StatusBarUtil.setStatusBarColor(
+                StatusBarUtil.setStatusBarColor(
                     this,
                     color,
                     it.isDarkTheme
@@ -88,10 +89,10 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
     /** 黑色主题透明状态栏  */
     protected fun darkTheme(dark: Boolean) {
-        org.jxxy.debug.corekit.widget.statusBar.StatusBarUtil.setTranslucentStatus(this, dark)
+        StatusBarUtil.setTranslucentStatus(this, dark)
     }
 
-    protected fun addPermission(permissionString: String): org.jxxy.debug.corekit.common.BaseActivity<T> {
+    protected fun addPermission(permissionString: String): BaseActivity<T> {
         this.permissionString.add(permissionString)
         return this
     }
@@ -104,7 +105,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
             val permissions = arrayOfNulls<String>(permissionString.size)
             ActivityCompat.requestPermissions(
                 this, permissionString.toArray(permissions),
-                org.jxxy.debug.corekit.common.BaseActivity.Companion.PERMISSIONS_REQUEST
+                PERMISSIONS_REQUEST
             )
         }
     }
@@ -129,7 +130,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            org.jxxy.debug.corekit.common.BaseActivity.Companion.PERMISSIONS_REQUEST -> {
+            PERMISSIONS_REQUEST -> {
                 var isAllGranted = true
                 for (grant in grantResults) {
                     if (grant != PackageManager.PERMISSION_GRANTED) {

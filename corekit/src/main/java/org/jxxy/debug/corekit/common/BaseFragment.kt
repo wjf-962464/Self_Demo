@@ -11,6 +11,7 @@ import org.jxxy.debug.corekit.BuildConfig
 import org.jxxy.debug.corekit.R
 import org.jxxy.debug.corekit.util.nullOrNot
 import org.jxxy.debug.corekit.widget.CommonToolbar
+import org.jxxy.debug.corekit.widget.statusBar.StatusBarUtil
 
 /**
  * @author : WJF
@@ -18,6 +19,7 @@ import org.jxxy.debug.corekit.widget.CommonToolbar
  */
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
     protected lateinit var find: T
+        private set
 
     /** 封装toolbar  */
     protected var commonToolbar: CommonToolbar? = null
@@ -27,7 +29,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        bindLayout()
+        find = bindLayout()
         initColorStatusBar(find.root)
         return find.root
     }
@@ -43,12 +45,12 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
             val color = it.backgroundNormalColor
             if (color == 0) {
                 // 透明，默认同样透明主题
-                org.jxxy.debug.corekit.widget.statusBar.StatusBarUtil.setTranslucentStatus(
+                StatusBarUtil.setTranslucentStatus(
                     activity,
                     it.isDarkTheme
                 )
             } else {
-                org.jxxy.debug.corekit.widget.statusBar.StatusBarUtil.setStatusBarColor(
+                StatusBarUtil.setStatusBarColor(
                     activity,
                     color,
                     it.isDarkTheme
@@ -59,7 +61,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
     /** 黑色主题透明状态栏  */
     protected fun darkTheme(dark: Boolean) {
-        org.jxxy.debug.corekit.widget.statusBar.StatusBarUtil.setTranslucentStatus(activity, dark)
+        StatusBarUtil.setTranslucentStatus(activity, dark)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -90,7 +92,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     }
 
     /** 绑定viewBinding  */
-    protected abstract fun bindLayout()
+    protected abstract fun bindLayout(): T
 
     /** 初始化控件  */
     protected abstract fun initView()

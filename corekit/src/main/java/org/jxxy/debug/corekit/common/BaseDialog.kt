@@ -28,33 +28,34 @@ abstract class BaseDialog<T : ViewBinding>(context: Context) :
     private val map: MutableMap<String, String?> = HashMap()
 
     protected lateinit var view: T
+        private set
 
-    fun gravity(gravity: Int): org.jxxy.debug.corekit.common.BaseDialog<*> {
+    fun gravity(gravity: Int): BaseDialog<*> {
         this.gravity = gravity
         return this
     }
 
-    fun windowAnimations(@StyleRes windowAnimations: Int): org.jxxy.debug.corekit.common.BaseDialog<T> {
+    fun windowAnimations(@StyleRes windowAnimations: Int): BaseDialog<T> {
         this.windowAnimations = windowAnimations
         return this
     }
 
-    fun width(width: Int): org.jxxy.debug.corekit.common.BaseDialog<T> {
+    fun width(width: Int): BaseDialog<T> {
         this.width = width
         return this
     }
 
-    fun height(height: Int): org.jxxy.debug.corekit.common.BaseDialog<T> {
+    fun height(height: Int): BaseDialog<T> {
         this.height = height
         return this
     }
 
-    fun cancelOnTouch(ifCanceled: Boolean): org.jxxy.debug.corekit.common.BaseDialog<T> {
+    fun cancelOnTouch(ifCanceled: Boolean): BaseDialog<T> {
         ifCancelOnTouch = ifCanceled
         return this
     }
 
-    fun addData(key: String, value: String?): org.jxxy.debug.corekit.common.BaseDialog<T> {
+    fun addData(key: String, value: String?): BaseDialog<T> {
         map[key] = value
         return this
     }
@@ -67,7 +68,7 @@ abstract class BaseDialog<T : ViewBinding>(context: Context) :
 
     override fun onCreate(savedInstanceState: Bundle) {
         super.onCreate(savedInstanceState)
-        bindLayout(LayoutInflater.from(context))
+        view = bindLayout(LayoutInflater.from(context))
         val window = window
         // 设置对话框周围的颜色透明度
         if (window != null) {
@@ -85,17 +86,13 @@ abstract class BaseDialog<T : ViewBinding>(context: Context) :
 
     /**
      * 初始化视图
-     *
-     * @param view 视图
      */
     protected abstract fun initView()
 
     /**
      * 指定布局文件
-     *
-     * @return R.layout.xxx
      */
-    protected abstract fun bindLayout(inflater: LayoutInflater)
+    protected abstract fun bindLayout(inflater: LayoutInflater): T
     override fun show() {
         super.show()
         // 此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
@@ -115,14 +112,5 @@ abstract class BaseDialog<T : ViewBinding>(context: Context) :
         // 消除dialog自身隐藏padding
         window.decorView.setPadding(0, 0, 0, 0)
         window.attributes = layoutParams
-    }
-
-    interface DialogClickListener<T> {
-        /**
-         * 点击事情
-         *
-         * @param value 新的值
-         */
-        fun onClick(value: T)
     }
 }

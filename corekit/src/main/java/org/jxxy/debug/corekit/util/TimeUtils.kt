@@ -17,11 +17,11 @@ object TimeUtils {
 
     @SuppressLint("SimpleDateFormat")
     fun getSafeDateFormat(pattern: String): SimpleDateFormat {
-        val sdfMap = SDF_THREAD_LOCAL.get()
-        var simpleDateFormat = sdfMap[pattern]
+        val sdfMap: MutableMap<String, SimpleDateFormat>? = SDF_THREAD_LOCAL.get()
+        var simpleDateFormat = sdfMap?.get(pattern)
         if (simpleDateFormat == null) {
             simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
-            sdfMap[pattern] = simpleDateFormat
+            sdfMap?.put(pattern, simpleDateFormat)
         }
         return simpleDateFormat
     }

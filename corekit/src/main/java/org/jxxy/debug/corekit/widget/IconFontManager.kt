@@ -1,6 +1,7 @@
 package org.jxxy.debug.corekit.widget
 
 import android.graphics.Typeface
+import org.jxxy.debug.corekit.common.BaseApplication
 
 object IconFontManager {
     var iconAsset: Typeface? = null
@@ -8,7 +9,7 @@ object IconFontManager {
 
     fun initAsset(path: String) {
         iconAsset = Typeface.createFromAsset(
-            org.jxxy.debug.corekit.common.BaseApplication.context().assets,
+            BaseApplication.context().assets,
             path
         )
     }

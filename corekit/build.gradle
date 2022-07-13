@@ -67,7 +67,6 @@ dependencies {
     api 'com.squareup.okhttp3:logging-interceptor:4.3.1'
     //数据解析
     api 'com.google.code.gson:gson:2.7'
-    api 'com.google.auto.service:auto-service-annotations:1.0-rc6'
 }
 
 task androidSourcesJar(type: Jar) {
@@ -82,7 +81,7 @@ task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
 }
 
-def versionCode="1.0.0.3"
+def versionCode="1.0.0.4"
 def snapshotEnable=true
 
 afterEvaluate {

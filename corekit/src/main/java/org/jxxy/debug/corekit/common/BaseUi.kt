@@ -19,6 +19,7 @@ abstract class BaseUi<T : ViewBinding> protected constructor(
     constructor(context: Context) : this(context, null)
 
     protected lateinit var view: T
+        private set
 
     /**
      * 设置布局

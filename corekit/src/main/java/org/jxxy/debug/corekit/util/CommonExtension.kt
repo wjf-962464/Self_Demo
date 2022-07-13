@@ -7,6 +7,7 @@ import androidx.annotation.StringRes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.jxxy.debug.corekit.common.BaseApplication
 
 fun Context.toast(msg: String?, shortShow: Boolean = true) {
     if (msg.isNullOrEmpty()) {
@@ -35,7 +36,7 @@ fun String?.toast(shortShow: Boolean = true) {
     if (this.isNullOrEmpty()) {
         return
     }
-    org.jxxy.debug.corekit.common.BaseApplication.context().toast(this, shortShow)
+    BaseApplication.context().toast(this, shortShow)
 }
 
 inline fun <T> T?.nullOrNot(ifNull: () -> Unit, notNull: (T) -> Unit) {
