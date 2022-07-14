@@ -16,8 +16,8 @@ abstract class CommonAdapter protected constructor() :
         private const val TYPE_ERROR_MSG = "CommonAdapter 在解析映射时没有绑定对应的ViewType"
     }
 
-    private val map: SparseArray<CommonMap<ViewHolderType, *>> = SparseArray()
-    private val data: MutableList<ViewHolderType> = mutableListOf()
+    private val map: SparseArray<CommonMap<MultipleType, *>> = SparseArray()
+    private val data: MutableList<MultipleType> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val mapHolder = map.get(viewType) ?: throw IllegalStateException(TYPE_ERROR_MSG)
@@ -40,7 +40,7 @@ abstract class CommonAdapter protected constructor() :
         return data.size
     }
 
-    fun submitData(list: List<ViewHolderType>) {
+    fun submitData(list: List<MultipleType>) {
         val start = itemCount
         val count = list.size
         this.data.addAll(data)
@@ -53,7 +53,7 @@ abstract class CommonAdapter protected constructor() :
         notifyItemRangeRemoved(0, count)
     }
 
-    abstract fun bindMap(map: SparseArray<CommonMap<ViewHolderType, *>>)
+    abstract fun bindMap(map: SparseArray<CommonMap<MultipleType, *>>)
     private fun initMap() {
         bindMap(map)
     }

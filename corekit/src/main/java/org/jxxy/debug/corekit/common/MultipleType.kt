@@ -1,5 +1,5 @@
 package org.jxxy.debug.corekit.common
 
-interface ViewHolderType {
+interface MultipleType {
     fun viewType(): Int
 }
