@@ -1,9 +1,11 @@
 package org.jxxy.debug.corekit.util
 
 import android.graphics.Rect
+import android.util.TypedValue
 import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
+import org.jxxy.debug.corekit.common.BaseApplication
 
 fun View?.show() {
     if (this?.isShown == false) {
@@ -65,3 +67,30 @@ fun View.increaseTouchRange(range: Int = 10) {
 var <T : View> T.lastClickTime: Long
     set(value) = setTag(Int.MAX_VALUE, value)
     get() = getTag(Int.MAX_VALUE) as? Long ?: 0
+
+/**
+ * 尺寸相关
+ */
+fun Float.dp(): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this,
+        BaseApplication.context().resources.displayMetrics
+    )
+}
+
+fun Float.dpOfInt(): Int {
+    return this.dp().toInt()
+}
+
+fun Float.sp(): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        this,
+        BaseApplication.context().resources.displayMetrics
+    )
+}
+
+fun Float.spOfInt(): Int {
+    return this.sp().toInt()
+}

@@ -29,6 +29,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     private val permissionString = ArrayList<String>()
 
     protected lateinit var view: T
+        private set
     private val permissionDialog: NormalDialog by lazy {
         NormalDialog(this).setPositiveButton("前往设置") {
             val intent = Intent()
@@ -52,7 +53,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindLayout()
+        view = bindLayout()
         setContentView(view.root)
         // 隐藏actionbar
         supportActionBar?.hide()
@@ -151,7 +152,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     }
 
     /** 绑定viewBinding  */
-    protected abstract fun bindLayout()
+    protected abstract fun bindLayout(): T
 
     /** 初始化控件  */
     protected abstract fun initView()

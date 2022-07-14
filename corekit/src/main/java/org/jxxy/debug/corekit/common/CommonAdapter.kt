@@ -1,62 +1,64 @@
 package org.jxxy.debug.corekit.common
 
+import android.util.SparseArray
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 
 /**
  * @author : Wangjf
  * @date : 2021/1/19
  */
-abstract class CommonAdapter<Holder : ViewBinding, Data> protected constructor() :
-    RecyclerView.Adapter<CommonAdapter.ViewHolder>() {
-    private val data: MutableList<Data> = mutableListOf()
-    protected lateinit var holder: Holder
-        private set
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        holder = bindLayout(LayoutInflater.from(parent.context))
-        return ViewHolder(holder.root)
+abstract class CommonAdapter protected constructor() :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    companion object {
+        private const val NONE_TYPE = -1
+        private const val TYPE_ERROR_MSG = "CommonAdapter 在解析映射时没有绑定对应的ViewType"
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val entity = data[holder.layoutPosition]
-        setHolder(entity, this.holder)
+    private val map: SparseArray<CommonMap<ViewHolderType, *>> = SparseArray()
+    private val data: MutableList<ViewHolderType> = mutableListOf()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val mapHolder = map.get(viewType) ?: throw IllegalStateException(TYPE_ERROR_MSG)
+        return mapHolder.createViewHolder(LayoutInflater.from(parent.context),parent)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val mapHolder =
+            map.get(getItemViewType(position)) ?: throw IllegalStateException(TYPE_ERROR_MSG)
+        data.getOrNull(position)?.let {
+            mapHolder.bindViewHolder(it,holder)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return position
+        return data.getOrNull(position)?.viewType() ?: NONE_TYPE
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    fun submitData(list: List<Data>) {
+    fun submitData(list: List<ViewHolderType>) {
+        val start = itemCount
+        val count = list.size
         this.data.addAll(data)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(start, count)
     }
 
     fun clearData() {
+        val count = itemCount
         this.data.clear()
+        notifyItemRangeRemoved(0, count)
     }
 
-    /**
-     * 设置布局
-     *
-     * @return 布局id
-     */
-    protected abstract fun bindLayout(inflater: LayoutInflater): Holder
+    abstract fun bindMap(map: SparseArray<CommonMap<ViewHolderType, *>>)
+    private fun initMap() {
+        bindMap(map)
+    }
 
-    /**
-     * 绑定View
-     *
-     * @param entity 数据实体
-     * @param view 容器
-     */
-    protected abstract fun setHolder(entity: Data, view: Holder)
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    init {
+        initMap()
+    }
 }
