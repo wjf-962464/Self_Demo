@@ -1,6 +1,8 @@
 package org.jxxy.debug.corekit.util
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Looper
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -8,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jxxy.debug.corekit.common.BaseApplication
+import org.jxxy.debug.corekit.http.HttpManager
 
 fun Context.toast(msg: String?, shortShow: Boolean = true) {
     if (msg.isNullOrEmpty()) {
@@ -45,4 +48,12 @@ inline fun <T> T?.nullOrNot(ifNull: () -> Unit, notNull: (T) -> Unit) {
         return
     }
     ifNull()
+}
+
+inline fun <reified C : Activity> Context.startActivity() {
+    startActivity(Intent(this, C::class.java))
+}
+
+inline fun <reified S> HttpManager.service(): S {
+    return this.service(S::class.java)
 }

@@ -71,26 +71,36 @@ var <T : View> T.lastClickTime: Long
 /**
  * 尺寸相关
  */
-fun Float.dp(): Float {
-    return TypedValue.applyDimension(
+inline fun <reified T> Float.dp(): T {
+    val result = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         this,
         BaseApplication.context().resources.displayMetrics
     )
+    return when (T::class) {
+        Float::class -> result as T
+        Int::class -> result.toInt() as T
+        else -> throw IllegalStateException("Type not supported")
+    }
 }
 
-fun Float.dpOfInt(): Int {
-    return this.dp().toInt()
+inline fun <reified T> Int.dp(): T {
+    return this.toFloat().dp()
 }
 
-fun Float.sp(): Float {
-    return TypedValue.applyDimension(
+inline fun <reified T> Float.sp(): T {
+    val result = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_SP,
         this,
         BaseApplication.context().resources.displayMetrics
     )
+    return when (T::class) {
+        Float::class -> result as T
+        Int::class -> result.toInt() as T
+        else -> throw IllegalStateException("Type not supported")
+    }
 }
 
-fun Float.spOfInt(): Int {
-    return this.sp().toInt()
+inline fun <reified T> Float.spOfInt(): T {
+    return this.toFloat().sp()
 }

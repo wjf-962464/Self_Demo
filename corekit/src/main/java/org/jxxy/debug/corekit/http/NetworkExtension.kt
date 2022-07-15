@@ -41,8 +41,8 @@ fun <D> BaseResp<D>.process(
 }
 
 inline fun <D : Any> CoroutineScope.request(
-    crossinline block: suspend () -> BaseResp<D>?,
     callback: CommonCallback<D>,
+    crossinline block: suspend () -> BaseResp<D>?,
 ) {
     this.launch(exceptionHandler(callback) + Dispatchers.IO) {
         val response = async {
@@ -54,8 +54,8 @@ inline fun <D : Any> CoroutineScope.request(
 
 inline fun <T, D : Any> BaseViewModel.request(
     resLiveData: ResLiveData<T>,
-    crossinline block: suspend () -> BaseResp<D>?,
-    callback: LiveDataCallback<T, D>
+    callback: LiveDataCallback<T, D>,
+    crossinline block: suspend () -> BaseResp<D>?
 ) {
     viewModelScope.launch(exceptionHandler(resLiveData, callback) + Dispatchers.IO) {
         val response = async {

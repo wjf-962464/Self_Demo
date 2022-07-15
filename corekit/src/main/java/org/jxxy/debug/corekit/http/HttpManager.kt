@@ -23,14 +23,12 @@ class HttpManager private constructor(builder: Builder) {
     }
 
     companion object Instance {
-        private lateinit var instance: HttpManager
+        lateinit var instance: HttpManager
+            private set
 
         fun init(builder: Builder) {
             instance = HttpManager(builder)
         }
-
-        fun <Service> service(serviceClass: Class<Service>): Service =
-            instance.service(serviceClass)
     }
 
     init {
