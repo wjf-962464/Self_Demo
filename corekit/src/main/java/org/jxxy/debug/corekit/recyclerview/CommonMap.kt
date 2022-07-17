@@ -1,4 +1,4 @@
-package org.jxxy.debug.corekit.common
+package org.jxxy.debug.corekit.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

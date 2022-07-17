@@ -1,4 +1,4 @@
-package org.jxxy.debug.corekit.common
+package org.jxxy.debug.corekit.recyclerview
 
 interface MultipleType {
     fun viewType(): Int

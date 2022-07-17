@@ -54,6 +54,10 @@ inline fun <reified C : Activity> Context.startActivity() {
     startActivity(Intent(this, C::class.java))
 }
 
+fun Context.startActivity(clazz: Class<*>) {
+    startActivity(Intent(this, clazz))
+}
+
 inline fun <reified S> HttpManager.service(): S {
     return this.service(S::class.java)
 }

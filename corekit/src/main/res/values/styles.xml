@@ -28,4 +28,46 @@
             <enum name="none" value="0x02" />
         </attr>
     </declare-styleable>
+
+
+    <attr format="boolean" name="round_as_circle"/>
+    <attr format="integer|dimension" name="round_corner"/>
+    <attr format="integer|dimension" name="round_corner_bottom"/>
+    <attr format="integer|dimension" name="round_corner_bottom_left"/>
+    <attr format="integer|dimension" name="round_corner_bottom_right"/>
+    <attr format="integer|dimension" name="round_corner_left"/>
+    <attr format="integer|dimension" name="round_corner_right"/>
+    <attr format="integer|dimension" name="round_corner_top"/>
+    <attr format="integer|dimension" name="round_corner_top_left"/>
+    <attr format="integer|dimension" name="round_corner_top_right"/>
+    <attr format="color|reference" name="round_stroke_color"/>
+    <attr format="integer|dimension" name="round_stroke_width"/>
+    <declare-styleable name="RoundHelper">
+        <attr name="round_as_circle"/>
+        <attr name="round_corner"/>
+        <attr name="round_corner_top_left"/>
+        <attr name="round_corner_left"/>
+        <attr name="round_corner_top"/>
+        <attr name="round_corner_right"/>
+        <attr name="round_corner_bottom"/>
+        <attr name="round_corner_top_right"/>
+        <attr name="round_corner_bottom_left"/>
+        <attr name="round_corner_bottom_right"/>
+        <attr name="round_stroke_color"/>
+        <attr name="round_stroke_width"/>
+    </declare-styleable>
+    <declare-styleable name="RoundConstraintLayout">
+        <attr name="round_as_circle"/>
+        <attr name="round_corner"/>
+        <attr name="round_corner_top_left"/>
+        <attr name="round_corner_left"/>
+        <attr name="round_corner_top"/>
+        <attr name="round_corner_right"/>
+        <attr name="round_corner_bottom"/>
+        <attr name="round_corner_top_right"/>
+        <attr name="round_corner_bottom_left"/>
+        <attr name="round_corner_bottom_right"/>
+        <attr name="round_stroke_color"/>
+        <attr name="round_stroke_width"/>
+    </declare-styleable>
 </resources>

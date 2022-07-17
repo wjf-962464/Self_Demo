@@ -1,4 +1,4 @@
-package org.jxxy.debug.corekit.common
+package org.jxxy.debug.corekit.recyclerview
 
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @author : Wangjf
  * @date : 2021/1/19
  */
-abstract class CommonAdapter protected constructor() :
+abstract class MultipleTypeAdapter protected constructor() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val NONE_TYPE = -1
