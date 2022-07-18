@@ -8,7 +8,7 @@ import android.view.View
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityHealthyCodeBinding
 import com.wjf.self_library.common.BaseActivity
-import org.jxxy.debug.util.singleClick
+import org.jxxy.debug.corekit.util.singleClick
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.os.HandlerThread
 import com.wjf.barcode.BeepManager
 import com.wjf.barcode.CustomException
+import com.wjf.self_library.common.BaseApplication
 import com.wjf.self_library.http.HttpManager
 import com.wjf.self_library.http.HttpManager.Instance.init
-import org.jxxy.debug.common.BaseApplication
-import org.jxxy.debug.widget.IconFontManager
 import java.util.*
 
 /** @author asus
@@ -17,7 +16,8 @@ class MyApp : BaseApplication() {
     private val mBlockThread = HandlerThread("blockThread")
 
     val stack = LinkedList<Activity?>() as Deque<Activity?>
-    private val mCallbacks: ActivityLifecycleCallbacks = object : ActivityLifecycleCallbacks {
+    private val mCallbacks: ActivityLifecycleCallbacks = object :
+        ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
             stack.push(activity)
         }
@@ -37,7 +37,7 @@ class MyApp : BaseApplication() {
         val builder = HttpManager.Builder().timeout(5L).baseUrl(HttpService.baseUrl)
         init(builder)
         BeepManager.init(this, SP_TAG)
-        IconFontManager.initAsset("iconfont.ttf")
+//        IconFontManager.initAsset("iconfont.ttf")
         //        BlockCanary.install(this, new AppBlockCanaryContext()).start();
 //        mBlockThread.start()
 //        Choreographer.getInstance()
