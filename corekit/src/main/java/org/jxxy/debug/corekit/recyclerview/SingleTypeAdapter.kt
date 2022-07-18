@@ -11,23 +11,23 @@ import androidx.viewbinding.ViewBinding
  * @author : Wangjf
  * @date : 2021/1/19
  */
-abstract class SingleTypeAdapter<Holder : ViewBinding, T> protected constructor() :
+abstract class SingleTypeAdapter<V : ViewBinding, T> protected constructor() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val SINGLE_TYPE = 0
     }
 
-    private lateinit var holder: Holder
+    private lateinit var view: V
     private val data: MutableList<T> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        holder = bindLayout(LayoutInflater.from(parent.context), parent)
-        return ViewHolder(holder.root)
+        view = bindLayout(LayoutInflater.from(parent.context), parent)
+        return ViewHolder(view.root)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val entity = data[holder.layoutPosition]
-        setHolder(entity, this.holder, holder.itemView.context)
+        setHolder(entity, this.view, holder.itemView.context)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -56,7 +56,7 @@ abstract class SingleTypeAdapter<Holder : ViewBinding, T> protected constructor(
      *
      * @return 布局id
      */
-    protected abstract fun bindLayout(layoutInflater: LayoutInflater, parent: ViewGroup): Holder
+    protected abstract fun bindLayout(layoutInflater: LayoutInflater, parent: ViewGroup): V
 
     /**
      * 绑定View
@@ -64,6 +64,6 @@ abstract class SingleTypeAdapter<Holder : ViewBinding, T> protected constructor(
      * @param entity 数据实体
      * @param view 容器
      */
-    protected abstract fun setHolder(entity: T, view: Holder, context: Context)
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    protected abstract fun setHolder(entity: T, view: V, context: Context)
+    private class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

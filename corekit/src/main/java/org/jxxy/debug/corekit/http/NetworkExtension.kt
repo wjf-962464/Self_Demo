@@ -4,6 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonParseException
 import com.google.gson.stream.MalformedJsonException
 import com.orhanobut.logger.Logger
+import java.io.EOFException
+import java.net.ConnectException
+import java.net.UnknownHostException
 import kotlinx.coroutines.*
 import org.jxxy.debug.corekit.R
 import org.jxxy.debug.corekit.http.bean.BaseResp
@@ -16,9 +19,6 @@ import org.jxxy.debug.corekit.util.ResourceUtil
 import org.jxxy.debug.corekit.util.nullOrNot
 import org.jxxy.debug.corekit.util.toast
 import retrofit2.HttpException
-import java.io.EOFException
-import java.net.ConnectException
-import java.net.UnknownHostException
 
 fun <T, D> BaseResp<D>.process(
     resLiveData: ResLiveData<T>,
@@ -41,7 +41,7 @@ fun <D> BaseResp<D>.process(
     }
 }
 
-inline fun <D : Any> CoroutineScope.request(
+inline fun <D> CoroutineScope.request(
     callback: CommonCallback<D>,
     crossinline block: suspend () -> BaseResp<D>?,
 ) {
@@ -57,7 +57,7 @@ inline fun <D : Any> CoroutineScope.request(
     }
 }
 
-inline fun <T, D : Any> BaseViewModel.request(
+inline fun <T, D> BaseViewModel.request(
     resLiveData: ResLiveData<T>,
     callback: LiveDataCallback<T, D>,
     crossinline block: suspend () -> BaseResp<D>?
@@ -75,7 +75,11 @@ inline fun <T, D : Any> BaseViewModel.request(
 }
 
 inline fun BaseViewModel.post(crossinline block: () -> Unit) {
-    viewModelScope.launch(Dispatchers.Main.immediate) {
+    viewModelScope.post(block)
+}
+
+inline fun CoroutineScope.post(crossinline block: () -> Unit) {
+    this.launch(Dispatchers.Main.immediate) {
         block.invoke()
     }
 }

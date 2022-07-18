@@ -4,6 +4,7 @@ import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 /**
  * @author : Wangjf
@@ -16,20 +17,24 @@ abstract class MultipleTypeAdapter protected constructor() :
         private const val TYPE_ERROR_MSG = "CommonAdapter 在解析映射时没有绑定对应的ViewType"
     }
 
-    private val map: SparseArray<CommonMap<MultipleType, RecyclerView.ViewHolder>> = SparseArray()
+    private val map: SparseArray<CommonMap<ViewBinding, MultipleType>> = SparseArray()
     private val data: MutableList<MultipleType> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val mapHolder = map.get(viewType) ?: throw IllegalStateException(TYPE_ERROR_MSG)
-        return mapHolder.createViewHolder(LayoutInflater.from(parent.context), parent)
+        val view = getMap(viewType).onCreateViewHolder(LayoutInflater.from(parent.context), parent)
+        return CommonMap.ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val mapHolder =
-            map.get(getItemViewType(position)) ?: throw IllegalStateException(TYPE_ERROR_MSG)
         data.getOrNull(position)?.let {
-            mapHolder.bindViewHolder(it, holder)
+            getMap(getItemViewType(position)).apply {
+                bindViewHolder(it, this.view)
+            }
         }
+    }
+
+    private fun getMap(viewType: Int): CommonMap<ViewBinding, MultipleType> {
+        return map.get(viewType) ?: throw IllegalStateException(TYPE_ERROR_MSG)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -53,7 +58,7 @@ abstract class MultipleTypeAdapter protected constructor() :
         notifyItemRangeRemoved(0, count)
     }
 
-    abstract fun bindMap(map: SparseArray<CommonMap<MultipleType, RecyclerView.ViewHolder>>)
+    abstract fun bindMap(map: SparseArray<CommonMap<ViewBinding, MultipleType>>)
     private fun initMap() {
         bindMap(map)
     }

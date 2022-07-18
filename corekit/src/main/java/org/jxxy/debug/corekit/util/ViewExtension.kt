@@ -73,8 +73,7 @@ var <T : View> T.lastClickTime: Long
  */
 inline fun <reified T> Float.dp(): T {
     val result = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        this,
+        TypedValue.COMPLEX_UNIT_DIP, this,
         BaseApplication.context().resources.displayMetrics
     )
     return when (T::class) {
@@ -101,6 +100,6 @@ inline fun <reified T> Float.sp(): T {
     }
 }
 
-inline fun <reified T> Float.spOfInt(): T {
+inline fun <reified T> Int.sp(): T {
     return this.toFloat().sp()
 }

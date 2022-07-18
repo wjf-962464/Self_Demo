@@ -1,10 +1,22 @@
 package org.jxxy.debug.corekit.recyclerview
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
-interface CommonMap<T : MultipleType, V : RecyclerView.ViewHolder> {
-    fun createViewHolder(layoutInflater: LayoutInflater, parent: ViewGroup): V
-    fun bindViewHolder(entity: T, holder: V)
+abstract class CommonMap<V : ViewBinding, T : MultipleType> {
+    lateinit var view: V
+        private set
+
+    fun onCreateViewHolder(layoutInflater: LayoutInflater, parent: ViewGroup): View {
+        view = bindLayout(layoutInflater, parent)
+        return view.root
+    }
+
+    protected abstract fun bindLayout(layoutInflater: LayoutInflater, parent: ViewGroup): V
+    abstract fun bindViewHolder(entity: T, view: V)
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
