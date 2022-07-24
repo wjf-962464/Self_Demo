@@ -1,8 +1,13 @@
 package org.jxxy.debug.corekit.util
 
-import java.util.concurrent.TimeUnit
+import android.util.Log
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.coroutineScope
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import java.util.concurrent.TimeUnit
 
 object TimeCountDowner {
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -23,6 +28,23 @@ object TimeCountDowner {
         }.flowOn(Dispatchers.Default)
             .onCompletion { onFinish?.invoke() }
             .onEach { onTick?.invoke(it) }
+            .flowOn(Dispatchers.Main)
+            .launchIn(scope)
+    }
+
+    fun countDown2(
+        scope: CoroutineScope,
+        interval: Int = 1,
+        timeUnit: TimeUnit = TimeUnit.SECONDS,
+        onTick: (() -> Unit)? = null,
+    ): Job {
+        return flow {
+            while (true) {
+                emit(null)
+                delay(timeUnit.toMillis(interval.toLong()))
+            }
+        }.flowOn(Dispatchers.Default)
+            .onEach { onTick?.invoke() }
             .flowOn(Dispatchers.Main)
             .launchIn(scope)
     }

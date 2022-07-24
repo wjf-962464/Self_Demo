@@ -1,15 +1,14 @@
 package com.wjf.self_demo
 
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.wjf.barcode.CaptureActivity
 import com.wjf.self_demo.activity.*
 import com.wjf.self_demo.adapter.IndexListAdapter
 import com.wjf.self_demo.databinding.ActivityIndexBinding
 import com.wjf.self_demo.entity.IndexListMenu
 import com.wjf.self_library.common.BaseActivity
-import java.util.*
+import org.jxxy.debug.corekit.recyclerview.SpanItemDecoration
 
 /** @author Wangjf2-DESKTOP
  */
@@ -23,8 +22,10 @@ class IndexActivity :
     }
 
     override fun initView() {
-        view.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+//        view.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         adapter = IndexListAdapter()
+        view.recyclerView.layoutManager = GridLayoutManager(this, 5)
+        view.recyclerView.addItemDecoration(SpanItemDecoration(20f, 15f, 5))
         view.recyclerView.adapter = adapter
     }
 

@@ -1,6 +1,5 @@
 package org.jxxy.debug.corekit.recyclerview
 
-import android.graphics.Canvas
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -10,10 +9,6 @@ class CommonItemDecoration(
     private val interval: Float,
     @RecyclerView.Orientation private val orientation: Int = RecyclerView.VERTICAL
 ) : RecyclerView.ItemDecoration() {
-
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDraw(c, parent, state)
-    }
 
     override fun getItemOffsets(
         outRect: Rect,

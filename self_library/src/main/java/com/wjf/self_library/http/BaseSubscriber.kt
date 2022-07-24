@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.orhanobut.logger.Logger
 import com.wjf.self_library.BuildConfig
 import com.wjf.self_library.common.BaseApplication
+import org.jxxy.debug.corekit.util.toast
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import rx.Subscriber
@@ -14,7 +15,6 @@ import rx.Subscriber
  */
 class BaseSubscriber<T>(private val isLoading: Boolean, val success: ((HttpResult<T>) -> Unit)) :
     Subscriber<HttpResult<T>>() {
-    private val context: Context? by lazy { BaseApplication.context.get() }
     override fun onStart() {
         if (isLoading) {
             // 显示加载库
@@ -33,13 +33,13 @@ class BaseSubscriber<T>(private val isLoading: Boolean, val success: ((HttpResul
         Logger.e(e, "onError{ message: ${e.message} ;e：$e}")
         when (e) {
             is SocketTimeoutException -> {
-                Toast.makeText(context, "请检查您的网络", Toast.LENGTH_SHORT).show()
+                "请检查您的网络".toast()
             }
             is ConnectException -> {
-                Toast.makeText(context, "网络繁忙，请稍后再试试吧", Toast.LENGTH_SHORT).show()
+                "网络繁忙，请稍后再试试吧".toast()
             }
             else -> {
-                Toast.makeText(context, "服务器繁忙，请稍后再试试吧", Toast.LENGTH_SHORT).show()
+                "服务器繁忙，请稍后再试试吧".toast()
             }
         }
     }

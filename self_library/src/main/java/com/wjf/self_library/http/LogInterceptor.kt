@@ -32,8 +32,8 @@ class LogInterceptor : Interceptor {
     private fun generateRequestLog(request: Request): String = Gson().toJson(
         HttpRequest(
             TimeUtils.millis2String(System.currentTimeMillis()),
-            request.url().toString(),
-            request.method(),
+            request.url.toString(),
+            request.method,
             getRequestParams(request)
         )
     )
@@ -45,7 +45,7 @@ class LogInterceptor : Interceptor {
         val result: MutableMap<String, String> = mutableMapOf()
         var str = ""
         try {
-            request.body()?.let {
+            request.body?.let {
                 val buffer = Buffer()
                 it.writeTo(buffer)
                 val charset = it.contentType()?.charset(charset_utf8)
@@ -70,7 +70,7 @@ class LogInterceptor : Interceptor {
      */
     private fun getResponseText(response: Response): String? {
         try {
-            response.body()?.let {
+            response.body?.let {
                 val source = it.source()
                 source.request(Long.MAX_VALUE)
                 val buffer = source.buffer()

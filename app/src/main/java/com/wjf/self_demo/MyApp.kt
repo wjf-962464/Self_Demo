@@ -1,13 +1,14 @@
 package com.wjf.self_demo
 
 import android.app.Activity
+import android.app.Application
 import android.os.Bundle
 import android.os.HandlerThread
 import com.wjf.barcode.BeepManager
 import com.wjf.barcode.CustomException
-import com.wjf.self_library.common.BaseApplication
 import com.wjf.self_library.http.HttpManager
 import com.wjf.self_library.http.HttpManager.Instance.init
+import org.jxxy.debug.corekit.common.BaseApplication
 import java.util.*
 
 /** @author asus
@@ -57,6 +58,10 @@ class MyApp : BaseApplication() {
             e.printStackTrace()
         }
     }
+
+    override fun httpBaseUrl(): String = "http://112.124.53.30:9001/"
+
+    override fun iconFontPath(): String = "iconfont.ttf"
 
     companion object {
         private const val SP_TAG = "MyApp"

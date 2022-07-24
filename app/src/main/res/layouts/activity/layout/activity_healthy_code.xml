@@ -256,10 +256,6 @@
                         android:layout_height="wrap_content"
                         android:hint="输入2" />
 
-                    <org.jxxy.debug.widget.IconFont
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:text="\uf0343" />
 
                     <TextView
                         android:id="@+id/submitBtn"

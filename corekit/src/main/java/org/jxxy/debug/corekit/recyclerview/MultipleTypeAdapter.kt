@@ -28,7 +28,7 @@ abstract class MultipleTypeAdapter protected constructor() :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         data.getOrNull(position)?.let {
             getMap(getItemViewType(position)).apply {
-                bindViewHolder(it, this.view)
+                bindViewHolder(it, this.view, holder.itemView.context)
             }
         }
     }
