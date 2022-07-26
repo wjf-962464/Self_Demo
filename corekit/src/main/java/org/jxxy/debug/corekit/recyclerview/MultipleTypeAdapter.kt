@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import org.jxxy.debug.corekit.util.nullOrNot
 
 /**
  * @author : Wangjf
@@ -26,14 +27,22 @@ abstract class MultipleTypeAdapter protected constructor() :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        bindHolder(position)
+    }
+
+    protected fun bindHolder(position: Int, payload: Any? = null) {
         data.getOrNull(position)?.let {
             getMap(getItemViewType(position)).apply {
-                bindViewHolder(it, this.view, position, holder.itemView.context)
+                payload.nullOrNot({
+                    bindViewHolder(it, this.view, position, this.view.root.context)
+                }) { payload ->
+                    bindViewHolder(it, this.view, position, payload, this.view.root.context)
+                }
             }
         }
     }
 
-    fun getMap(viewType: Int): CommonMap<ViewBinding, MultipleType> {
+    private fun getMap(viewType: Int): CommonMap<ViewBinding, MultipleType> {
         return map.get(viewType) ?: throw IllegalStateException(TYPE_ERROR_MSG)
     }
 

@@ -18,6 +18,8 @@ abstract class CommonMap<V : ViewBinding, T : MultipleType> {
 
     protected abstract fun bindLayout(layoutInflater: LayoutInflater, parent: ViewGroup): V
     abstract fun bindViewHolder(entity: T, view: V, position: Int, context: Context)
+    fun bindViewHolder(entity: T, view: V, position: Int, payload: Any, context: Context) {
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

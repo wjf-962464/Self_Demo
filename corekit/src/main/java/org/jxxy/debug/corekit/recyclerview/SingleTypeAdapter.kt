@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import org.jxxy.debug.corekit.util.nullOrNot
 
 /**
  * @author : Wangjf
@@ -26,8 +27,17 @@ abstract class SingleTypeAdapter<V : ViewBinding, T> protected constructor() :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val entity = data[holder.layoutPosition]
-        setHolder(entity, this.view, position, holder.itemView.context)
+        bindHolder(position)
+    }
+
+    protected fun bindHolder(position: Int, payload: Any? = null) {
+        data.getOrNull(position)?.let {
+            payload.nullOrNot({
+                setHolder(it, this.view, position, this.view.root.context)
+            }) { payload ->
+                setHolder(it, this.view, position, payload, this.view.root.context)
+            }
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -65,5 +75,8 @@ abstract class SingleTypeAdapter<V : ViewBinding, T> protected constructor() :
      * @param view 容器
      */
     protected abstract fun setHolder(entity: T, view: V, position: Int, context: Context)
+    protected fun setHolder(entity: T, view: V, position: Int, payload: Any, context: Context) {
+    }
+
     private class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
