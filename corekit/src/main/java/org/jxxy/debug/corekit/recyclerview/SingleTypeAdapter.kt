@@ -27,7 +27,7 @@ abstract class SingleTypeAdapter<V : ViewBinding, T> protected constructor() :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val entity = data[holder.layoutPosition]
-        setHolder(entity, this.view, holder.itemView.context)
+        setHolder(entity, this.view, position, holder.itemView.context)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -64,6 +64,6 @@ abstract class SingleTypeAdapter<V : ViewBinding, T> protected constructor() :
      * @param entity 数据实体
      * @param view 容器
      */
-    protected abstract fun setHolder(entity: T, view: V, context: Context)
+    protected abstract fun setHolder(entity: T, view: V, position: Int, context: Context)
     private class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

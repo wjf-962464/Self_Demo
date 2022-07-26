@@ -3,6 +3,7 @@ package org.jxxy.debug.corekit.util
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import org.jxxy.debug.corekit.common.BaseApplication
@@ -24,7 +25,7 @@ object ResourceUtil {
         )
     }
 
-    fun getDrawable(drawableResId: Int): Drawable? {
+    fun getDrawable(@DrawableRes drawableResId: Int): Drawable? {
         return ContextCompat.getDrawable(
             BaseApplication.context(),
             drawableResId

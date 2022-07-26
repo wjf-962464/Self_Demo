@@ -28,12 +28,12 @@ abstract class MultipleTypeAdapter protected constructor() :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         data.getOrNull(position)?.let {
             getMap(getItemViewType(position)).apply {
-                bindViewHolder(it, this.view, holder.itemView.context)
+                bindViewHolder(it, this.view, position, holder.itemView.context)
             }
         }
     }
 
-    private fun getMap(viewType: Int): CommonMap<ViewBinding, MultipleType> {
+    fun getMap(viewType: Int): CommonMap<ViewBinding, MultipleType> {
         return map.get(viewType) ?: throw IllegalStateException(TYPE_ERROR_MSG)
     }
 

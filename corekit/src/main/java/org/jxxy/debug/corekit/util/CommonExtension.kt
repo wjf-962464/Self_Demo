@@ -3,6 +3,7 @@ package org.jxxy.debug.corekit.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.os.Looper
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -50,12 +51,16 @@ inline fun <T> T?.nullOrNot(ifNull: () -> Unit, notNull: (T) -> Unit) {
     ifNull()
 }
 
-inline fun <reified C : Activity> Context.startActivity() {
-    startActivity(Intent(this, C::class.java))
+inline fun <reified C : Activity> Context.startActivity(bundle: Bundle? = null) {
+    val intent = Intent(this, C::class.java)
+    bundle?.let { intent.putExtras(it) }
+    startActivity(intent)
 }
 
-fun Context.startActivity(clazz: Class<*>) {
-    startActivity(Intent(this, clazz))
+fun Context.startActivity(clazz: Class<*>, bundle: Bundle? = null) {
+    val intent = Intent(this, clazz)
+    bundle?.let { intent.putExtras(it) }
+    startActivity(intent)
 }
 
 inline fun <reified S> HttpManager.service(): S {
