@@ -48,12 +48,13 @@ class IndexActivity :
         data.add(IndexListMenu(BezierActivity::class.java, "贝塞尔曲线"))
         data.add(IndexListMenu(FpsFrameActivity::class.java, "帧率分析"))
         data.add(IndexListMenu(HealthyCodeActivity::class.java, "健康码"))
+        data.add(IndexListMenu(EventDispatchActivity::class.java, "事件分发"))
         CaptureActivity.setDecodeResultCallback { result: String ->
             Log.d(
                 "WJF_DEBUG",
                 "扫描结果：$result"
             )
         }
-        adapter?.submitList(data)
+        adapter?.submitList(data.asReversed())
     }
 }

@@ -55,18 +55,15 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.HealthyCodeActivity">
-
-        </activity>
-        <activity android:name=".coordinator.CoordinatorActivity">
-
-        </activity>
-        <activity android:name=".activity.BezierActivity">
-
-        </activity>
-        <activity android:name=".activity.LoadLayoutActivity2"></activity>
+        <activity
+            android:name=".activity.EventDispatchActivity"
+            android:exported="false" />
+        <activity android:name=".activity.HealthyCodeActivity"></activity>
+        <activity android:name=".coordinator.CoordinatorActivity"></activity>
+        <activity android:name=".activity.BezierActivity"></activity>
+        <activity android:name=".activity.LoadLayoutActivity2" />
         <activity android:name=".activity.LoadLayoutActivity" />
-        <activity android:name=".activity.FpsFrameActivity"></activity>
+        <activity android:name=".activity.FpsFrameActivity" />
         <activity android:name=".activity.ConstraintLayoutStateActivity" />
         <activity android:name=".activity.TabActivity" />
         <activity android:name=".activity.HttpActivity" />
