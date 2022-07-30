@@ -13,8 +13,8 @@ object ResourceUtil {
         return BaseApplication.context().getString(resId)
     }
 
-    fun getString(@StringRes resId: Int, vararg formatArgs: Any): String {
-        return BaseApplication.context().getString(resId, formatArgs)
+    fun getString(@StringRes resId: Int, vararg formatArgs: Any?): String {
+        return BaseApplication.context().getString(resId, *formatArgs)
     }
 
     @ColorInt

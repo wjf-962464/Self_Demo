@@ -18,7 +18,7 @@ class ChildView @JvmOverloads constructor(
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         val result = super.onTouchEvent(event)
-        Logger.d("ChildView onTouchEvent:$result")
+//        Logger.d("ChildView onTouchEvent:$result")
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 Logger.d("ChildView ACTION_DOWN")

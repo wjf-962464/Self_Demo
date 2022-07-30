@@ -8,20 +8,20 @@ import android.view.ViewGroup
 import org.jxxy.debug.corekit.common.BaseApplication
 
 fun View?.show() {
-    if (this?.isShown == false) {
-        this.visibility = View.VISIBLE
+    if (this?.visibility != View.VISIBLE) {
+        this?.visibility = View.VISIBLE
     }
 }
 
 fun View?.hide() {
-    if (this?.isShown == true) {
-        this.visibility = View.INVISIBLE
+    if (this?.visibility != View.INVISIBLE) {
+        this?.visibility = View.INVISIBLE
     }
 }
 
 fun View?.gone() {
-    if (this?.isShown == true) {
-        this.visibility = View.GONE
+    if (this?.visibility != View.GONE) {
+        this?.visibility = View.GONE
     }
 }
 

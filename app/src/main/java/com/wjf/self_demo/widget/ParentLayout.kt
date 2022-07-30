@@ -18,7 +18,7 @@ class ParentLayout @JvmOverloads constructor(
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         val result = super.onTouchEvent(event)
-        Logger.d("ParentLayout onTouchEvent:$result")
+//        Logger.d("ParentLayout onTouchEvent:$result")
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 Logger.d("ParentLayout ACTION_DOWN")

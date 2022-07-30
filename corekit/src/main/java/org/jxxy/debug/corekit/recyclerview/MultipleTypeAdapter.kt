@@ -1,9 +1,5 @@
 package org.jxxy.debug.corekit.recyclerview
 
-import android.util.SparseArray
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import org.jxxy.debug.corekit.util.nullOrNot
 
@@ -12,67 +8,26 @@ import org.jxxy.debug.corekit.util.nullOrNot
  * @date : 2021/1/19
  */
 abstract class MultipleTypeAdapter protected constructor() :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    BaseTypeAdapter<MultipleType, MultipleViewHolder<ViewBinding, MultipleType>>() {
     companion object {
         private const val NONE_TYPE = -1
-        private const val TYPE_ERROR_MSG = "CommonAdapter 在解析映射时没有绑定对应的ViewType"
     }
 
-    private val map: SparseArray<CommonMap<ViewBinding, MultipleType>> = SparseArray()
-    private val data: MutableList<MultipleType> = mutableListOf()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = getMap(viewType).onCreateViewHolder(LayoutInflater.from(parent.context), parent)
-        return CommonMap.ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        bindHolder(position)
-    }
-
-    protected fun bindHolder(position: Int, payload: Any? = null) {
+    override fun bindHolder(
+        holder: MultipleViewHolder<ViewBinding, MultipleType>,
+        position: Int,
+        payload: Any?
+    ) {
         data.getOrNull(position)?.let {
-            getMap(getItemViewType(position)).apply {
-                payload.nullOrNot({
-                    bindViewHolder(it, this.view, position, this.view.root.context)
-                }) { payload ->
-                    bindViewHolder(it, this.view, position, payload, this.view.root.context)
-                }
+            payload.nullOrNot({
+                holder.setHolder(it, holder.itemView.context)
+            }) { payload ->
+                holder.setHolder(it, payload, holder.itemView.context)
             }
         }
     }
 
-    private fun getMap(viewType: Int): CommonMap<ViewBinding, MultipleType> {
-        return map.get(viewType) ?: throw IllegalStateException(TYPE_ERROR_MSG)
-    }
-
     override fun getItemViewType(position: Int): Int {
         return data.getOrNull(position)?.viewType() ?: NONE_TYPE
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    fun submitData(list: List<MultipleType>) {
-        val start = itemCount
-        val count = list.size
-        this.data.addAll(list)
-        notifyItemRangeInserted(start, count)
-    }
-
-    fun clearData() {
-        val count = itemCount
-        this.data.clear()
-        notifyItemRangeRemoved(0, count)
-    }
-
-    abstract fun bindMap(map: SparseArray<CommonMap<ViewBinding, MultipleType>>)
-    private fun initMap() {
-        bindMap(map)
-    }
-
-    init {
-        initMap()
     }
 }
