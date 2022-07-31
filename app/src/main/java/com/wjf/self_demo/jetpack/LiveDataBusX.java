@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.orhanobut.logger.Logger;
 import com.wjf.self_demo.BuildConfig;
-import com.wjf.self_library.util.log.LogUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -82,7 +82,7 @@ public class LiveDataBusX {
                 mLastVersion.set(observerWrapper, mVersion.get(this));
 
             } catch (Exception e) {
-                LogUtil.e(BuildConfig.TAG, this.getClass(), "hook: ", e);
+                Logger.e(BuildConfig.TAG, "hook: ", e);
             }
         }
     }

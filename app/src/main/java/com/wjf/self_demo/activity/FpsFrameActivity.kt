@@ -3,18 +3,19 @@ package com.wjf.self_demo.activity
 import android.os.Handler
 import android.os.Looper
 import com.orhanobut.logger.Logger
-import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityFpsFrameBinding
-import com.wjf.self_library.common.BaseActivity
+import org.jxxy.debug.corekit.common.BaseActivity
 
 class FpsFrameActivity :
     BaseActivity<ActivityFpsFrameBinding>() {
-    override fun setLayout(): Int = R.layout.activity_fps_frame
-
     override fun initView() {
     }
 
-    override fun initData() {
+    override fun bindLayout(): ActivityFpsFrameBinding {
+        return ActivityFpsFrameBinding.inflate(layoutInflater)
+    }
+
+    override fun subscribeUi() {
         var handler: Handler? = null
         Looper.myLooper()?.let {
             handler = Handler(it)
@@ -32,9 +33,5 @@ class FpsFrameActivity :
                 Logger.d("结束了")
             }, 3000L)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }

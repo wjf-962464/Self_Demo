@@ -3,13 +3,10 @@ package com.wjf.self_demo.activity
 import android.os.Build
 import android.view.View
 import android.widget.Toast
-import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityBezierBinding
-import com.wjf.self_library.common.BaseActivity
+import org.jxxy.debug.corekit.common.BaseActivity
 
 class BezierActivity : BaseActivity<ActivityBezierBinding>() {
-
-    override fun setLayout(): Int = R.layout.activity_bezier
 
     override fun initView() {
 /*        val startPoint = PointF(2f, 2f)
@@ -75,6 +72,10 @@ class BezierActivity : BaseActivity<ActivityBezierBinding>() {
         view.confirmBtn.callOnClick()
     }
 
-    override fun initData() {
+    override fun bindLayout(): ActivityBezierBinding {
+        return ActivityBezierBinding.inflate(layoutInflater)
+    }
+
+    override fun subscribeUi() {
     }
 }

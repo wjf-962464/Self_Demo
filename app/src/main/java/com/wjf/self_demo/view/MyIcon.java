@@ -15,6 +15,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.wjf.self_demo.R;
+
 public class MyIcon extends View {
     private String text;
     private int iconPosition;
@@ -49,7 +51,7 @@ public class MyIcon extends View {
      * @return 返回样式资源id
      */
     protected int[] setStyleable() {
-        return com.wjf.self_library.R.styleable.Icon;
+        return R.styleable.Icon;
     }
 
     /**
@@ -60,7 +62,7 @@ public class MyIcon extends View {
     protected void getTypeArray(TypedArray typedArray) {
         iconSize =
                 typedArray.getDimension(
-                        com.wjf.self_library.R.styleable.Icon_icon_size,
+                        R.styleable.Icon_icon_size,
                         (int)
                                 TypedValue.applyDimension(
                                         TypedValue.COMPLEX_UNIT_DIP,
@@ -69,39 +71,39 @@ public class MyIcon extends View {
 
         textSize =
                 typedArray.getDimension(
-                        com.wjf.self_library.R.styleable.Icon_text_size,
+                        R.styleable.Icon_text_size,
                         TypedValue.applyDimension(
                                 TypedValue.COMPLEX_UNIT_SP,
                                 13,
                                 getResources().getDisplayMetrics()));
 
-        text = typedArray.getString(com.wjf.self_library.R.styleable.Icon_icon_text);
+        text = typedArray.getString(R.styleable.Icon_icon_text);
         iconSrc =
                 Bitmap.createScaledBitmap(
                         BitmapFactory.decodeResource(
                                 getResources(),
                                 typedArray.getResourceId(
-                                        com.wjf.self_library.R.styleable.Icon_icon_src,
-                                        com.wjf.self_library.R.drawable.ic_launcher)),
+                                        R.styleable.Icon_icon_src,
+                                        R.drawable.ic_launcher)),
                         (int) iconSize,
                         (int) iconSize,
                         false);
 
         normalColor =
                 typedArray.getColor(
-                        com.wjf.self_library.R.styleable.Icon_color_normal, Color.BLACK);
+                        R.styleable.Icon_color_normal, Color.BLACK);
         selectedColor =
                 typedArray.getColor(
-                        com.wjf.self_library.R.styleable.Icon_color_selected, normalColor);
+                        R.styleable.Icon_color_selected, normalColor);
 
         iconTextMargin =
                 typedArray.getDimension(
-                        com.wjf.self_library.R.styleable.Icon_icon_text_margin,
+                        R.styleable.Icon_icon_text_margin,
                         TypedValue.applyDimension(
                                 TypedValue.COMPLEX_UNIT_DIP,
                                 3,
                                 getResources().getDisplayMetrics()));
-        iconPosition = typedArray.getInt(com.wjf.self_library.R.styleable.Icon_icon_position, 0);
+        iconPosition = typedArray.getInt(R.styleable.Icon_icon_position, 0);
         try {
             distribution = IconPosition.create(iconPosition);
         } catch (Exception e) {

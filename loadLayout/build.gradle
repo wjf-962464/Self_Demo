@@ -1,15 +1,13 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
 }
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     buildFeatures {
-        dataBinding = true
-// for view binding :
         viewBinding = true
     }
     defaultConfig {
@@ -45,9 +43,5 @@ android {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation project(':self_library')
-    api 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
-    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation project(':corekit')
 }

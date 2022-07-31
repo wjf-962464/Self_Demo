@@ -3,7 +3,7 @@ ext {
     compileSdkVersion = 30//用于编译的SDK版本
     buildToolsVersion = '30.0.3'// 用于Gradle编译项目的工具版本
 
-    minSdkVersion = 20// 最低支持Android版本
+    minSdkVersion = 21// 最低支持Android版本
     targetSdkVersion = 30// 目标版本
 
     versionCode = 1
@@ -24,8 +24,8 @@ ext {
     ]
 
     depends = [
-            [name: 'self_library', enable: true],
-            [name: 'bar_code', enable: true],
+            [name: 'self_library', enable: false],
+            [name: 'barcode', enable: true],
             [name: 'loadLayout', enable: true],
             [name: 'corekit', enable: true]
     ]

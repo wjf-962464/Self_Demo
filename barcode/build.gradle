@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'maven-publish'
+}
+def GROUP = 'org.jxxy.debug'
+def MODULE = 'barcode'
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildFeatures {
+        viewBinding = true
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+        buildConfigField("String", "TAG", "\"${MODULE}\"")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+dependencies {
+    //Zxing二维码jar包
+    implementation files('libs/core-3.3.2-SNAPSHOT.jar')
+    implementation project(':corekit')
+}
+task androidSourcesJar(type: Jar) {
+    // 如果有Kotlin那么就需要打入dir : getSrcDirs
+    if (project.hasProperty("kotlin")) {
+        from android.sourceSets.main.java.getSrcDirs()
+    } else if (project.hasProperty("android")) {
+        from android.sourceSets.main.java.sourceFiles
+    } else {
+        from sourceSets.main.allSource
+    }
+    archiveClassifier.set('sources')
+}
+def versionCode = "1.0.0.1"
+def snapshotEnable = true
+
+afterEvaluate {
+    publishing {
+        //发布的 jar 包配置
+        publications {
+            //release这个名称可以替换，会生成对应的publishXXXPublicationToMaven的两个Task
+            release(MavenPublication) {
+                //aar 文件
+                from components.release
+                // 上传source，这样使用方可以看到方法注释，使用上面的 androidSourcesJar Task
+                artifact androidSourcesJar
+                groupId = GROUP
+                artifactId = MODULE
+                version = "$versionCode${snapshotEnable ? '-SNAPSHOT' : ''}"
+            }
+        }
+        //仓库地址配置
+        repositories {
+            maven {
+                // 凭证
+                credentials {
+                    username MAVEN_USER// 仓库发布用户名
+                    password MAVEN_PWD // 仓库发布用户密码
+                }
+                // 地址 REPOSITORY_SNAPSHOT，REPOSITORY
+                url MAVEN_URL
+                //允许http
+                allowInsecureProtocol true
+            }
+        }
+    }
+}

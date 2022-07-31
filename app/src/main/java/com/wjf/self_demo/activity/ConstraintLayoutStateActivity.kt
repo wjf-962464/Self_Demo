@@ -7,23 +7,20 @@ import android.widget.TextView
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityConstraintLayoutStateBinding
 import com.wjf.self_demo.databinding.ItemListTestBinding
-import com.wjf.self_library.common.BaseActivity
-import com.wjf.self_library.common.click
+import org.jxxy.debug.corekit.common.BaseActivity
+import org.jxxy.debug.corekit.util.singleClick
 
 /**
  * @author WJF
  */
 class ConstraintLayoutStateActivity : BaseActivity<ActivityConstraintLayoutStateBinding>() {
     val handler = Handler(Looper.getMainLooper())
-    override fun setLayout(): Int {
-        return R.layout.activity_constraint_layout_state
-    }
-
+    private var flag = false
     override fun initView() {
 
         var stubView: View? = null
 //        view.stateConstraintLayout.loadLayoutDescription(R.xml.constraint_layout_states_example)
-        view.changStateBtn.click {
+        view.changStateBtn.singleClick {
 /*            view.stateConstraintLayout.setState(R.id.loading, 0, 0)
             handler.postDelayed(
                 {
@@ -31,16 +28,19 @@ class ConstraintLayoutStateActivity : BaseActivity<ActivityConstraintLayoutState
                 },
                 3000L
             )*/
-
-            view.viewStub.viewStub?.let { viewStub ->
-                stubView = viewStub.inflate()
-                stubView?.let {
-                    val userName = it.findViewById<TextView>(R.id.userName)
-                    (view.viewStub.binding as? ItemListTestBinding)?.userName?.text = "用户名"
-                    val userDes = it.findViewById<TextView>(R.id.userDes)
-                    (view.viewStub.binding as? ItemListTestBinding)?.userDes?.text = "userDes"
+            if (flag.not()) {
+                view.viewStub.let { viewStub ->
+                    stubView = viewStub.inflate()
+                    stubView?.let {
+                        val userName = it.findViewById<TextView>(R.id.userName)
+                        (view.viewStub as? ItemListTestBinding)?.userName?.text = "用户名"
+                        val userDes = it.findViewById<TextView>(R.id.userDes)
+                        (view.viewStub as? ItemListTestBinding)?.userDes?.text = "userDes"
+                    }
+                    flag = true
                 }
             }
+
             stubView?.let {
                 if (it.visibility == View.GONE) {
                     it.visibility = View.VISIBLE
@@ -51,5 +51,10 @@ class ConstraintLayoutStateActivity : BaseActivity<ActivityConstraintLayoutState
         }
     }
 
-    override fun initData() {}
+    override fun bindLayout(): ActivityConstraintLayoutStateBinding {
+        return ActivityConstraintLayoutStateBinding.inflate(layoutInflater)
+    }
+
+    override fun subscribeUi() {
+    }
 }

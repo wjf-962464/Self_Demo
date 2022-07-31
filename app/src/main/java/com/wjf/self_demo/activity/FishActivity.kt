@@ -1,31 +1,23 @@
-package com.wjf.self_demo.activity;
+package com.wjf.self_demo.activity
 
-import android.Manifest;
+import com.wjf.self_demo.databinding.ActivityFishBinding
+import com.wjf.self_demo.view.FishDrawable
+import org.jxxy.debug.corekit.common.BaseActivity
 
-import com.wjf.self_demo.R;
-import com.wjf.self_demo.databinding.ActivityFishBinding;
-import com.wjf.self_demo.view.FishDrawable;
-import com.wjf.self_library.common.BaseActivity;
-
-/** @author WJF */
-public class FishActivity extends BaseActivity<ActivityFishBinding> {
-
-    @Override
-    public int setLayout() {
-        return R.layout.activity_fish;
+/** @author WJF
+ */
+class FishActivity : BaseActivity<ActivityFishBinding>() {
+    override fun initView() {
+        view.fishImg.setImageDrawable(FishDrawable())
     }
 
-    @Override
-    protected void initView() {
-        view.fishImg.setImageDrawable(new FishDrawable());
-
+    override fun doSomethingAfterGranted() {
+        super.doSomethingAfterGranted()
     }
 
-    @Override
-    protected void doSomethingAfterGranted() {
-        super.doSomethingAfterGranted();
+    override fun bindLayout(): ActivityFishBinding {
+        return ActivityFishBinding.inflate(layoutInflater)
     }
 
-    @Override
-    protected void initData() {}
+    override fun subscribeUi() {}
 }

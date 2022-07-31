@@ -1,35 +1,30 @@
-package com.wjf.self_demo.view;
+package com.wjf.self_demo.view
 
-import android.content.Context;
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import com.wjf.self_demo.databinding.DialogEditBinding
+import org.jxxy.debug.corekit.common.BaseDialog
+import org.jxxy.debug.corekit.util.singleClick
 
-import androidx.annotation.NonNull;
-
-import com.wjf.self_demo.R;
-import com.wjf.self_demo.databinding.DialogEditBinding;
-import com.wjf.self_library.common.BaseDialog;
-
-/** @author WJF */
-public class EditTextDialog extends BaseDialog<DialogEditBinding> {
-
-    public EditTextDialog(@NonNull Context context) {
-        super(context);
+/** @author WJF
+ */
+class EditTextDialog(context: Context) : BaseDialog<DialogEditBinding>(context) {
+    var listener: ((String) -> Unit)? = null
+    fun setSubmitListener(block: (String) -> Unit): EditTextDialog {
+        this.listener = block
+        return this
     }
 
-    public EditTextDialog setSubmitListener(BaseDialog.DialogClickListener<String> listener) {
-        view.submitBtn.setOnClickListener(
-                v -> {
-                    listener.onClick(getView().inputEdit.getText().toString().trim());
-                    getView().inputEdit.setText("");
-                    EditTextDialog.this.dismiss();
-                });
-        return this;
+    override fun initView() {
+        view.submitBtn.singleClick { v: View? ->
+            listener?.invoke(view.inputEdit.text.toString().trim { it <= ' ' })
+            view.inputEdit.setText("")
+            dismiss()
+        }
     }
 
-    @Override
-    protected int setLayout() {
-        return R.layout.dialog_edit;
+    override fun bindLayout(inflater: LayoutInflater): DialogEditBinding {
+        return DialogEditBinding.inflate(inflater)
     }
-
-    @Override
-    protected void initView(@NonNull DialogEditBinding view) {}
 }

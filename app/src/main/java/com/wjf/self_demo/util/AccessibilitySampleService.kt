@@ -5,7 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import com.wjf.barcode.Logger
+import com.orhanobut.logger.Logger
 
 class AccessibilitySampleService : AccessibilityService() {
     private val mHandler: Handler = Handler(Looper.getMainLooper())

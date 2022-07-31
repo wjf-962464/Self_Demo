@@ -1,32 +1,41 @@
-package com.wjf.self_demo.adapter;
+package com.wjf.self_demo.adapter
 
-import android.content.Intent;
-
-import com.wjf.self_demo.R;
-import com.wjf.self_demo.databinding.ItemListIndexBinding;
-import com.wjf.self_demo.entity.IndexListMenu;
-import com.wjf.self_library.common.CommonAdapter;
+import android.content.Context
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.viewbinding.ViewBinding
+import com.wjf.self_demo.databinding.ItemListIndexBinding
+import com.wjf.self_demo.entity.IndexListMenu
+import org.jxxy.debug.corekit.recyclerview.SingleTypeAdapter
+import org.jxxy.debug.corekit.recyclerview.SingleViewHolder
+import org.jxxy.debug.corekit.util.singleClick
 
 /**
  * @author : Wangjf
  * @date : 2021/4/6
  */
-public class IndexListAdapter extends CommonAdapter<ItemListIndexBinding, IndexListMenu> {
-
-    @Override
-    protected int setLayout() {
-        return R.layout.item_list_index;
+class IndexListAdapter : SingleTypeAdapter() {
+    override fun createViewHolder(
+        viewType: Int,
+        inflater: LayoutInflater,
+        parent: ViewGroup
+    ): SingleViewHolder<ViewBinding, Any>? {
+        return IndexListViewHolder(ItemListIndexBinding.inflate(inflater, parent, false))
+            as? SingleViewHolder<ViewBinding, Any>
     }
 
-    @Override
-    protected void setHolder(IndexListMenu entity, ItemListIndexBinding view) {
-        view.menuText.setText(entity.getDes());
-        view.menuText.setOnClickListener(
-                v -> {
-                    Intent intent = new Intent();
-                    intent.putExtra("data", entity.getData());
-                    intent.setClass(context, entity.getGotoClass());
-                    context.startActivity(intent);
-                });
+    class IndexListViewHolder(view: ItemListIndexBinding) :
+        SingleViewHolder<ItemListIndexBinding, IndexListMenu>(view) {
+        override fun setHolder(entity: IndexListMenu, context: Context) {
+            view.menuText.text = entity.des
+            view.root.singleClick { v: View? ->
+                val intent = Intent()
+                intent.putExtra("data", entity.data)
+                intent.setClass(context, entity.gotoClass)
+                context.startActivity(intent)
+            }
+        }
     }
 }

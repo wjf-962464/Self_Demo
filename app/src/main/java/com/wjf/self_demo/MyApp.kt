@@ -1,13 +1,10 @@
 package com.wjf.self_demo
 
 import android.app.Activity
-import android.app.Application
 import android.os.Bundle
 import android.os.HandlerThread
-import com.wjf.barcode.BeepManager
-import com.wjf.barcode.CustomException
-import com.wjf.self_library.http.HttpManager
-import com.wjf.self_library.http.HttpManager.Instance.init
+import org.jxxy.debug.barcode.BeepManager
+import org.jxxy.debug.barcode.CustomException
 import org.jxxy.debug.corekit.common.BaseApplication
 import java.util.*
 
@@ -35,8 +32,6 @@ class MyApp : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        val builder = HttpManager.Builder().timeout(5L).baseUrl(HttpService.baseUrl)
-        init(builder)
         BeepManager.init(this, SP_TAG)
 //        IconFontManager.initAsset("iconfont.ttf")
         //        BlockCanary.install(this, new AppBlockCanaryContext()).start();

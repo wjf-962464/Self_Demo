@@ -2,23 +2,21 @@ package com.wjf.self_demo.activity;
 
 import android.content.Intent;
 
-import com.wjf.self_demo.R;
+import androidx.annotation.NonNull;
+
 import com.wjf.self_demo.databinding.ActivityLiveDataBinding;
 import com.wjf.self_demo.jetpack.LiveDataBus;
 import com.wjf.self_demo.jetpack.LiveDataBusX;
-import com.wjf.self_library.common.BaseActivity;
+
+import org.jxxy.debug.corekit.common.BaseActivity;
 
 /** @author asus */
 public class LiveDataActivity extends BaseActivity<ActivityLiveDataBinding> {
 
-    @Override
-    public int setLayout() {
-        return R.layout.activity_live_data;
-    }
 
     @Override
     protected void initView() {
-        view.gotoBusBtn.setOnClickListener(
+        getView().gotoBusBtn.setOnClickListener(
                 view ->
                         startActivity(
                                 new Intent(LiveDataActivity.this, LiveDataBusActivity.class)));
@@ -38,6 +36,15 @@ public class LiveDataActivity extends BaseActivity<ActivityLiveDataBinding> {
         thread.start();
     }
 
+
+    @NonNull
     @Override
-    protected void initData() {}
+    protected ActivityLiveDataBinding bindLayout() {
+        return ActivityLiveDataBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
+    protected void subscribeUi() {
+
+    }
 }

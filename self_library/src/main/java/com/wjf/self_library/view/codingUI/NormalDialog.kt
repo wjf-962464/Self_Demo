@@ -17,7 +17,7 @@ class NormalDialog(context: Context) : BaseDialog<DialogCommonBinding>(context) 
         listener: (NormalDialog) -> Unit
     ): NormalDialog {
         view.positiveBtn.text = text
-        view.positiveBtn.click {
+        view.positiveBtn.singleClick {
             listener(this@NormalDialog)
         }
         return this
@@ -28,7 +28,7 @@ class NormalDialog(context: Context) : BaseDialog<DialogCommonBinding>(context) 
         listener: (NormalDialog) -> Unit
     ): NormalDialog {
         view.negativeBtn.text = text
-        view.negativeBtn.click {
+        view.negativeBtn.singleClick {
             listener(this@NormalDialog)
         }
         return this

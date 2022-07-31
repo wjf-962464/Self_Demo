@@ -93,12 +93,12 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         StatusBarUtil.setTranslucentStatus(this, dark)
     }
 
-    protected fun addPermission(permissionString: String): BaseActivity<T> {
+    fun addPermission(permissionString: String): BaseActivity<T> {
         this.permissionString.add(permissionString)
         return this
     }
 
-    protected fun requestPermission() {
+    fun requestPermission() {
         if (checkPermissionAllGranted(permissionString)) {
             doSomethingAfterGranted()
             Log.d(BuildConfig.TAG, "onRequestPermissionsResult granted")

@@ -1,26 +1,23 @@
 package com.wjf.self_demo.activity;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 
+import com.orhanobut.logger.Logger;
 import com.wjf.self_demo.BuildConfig;
-import com.wjf.self_demo.R;
 import com.wjf.self_demo.databinding.ActivityLiveDataBusBinding;
 import com.wjf.self_demo.jetpack.LiveDataBus;
 import com.wjf.self_demo.jetpack.LiveDataBusX;
-import com.wjf.self_library.common.BaseActivity;
-import com.wjf.self_library.util.log.LogUtil;
+
+import org.jxxy.debug.corekit.common.BaseActivity;
 
 /** @author asus */
 public class LiveDataBusActivity extends BaseActivity<ActivityLiveDataBusBinding> {
 
-    @Override
-    public int setLayout() {
-        return R.layout.activity_live_data_bus;
-    }
 
     @Override
     protected void initView() {
-        LogUtil.d(BuildConfig.TAG, this.getClass(), "initView: 绑定前333");
+        Logger.d(BuildConfig.TAG, "initView: 绑定前333");
         LiveDataBus.getInstance()
                 .with("data", String.class)
                 .observe(
@@ -28,7 +25,7 @@ public class LiveDataBusActivity extends BaseActivity<ActivityLiveDataBusBinding
                         new Observer<String>() {
                             @Override
                             public void onChanged(String s) {
-                                LogUtil.d(BuildConfig.TAG, this.getClass(), "LiveDataBus: " + s);
+                                Logger.d(BuildConfig.TAG, "LiveDataBus: " + s);
                             }
                         });
         LiveDataBusX.getInstance()
@@ -38,12 +35,21 @@ public class LiveDataBusActivity extends BaseActivity<ActivityLiveDataBusBinding
                         new Observer<String>() {
                             @Override
                             public void onChanged(String s) {
-                                LogUtil.d(BuildConfig.TAG, this.getClass(), "LiveDataBusX: " + s);
+                                Logger.d(BuildConfig.TAG, "LiveDataBusX: " + s);
                             }
                         });
-        LogUtil.d(BuildConfig.TAG, this.getClass(), "initView: 绑定后22");
+        Logger.d(BuildConfig.TAG, "initView: 绑定后22");
+    }
+
+
+    @NonNull
+    @Override
+    protected ActivityLiveDataBusBinding bindLayout() {
+        return ActivityLiveDataBusBinding.inflate(getLayoutInflater());
     }
 
     @Override
-    protected void initData() {}
+    protected void subscribeUi() {
+
+    }
 }

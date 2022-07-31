@@ -2,7 +2,7 @@ package com.wjf.loadLayout.callback
 
 import android.content.Context
 import android.view.View
-import com.wjf.self_library.common.click
+import org.jxxy.debug.corekit.util.singleClick
 
 abstract class ICallback() {
     private var callOnListener: CallOnListener? = null
@@ -30,7 +30,7 @@ abstract class ICallback() {
             throw IllegalArgumentException("ICallback's fun getRootView() context is null")
         }
         rootView = View.inflate(context, resId, null)
-        rootView?.click {
+        rootView?.singleClick {
             callOnListener?.statusResponse()
         }
         return rootView

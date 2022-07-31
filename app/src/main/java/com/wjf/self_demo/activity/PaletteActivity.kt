@@ -8,17 +8,12 @@ import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityPaletteBinding
-import com.wjf.self_library.common.BaseActivity
+import org.jxxy.debug.corekit.common.BaseActivity
 
 class PaletteActivity : BaseActivity<ActivityPaletteBinding>() {
 
-    override fun setLayout(): Int = R.layout.activity_palette
-
     override fun initView() {
         createPaletteAsync(BitmapFactory.decodeResource(resources, R.drawable.img_1))
-    }
-
-    override fun initData() {
     }
 
     @SuppressLint("WrongConstant")
@@ -46,5 +41,12 @@ class PaletteActivity : BaseActivity<ActivityPaletteBinding>() {
                 drawable.gradientType = GradientDrawable.RECTANGLE
                 view.colorBar.background = drawable
             }
+    }
+
+    override fun bindLayout(): ActivityPaletteBinding {
+        return ActivityPaletteBinding.inflate(layoutInflater)
+    }
+
+    override fun subscribeUi() {
     }
 }

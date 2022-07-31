@@ -8,16 +8,14 @@ import android.os.Looper
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.lifecycle.Observer
-import com.wjf.barcode.Logger
-import com.wjf.self_demo.R
+import com.orhanobut.logger.Logger
 import com.wjf.self_demo.databinding.ActivityPhoneCallBinding
 import com.wjf.self_demo.entity.PhoneCallBean
 import com.wjf.self_demo.util.AccessibilitySampleService
 import com.wjf.self_demo.util.CallingStateListener
 import com.wjf.self_demo.view.EditTextDialog
-import com.wjf.self_library.common.BaseActivity
-import com.wjf.self_library.common.BaseDialog
-import com.wjf.self_library.common.click
+import org.jxxy.debug.corekit.common.BaseActivity
+import org.jxxy.debug.corekit.util.singleClick
 
 class PhoneCallActivity :
     BaseActivity<ActivityPhoneCallBinding>(),
@@ -27,8 +25,6 @@ class PhoneCallActivity :
     private var mIntent: Intent? = null
     private var phoneCallBean: PhoneCallBean = PhoneCallBean(false, "01062300568")
     private var dialog: EditTextDialog? = null
-
-    override fun setLayout(): Int = R.layout.activity_phone_call
 
     override fun initView() {
         mIntent = Intent(Intent.ACTION_CALL)
@@ -46,30 +42,22 @@ class PhoneCallActivity :
 
         mHandler = Handler(Looper.getMainLooper())
         dialog =
-            EditTextDialog(this).setSubmitListener(object : BaseDialog.DialogClickListener<String> {
-            override fun onClick(value: String) {
-                phoneCallBean.phoneNum = value
-            }
-        }).width(WindowManager.LayoutParams.MATCH_PARENT)
+            EditTextDialog(this).setSubmitListener { phoneCallBean.phoneNum = it }
+            .width(WindowManager.LayoutParams.MATCH_PARENT)
             .height(WindowManager.LayoutParams.WRAP_CONTENT)
             .cancelOnTouch(true)
             .gravity(Gravity.BOTTOM) as EditTextDialog?
 
         view.bean = phoneCallBean
-        view.btn.click {
+        view.btn.singleClick {
             if (!phoneCallBean.isCallFlag) {
                 startActivity(mIntent)
             }
             phoneCallBean.opposeFlag()
         }
-        view.contentHint.click {
+        view.contentHint.singleClick {
             dialog?.show()
         }
-    }
-
-    override fun initData() {
-        addPermission(Manifest.permission.CALL_PHONE).requestPermission()
-        phoneCallBean.phoneNum = "01062300568"
     }
 
     override fun onCallStateChanged(state: Int, number: String?) {
@@ -106,5 +94,14 @@ class PhoneCallActivity :
         super.onDestroy()
         phoneCallBean.isCallFlag = false
         mHandler?.removeCallbacksAndMessages(null)
+    }
+
+    override fun bindLayout(): ActivityPhoneCallBinding {
+        return ActivityPhoneCallBinding.inflate(layoutInflater)
+    }
+
+    override fun subscribeUi() {
+        addPermission(Manifest.permission.CALL_PHONE).requestPermission()
+        phoneCallBean.phoneNum = "01062300568"
     }
 }

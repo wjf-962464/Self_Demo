@@ -4,12 +4,11 @@ import android.view.View
 import com.wjf.loadLayout.callback.ICallback.CallOnListener
 import com.wjf.loadLayout.core.LoadManager
 import com.wjf.loadLayout.core.LoadService
-import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityLoadLayoutBinding
 import com.wjf.self_demo.databinding.CallbackEmptyBinding
 import com.wjf.self_demo.loadlayout.EmptyCallback
 import com.wjf.self_demo.loadlayout.LoadingCallback
-import com.wjf.self_library.common.BaseActivity
+import org.jxxy.debug.corekit.common.BaseActivity
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
@@ -19,9 +18,6 @@ import java.util.concurrent.TimeUnit
  */
 class LoadLayoutActivity2 : BaseActivity<ActivityLoadLayoutBinding>() {
     private lateinit var loadService: LoadService
-    override fun setLayout(): Int {
-        return R.layout.activity_load_layout
-    }
 
     override fun initView() {
         val singleThreadPool: ExecutorService = ThreadPoolExecutor(
@@ -65,5 +61,10 @@ class LoadLayoutActivity2 : BaseActivity<ActivityLoadLayoutBinding>() {
         }
     }
 
-    override fun initData() {}
+    override fun bindLayout(): ActivityLoadLayoutBinding {
+        return ActivityLoadLayoutBinding.inflate(layoutInflater)
+    }
+
+    override fun subscribeUi() {
+    }
 }

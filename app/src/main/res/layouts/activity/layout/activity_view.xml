@@ -1,85 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ViewActivity">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activity.ViewActivity">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <org.jxxy.debug.corekit.widget.CommonToolbar
+            android:id="@+id/commonToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.wjf.self_library.view.codingUI.CommonToolbar
-                android:id="@+id/commonToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:backText="返回"
-                app:background_color="@color/colorPrimary"
-                app:dark_theme="false"
-                app:titleText="自定义控件" />
-
-            <ImageView
-                android:id="@+id/barcode"
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
-        </LinearLayout>
-
+            app:backText="返回"
+            app:background_color="@color/colorPrimary"
+            app:dark_theme="false"
+            app:titleText="自定义控件" />
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/icon_pwd" />
-
-        <LinearLayout
+            android:id="@+id/barcode"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:layout_height="50dp" />
+    </LinearLayout>
 
-            <com.wjf.self_library.view.codingUI.Icon
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_yellow"
-                app:icon_position="left"
-                app:icon_size="20dp"
-                app:icon_src="@drawable/icon_pwd"
-                app:icon_text="略略asda略" />
 
-            <com.wjf.self_library.view.codingUI.Icon
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/color_green"
-                app:icon_position="top"
-                app:icon_size="30dp"
-                app:icon_src="@drawable/icon_pwd"
-                app:icon_text="图标呀" />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/icon_pwd" />
 
-            <com.wjf.self_library.view.codingUI.Icon
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/grey"
-                app:icon_position="bottom"
-                app:icon_size="30dp"
-                app:icon_src="@drawable/icon_pwd"
-                app:icon_text="图标呀" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-            <com.wjf.self_library.view.codingUI.Icon
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                app:icon_position="right"
-                app:icon_size="30dp"
-                app:icon_src="@drawable/icon_pwd"
-                app:icon_text="图标呀" />
-        </LinearLayout>
-    </RelativeLayout>
-</layout>
+        <!--            <com.wjf.self_library.view.codingUI.Icon
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/color_yellow"
+                        app:icon_position="left"
+                        app:icon_size="20dp"
+                        app:icon_src="@drawable/icon_pwd"
+                        app:icon_text="略略asda略" />
+
+                    <com.wjf.self_library.view.codingUI.Icon
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/color_green"
+                        app:icon_position="top"
+                        app:icon_size="30dp"
+                        app:icon_src="@drawable/icon_pwd"
+                        app:icon_text="图标呀" />
+
+                    <com.wjf.self_library.view.codingUI.Icon
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/grey"
+                        app:icon_position="bottom"
+                        app:icon_size="30dp"
+                        app:icon_src="@drawable/icon_pwd"
+                        app:icon_text="图标呀" />
+
+                    <com.wjf.self_library.view.codingUI.Icon
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        app:icon_position="right"
+                        app:icon_size="30dp"
+                        app:icon_src="@drawable/icon_pwd"
+                        app:icon_text="图标呀" />-->
+    </LinearLayout>
+</RelativeLayout>

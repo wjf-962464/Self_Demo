@@ -7,13 +7,12 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.provider.Settings
 import com.orhanobut.logger.Logger
-import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityAccessibilityBinding
 import com.wjf.self_demo.receiver.AdminReceiver
 import com.wjf.self_demo.util.AccessibilityClockService
 import com.wjf.self_demo.util.ClockBroadcastReceiver
-import com.wjf.self_library.common.BaseActivity
-import com.wjf.self_library.common.click
+import org.jxxy.debug.corekit.common.BaseActivity
+import org.jxxy.debug.corekit.util.singleClick
 
 class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
     val DPM_REQUEST_CODE = 0x002
@@ -28,13 +27,11 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
         getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
     }
 
-    override fun setLayout(): Int = R.layout.activity_accessibility
-
     override fun initView() {
         addPermission(Manifest.permission.DISABLE_KEYGUARD).addPermission(Manifest.permission.WAKE_LOCK)
         requestPermission()
 
-        view.clockBtn.click {
+        view.clockBtn.singleClick {
 
             if (!AccessibilityClockService.isStart) {
                 try {
@@ -68,12 +65,6 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
         }
     }
 
-    override fun initData() {
-        val filter = IntentFilter("wjf.self.clock")
-        receiver = ClockBroadcastReceiver()
-        registerReceiver(receiver, filter)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         receiver?.let { unregisterReceiver(it) }
@@ -88,5 +79,15 @@ class AccessibilityActivity : BaseActivity<ActivityAccessibilityBinding>() {
                 Logger.d("防盗保护没有开启")
             }
         }
+    }
+
+    override fun bindLayout(): ActivityAccessibilityBinding {
+        return ActivityAccessibilityBinding.inflate(layoutInflater)
+    }
+
+    override fun subscribeUi() {
+        val filter = IntentFilter("wjf.self.clock")
+        receiver = ClockBroadcastReceiver()
+        registerReceiver(receiver, filter)
     }
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-import com.wjf.barcode.Logger;
+import com.orhanobut.logger.Logger;
 
 public class CallingStateListener extends PhoneStateListener {
 

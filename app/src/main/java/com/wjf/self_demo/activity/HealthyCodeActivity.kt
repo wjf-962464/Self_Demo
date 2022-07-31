@@ -4,9 +4,8 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.RelativeSizeSpan
 import android.view.View
-import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityHealthyCodeBinding
-import com.wjf.self_library.common.BaseActivity
+import org.jxxy.debug.corekit.common.BaseActivity
 import org.jxxy.debug.corekit.util.ScheduleTask
 import org.jxxy.debug.corekit.util.singleClick
 import org.jxxy.debug.corekit.util.startActivity
@@ -46,9 +45,11 @@ class HealthyCodeActivity : BaseActivity<ActivityHealthyCodeBinding>() {
         }
     }
 
-    override fun setLayout(): Int = R.layout.activity_healthy_code
+    override fun bindLayout(): ActivityHealthyCodeBinding {
+        return ActivityHealthyCodeBinding.inflate(layoutInflater)
+    }
 
-    override fun initData() {
+    override fun subscribeUi() {
         ScheduleTask(lifecycle, 1, TimeUnit.SECONDS) {
             val curDate = Date(System.currentTimeMillis())
             val sbs2 = SpannableString(formatter.format(curDate))

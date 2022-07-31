@@ -2,7 +2,7 @@ package com.wjf.self_demo.util;
 
 import android.media.AudioManager;
 
-import com.wjf.barcode.Logger;
+import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

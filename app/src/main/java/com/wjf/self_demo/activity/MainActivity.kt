@@ -6,17 +6,14 @@ import com.orhanobut.logger.Logger
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityMainBinding
 import com.wjf.self_demo.view.MyDialog
-import com.wjf.self_library.common.BaseActivity
-import com.wjf.self_library.common.click
+import org.jxxy.debug.corekit.common.BaseActivity
+import org.jxxy.debug.corekit.util.singleClick
 
 /**
  * @author Wangjf2-DESKTOP
  */
 class MainActivity :
     BaseActivity<ActivityMainBinding>() {
-    override fun setLayout(): Int {
-        return R.layout.activity_main
-    }
 
     override fun initView() {
         val myDialog1 =
@@ -30,10 +27,10 @@ class MainActivity :
                 .height(WindowManager.LayoutParams.MATCH_PARENT)
                 .width(WindowManager.LayoutParams.MATCH_PARENT).gravity(Gravity.CENTER)
                 .cancelOnTouch(true)
-        view.btn1.click {
+        view.btn1.singleClick {
             myDialog1.show()
         }
-        view.btn2.click {
+        view.btn2.singleClick {
             myDialog2.show()
         }
 
@@ -61,6 +58,10 @@ class MainActivity :
             }"
         )
     }
+    override fun bindLayout(): ActivityMainBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
+    }
 
-    override fun initData() {}
+    override fun subscribeUi() {
+    }
 }

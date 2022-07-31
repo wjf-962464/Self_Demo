@@ -1,24 +1,27 @@
 package com.wjf.self_demo.activity;
 
-import com.wjf.barcode.encode.EncodingUtils;
-import com.wjf.self_demo.R;
+import androidx.annotation.NonNull;
+
 import com.wjf.self_demo.databinding.ActivityViewBinding;
-import com.wjf.self_library.common.BaseActivity;
+
+import org.jxxy.debug.barcode.encode.EncodingUtils;
+import org.jxxy.debug.corekit.common.BaseActivity;
 
 /** @author Wangjf2-DESKTOP */
 public class ViewActivity extends BaseActivity<ActivityViewBinding> {
 
     @Override
-    public int setLayout() {
-        return R.layout.activity_view;
-    }
-
-    @Override
     protected void initView() {
 
-        EncodingUtils.bindBarCode("sadad", view.barcode);
+        EncodingUtils.bindBarCode("sadad", getView().barcode);
+    }
+
+    @NonNull
+    @Override
+    protected ActivityViewBinding bindLayout() {
+        return ActivityViewBinding.inflate(getLayoutInflater());
     }
 
     @Override
-    protected void initData() {}
+    protected void subscribeUi() {}
 }

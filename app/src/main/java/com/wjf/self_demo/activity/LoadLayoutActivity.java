@@ -2,15 +2,17 @@ package com.wjf.self_demo.activity;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.wjf.loadLayout.callback.ICallback;
 import com.wjf.loadLayout.core.LoadManager;
 import com.wjf.loadLayout.core.LoadService;
-import com.wjf.self_demo.R;
 import com.wjf.self_demo.databinding.ActivityLoadLayoutBinding;
 import com.wjf.self_demo.databinding.CallbackEmptyBinding;
 import com.wjf.self_demo.loadlayout.EmptyCallback;
 import com.wjf.self_demo.loadlayout.LoadingCallback;
-import com.wjf.self_library.common.BaseActivity;
+
+import org.jxxy.debug.corekit.common.BaseActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -23,11 +25,6 @@ import kotlin.jvm.functions.Function1;
 /** @author WJF */
 public class LoadLayoutActivity extends BaseActivity<ActivityLoadLayoutBinding> {
     private LoadService loadService;
-
-    @Override
-    public int setLayout() {
-        return R.layout.activity_load_layout;
-    }
 
     @Override
     protected void initView() {
@@ -82,6 +79,12 @@ public class LoadLayoutActivity extends BaseActivity<ActivityLoadLayoutBinding> 
                 });
     }
 
+    @NonNull
     @Override
-    protected void initData() {}
+    protected ActivityLoadLayoutBinding bindLayout() {
+        return ActivityLoadLayoutBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
+    protected void subscribeUi() {}
 }
