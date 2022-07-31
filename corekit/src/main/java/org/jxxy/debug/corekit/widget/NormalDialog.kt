@@ -12,35 +12,30 @@ class NormalDialog(context: Context) : BaseDialog<DialogCommonBinding>(context) 
         return DialogCommonBinding.inflate(inflater)
     }
 
-    fun setPositiveButton(
-        text: String,
-        listener: (NormalDialog) -> Unit
-    ): NormalDialog {
-        view.positiveBtn.text = text
-        view.positiveBtn.singleClick {
-            listener.invoke(this@NormalDialog)
-        }
-        return this
-    }
-
-    fun setNegativeButton(
-        text: String,
-        listener: (NormalDialog) -> Unit
-    ): NormalDialog {
-        view.negativeBtn.text = text
-        view.negativeBtn.singleClick {
-            listener.invoke(this@NormalDialog)
-        }
-        return this
-    }
+    var listener: NormalDialogListener? = null
+    var positiveText: String? = null
+    var negativeText: String? = null
 
     override fun initView() {
         view.dialogTitle.text = getData(TITLE)
         view.dialogMessage.text = getData(MESSAGE)
+        view.positiveBtn.text = positiveText
+        view.positiveBtn.singleClick {
+            listener?.onPositiveClick()
+        }
+        view.negativeBtn.text = negativeText
+        view.negativeBtn.singleClick {
+            listener?.onNegativeClick()
+        }
     }
 
     companion object {
         const val TITLE = "title"
         const val MESSAGE = "message"
+    }
+
+    interface NormalDialogListener {
+        fun onPositiveClick()
+        fun onNegativeClick()
     }
 }

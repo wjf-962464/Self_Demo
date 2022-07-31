@@ -31,20 +31,29 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     protected lateinit var view: T
         private set
     private val permissionDialog: NormalDialog by lazy {
-        NormalDialog(this).setPositiveButton("前往设置") {
-            val intent = Intent()
-            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.data = Uri.fromParts("package", packageName, null)
-            startActivity(intent)
-            it.dismiss()
-        }.setNegativeButton("取消") {
-            it.dismiss()
-            finish()
-        }.addData(NormalDialog.TITLE, "温馨提示").addData(
-            NormalDialog.MESSAGE,
-            "请前往设置->应用->${AppUtils.getAppName()}->权限中打开相关权限，否则功能无法正常运行！"
-        ).gravity(Gravity.CENTER) as NormalDialog
+        NormalDialog(this).apply {
+            listener = object : NormalDialog.NormalDialogListener {
+                override fun onPositiveClick() {
+                    val intent = Intent()
+                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.data = Uri.fromParts("package", packageName, null)
+                    startActivity(intent)
+                    dismiss()
+                }
+
+                override fun onNegativeClick() {
+                    dismiss()
+                    finish()
+                }
+            }
+            positiveText = "前往设置"
+            negativeText = "取消"
+            addData(NormalDialog.TITLE, "温馨提示").addData(
+                NormalDialog.MESSAGE,
+                "请前往设置->应用->${AppUtils.getAppName()}->权限中打开相关权限，否则功能无法正常运行！"
+            ).gravity(Gravity.CENTER)
+        }
     }
 
     companion object {
