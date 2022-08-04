@@ -1,12 +1,11 @@
 package org.jxxy.debug.corekit.widget
 
-import android.content.Context
 import android.view.LayoutInflater
 import org.jxxy.debug.corekit.common.BaseDialog
 import org.jxxy.debug.corekit.databinding.DialogCommonBinding
 import org.jxxy.debug.corekit.util.singleClick
 
-class NormalDialog(context: Context) : BaseDialog<DialogCommonBinding>(context) {
+class NormalDialog : BaseDialog<DialogCommonBinding>() {
 
     override fun bindLayout(inflater: LayoutInflater): DialogCommonBinding {
         return DialogCommonBinding.inflate(inflater)

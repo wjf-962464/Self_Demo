@@ -5,10 +5,11 @@ import android.content.Context
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
-import java.lang.ref.WeakReference
 import org.jxxy.debug.corekit.BuildConfig
+import org.jxxy.debug.corekit.gson.TypeAdapterService
 import org.jxxy.debug.corekit.http.HttpManager
 import org.jxxy.debug.corekit.widget.IconFontManager
+import java.lang.ref.WeakReference
 
 /** @author WJF
  */
@@ -25,7 +26,17 @@ abstract class BaseApplication : Application() {
         contextReference =
             WeakReference(applicationContext)
         initLog()
-        HttpManager.init(HttpManager.Builder().baseUrl(httpBaseUrl()))
+
+        with(HttpManager.Builder()) {
+            baseUrl(httpBaseUrl())
+            CommonServiceManager.service<TypeAdapterService> { service ->
+                service.registerTypeAdapterFactory()?.forEach {
+                    registerTypeAdapterFactory(it)
+                }
+            }
+            HttpManager.init(this)
+        }
+
         IconFontManager.initAsset(iconFontPath())
     }
 

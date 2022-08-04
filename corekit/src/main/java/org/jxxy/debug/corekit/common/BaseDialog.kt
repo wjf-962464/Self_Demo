@@ -1,31 +1,33 @@
 package org.jxxy.debug.corekit.common
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import androidx.annotation.StyleRes
+import androidx.appcompat.app.AppCompatDialog
+import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
+import com.orhanobut.logger.Logger
 import org.jxxy.debug.corekit.R
 
 /**
  * @author : Wangjf
  * @date : 2021/1/19
  */
-abstract class BaseDialog<T : ViewBinding>(context: Context) :
-    Dialog(context, R.style.FullScreenDialogStyle) {
+abstract class BaseDialog<T : ViewBinding> :
+    AppCompatDialogFragment() {
 
     private var gravity = Gravity.BOTTOM
 
     @StyleRes
     private var windowAnimations = R.style.BottomDialog_Animation
-    private var width = WindowManager.LayoutParams.WRAP_CONTENT
-    private var height = WindowManager.LayoutParams.WRAP_CONTENT
+    private var width = WindowManager.LayoutParams.MATCH_PARENT
+    private var height = WindowManager.LayoutParams.MATCH_PARENT
     private var ifCancelOnTouch = false
-    private val map: MutableMap<String, String?> = HashMap()
+    private var enableBack = false
+    private var alpha: Float = 0.4f
+    val map: MutableMap<String, String?> = HashMap()
 
     protected lateinit var view: T
         private set
@@ -55,6 +57,16 @@ abstract class BaseDialog<T : ViewBinding>(context: Context) :
         return this
     }
 
+    fun enableBack(enable: Boolean): BaseDialog<T> {
+        enableBack = enable
+        return this
+    }
+
+    fun alpha(alpha: Float): BaseDialog<T> {
+        this.alpha = alpha
+        return this
+    }
+
     fun addData(key: String, value: String?): BaseDialog<T> {
         map[key] = value
         return this
@@ -66,22 +78,14 @@ abstract class BaseDialog<T : ViewBinding>(context: Context) :
         } else ""
     }
 
-    override fun onCreate(savedInstanceState: Bundle) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = AppCompatDialog(context, R.style.BaseDialogTheme)
+        Logger.d("dialog onCreate")
+        setDialogStyle(dialog)
         view = bindLayout(LayoutInflater.from(context))
-        val window = window
-        // 设置对话框周围的颜色透明度
-        if (window != null) {
-            // 去除黑色阴影
-            window.requestFeature(Window.FEATURE_NO_TITLE)
-            window.setGravity(gravity)
-            // 设置弹出及回收动画
-            window.setWindowAnimations(windowAnimations)
-            window.setDimAmount(0.4f)
-        }
-        setCanceledOnTouchOutside(ifCancelOnTouch)
-        setContentView(view.root)
+        dialog.setContentView(view.root)
         initView()
+        return dialog
     }
 
     /**
@@ -93,24 +97,32 @@ abstract class BaseDialog<T : ViewBinding>(context: Context) :
      * 指定布局文件
      */
     protected abstract fun bindLayout(inflater: LayoutInflater): T
-    override fun show() {
-        super.show()
-        // 此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
-        initDialog()
+    override fun show(manager: FragmentManager, tag: String?) {
+        super.show(manager, tag)
+        Logger.d("dialog show")
     }
 
-    private fun initDialog() {
+    private fun setDialogStyle(dialog: Dialog) {
         // 获取窗口
-        val window = window ?: return
-        // 获取配置参数
-        val layoutParams = window.attributes
-        // 设置为屏幕正中
-        layoutParams.gravity = gravity
-        // 宽高包裹布局自身
-        layoutParams.width = width
-        layoutParams.height = height
-        // 消除dialog自身隐藏padding
-        window.decorView.setPadding(0, 0, 0, 0)
-        window.attributes = layoutParams
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.apply {
+            decorView.setPadding(0, 0, 0, 0)
+            setDimAmount(alpha)
+
+            attributes = attributes?.also {
+                it.windowAnimations = windowAnimations
+                it.gravity = gravity
+                it.width = width
+                it.height = height
+            }
+        }
+        dialog.setCanceledOnTouchOutside(ifCancelOnTouch)
+        dialog.setOnKeyListener { _, keyCode, _ ->
+            if (enableBack) {
+                false
+            } else {
+                keyCode == KeyEvent.KEYCODE_BACK // 默认返回 false，这里false不能屏蔽返回键，改成true就可以了
+            }
+        }
     }
 }

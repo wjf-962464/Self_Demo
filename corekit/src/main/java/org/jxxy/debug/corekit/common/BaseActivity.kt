@@ -30,8 +30,8 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
     protected lateinit var view: T
         private set
-    private val permissionDialog: NormalDialog by lazy {
-        NormalDialog(this).apply {
+    val permissionDialog: NormalDialog by lazy {
+        NormalDialog().apply {
             listener = object : NormalDialog.NormalDialogListener {
                 override fun onPositiveClick() {
                     val intent = Intent()
@@ -152,7 +152,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
                     doSomethingAfterGranted()
                 } else {
                     Log.w(BuildConfig.TAG, "onRequestPermissionsResult denied")
-                    permissionDialog.show()
+                    permissionDialog.show(supportFragmentManager, "")
                 }
             }
             else -> {
