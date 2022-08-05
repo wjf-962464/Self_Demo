@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -14,6 +13,7 @@ import androidx.viewbinding.ViewBinding
 import org.jxxy.debug.corekit.BuildConfig
 import org.jxxy.debug.corekit.R
 import org.jxxy.debug.corekit.util.AppUtils
+import org.jxxy.debug.corekit.util.ResourceUtil
 import org.jxxy.debug.corekit.util.nullOrNot
 import org.jxxy.debug.corekit.widget.CommonToolbar
 import org.jxxy.debug.corekit.widget.NormalDialog
@@ -47,12 +47,10 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
                     finish()
                 }
             }
-            positiveText = "前往设置"
-            negativeText = "取消"
-            addData(NormalDialog.TITLE, "温馨提示").addData(
-                NormalDialog.MESSAGE,
-                "请前往设置->应用->${AppUtils.getAppName()}->权限中打开相关权限，否则功能无法正常运行！"
-            ).gravity(Gravity.CENTER)
+            positiveText = ResourceUtil.getString(R.string.gotoSetting)
+            negativeText = ResourceUtil.getString(R.string.cancel)
+            title = ResourceUtil.getString(R.string.warmHint)
+            message = ResourceUtil.getString(R.string.gotoOpenPermission, AppUtils.getAppName())
         }
     }
 

@@ -28,4 +28,6 @@
     <dimen name="three_grid_unit">24dp</dimen>
     <dimen name="one_and_a_half_grid_unit">12dp</dimen>
     <dimen name="select_pop_icon">20dp</dimen>
+
+    <dimen name="dialog_width">300dp</dimen>
 </resources>

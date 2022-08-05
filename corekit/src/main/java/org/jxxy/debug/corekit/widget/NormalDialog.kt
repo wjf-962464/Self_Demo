@@ -1,23 +1,29 @@
 package org.jxxy.debug.corekit.widget
 
 import android.view.LayoutInflater
+import androidx.fragment.app.FragmentManager
 import org.jxxy.debug.corekit.common.BaseDialog
-import org.jxxy.debug.corekit.databinding.DialogCommonBinding
+import org.jxxy.debug.corekit.databinding.DialogNormalBinding
 import org.jxxy.debug.corekit.util.singleClick
 
-class NormalDialog : BaseDialog<DialogCommonBinding>() {
+class NormalDialog : BaseDialog<DialogNormalBinding>() {
+    companion object {
+        private const val TAG = "NormalDialog"
+    }
 
-    override fun bindLayout(inflater: LayoutInflater): DialogCommonBinding {
-        return DialogCommonBinding.inflate(inflater)
+    override fun bindLayout(inflater: LayoutInflater): DialogNormalBinding {
+        return DialogNormalBinding.inflate(inflater)
     }
 
     var listener: NormalDialogListener? = null
     var positiveText: String? = null
     var negativeText: String? = null
+    var title: String? = null
+    var message: String? = null
 
     override fun initView() {
-        view.dialogTitle.text = getData(TITLE)
-        view.dialogMessage.text = getData(MESSAGE)
+        view.dialogTitle.text = title
+        view.dialogMessage.text = message
         view.positiveBtn.text = positiveText
         view.positiveBtn.singleClick {
             listener?.onPositiveClick()
@@ -28,13 +34,12 @@ class NormalDialog : BaseDialog<DialogCommonBinding>() {
         }
     }
 
-    companion object {
-        const val TITLE = "title"
-        const val MESSAGE = "message"
-    }
-
     interface NormalDialogListener {
         fun onPositiveClick()
         fun onNegativeClick()
+    }
+
+    fun show(fragmentManager: FragmentManager) {
+        super.show(fragmentManager, TAG)
     }
 }
