@@ -30,13 +30,13 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         find = bindLayout()
-        initColorStatusBar(find.root)
+//        initColorStatusBar(find.root)
         return find.root
     }
 
     private fun initColorStatusBar(view: View) {
         commonToolbar = view.findViewById(R.id.commonToolbar)
-        commonToolbar?.nullOrNot(
+        commonToolbar.nullOrNot(
             ifNull = {
                 // 没有标题栏，默认判定为透明且黑色主题
                 darkTheme(true)

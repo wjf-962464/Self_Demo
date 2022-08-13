@@ -72,7 +72,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
     private fun initColorStatusBar() {
         commonToolbar = findViewById(R.id.commonToolbar)
-        commonToolbar?.nullOrNot(
+        commonToolbar.nullOrNot(
             ifNull = {
                 // 没有标题栏，默认判定为透明且黑色主题
                 darkTheme(true)
