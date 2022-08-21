@@ -5,11 +5,13 @@ import android.content.Context
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
+import com.tencent.mmkv.MMKV
+import java.lang.ref.WeakReference
 import org.jxxy.debug.corekit.BuildConfig
+import org.jxxy.debug.corekit.gson.GsonManager
 import org.jxxy.debug.corekit.gson.TypeAdapterService
 import org.jxxy.debug.corekit.http.HttpManager
 import org.jxxy.debug.corekit.widget.IconFontManager
-import java.lang.ref.WeakReference
 
 /** @author WJF
  */
@@ -27,13 +29,20 @@ abstract class BaseApplication : Application() {
             WeakReference(applicationContext)
         initLog()
 
-        with(HttpManager.Builder()) {
-            baseUrl(httpBaseUrl())
+        // gson初始化
+        with(GsonManager.Builder()) {
             CommonServiceManager.service<TypeAdapterService> { service ->
                 service.registerTypeAdapterFactory()?.forEach {
                     registerTypeAdapterFactory(it)
                 }
             }
+            GsonManager.init(this)
+        }
+        // mmkv初始化
+        MMKV.initialize(this)
+        // http初始化
+        with(HttpManager.Builder()) {
+            baseUrl(httpBaseUrl())
             HttpManager.init(this)
         }
 

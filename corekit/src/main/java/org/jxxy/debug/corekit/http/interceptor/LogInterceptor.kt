@@ -1,4 +1,4 @@
-package org.jxxy.debug.corekit.http
+package org.jxxy.debug.corekit.http.interceptor
 
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
