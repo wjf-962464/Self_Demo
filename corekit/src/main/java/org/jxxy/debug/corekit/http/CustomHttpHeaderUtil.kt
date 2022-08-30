@@ -1,5 +1,7 @@
 package org.jxxy.debug.corekit.http
 
+import org.jxxy.debug.corekit.AddressManager
+
 /**
  * 自定义网络请求头部
  */
@@ -14,6 +16,9 @@ object CustomHttpHeaderUtil {
     private fun getHeaderMap() {
         TokenManager.getToken()?.let {
             header["satoken"] = it
+        }
+        AddressManager.getCityId()?.let {
+            header["cityId"] = it
         }
 //        header[HEADER_CONST] = addHeaderParams()
     }

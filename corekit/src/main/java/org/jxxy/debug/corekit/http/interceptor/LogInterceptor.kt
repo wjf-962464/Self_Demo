@@ -2,13 +2,13 @@ package org.jxxy.debug.corekit.http.interceptor
 
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
-import java.nio.charset.Charset
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import okio.Buffer
 import org.jxxy.debug.corekit.http.bean.HttpRequest
 import org.jxxy.debug.corekit.util.TimeUtils
+import java.nio.charset.Charset
 
 /**
  * @author WJF
@@ -60,7 +60,11 @@ class LogInterceptor : Interceptor {
             val array = str.split("&")
             for (params in array) {
                 val array2 = params.split("=")
-                result[array2[0]] = array2[1]
+                if (array2.size == 2) {
+                    result[array2[0]] = array2[1]
+                } else {
+                    result["body"] = array2[0]
+                }
             }
         }
         return result
