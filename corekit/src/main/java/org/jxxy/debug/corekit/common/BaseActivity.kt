@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
 import org.jxxy.debug.corekit.BuildConfig
 import org.jxxy.debug.corekit.R
+import org.jxxy.debug.corekit.http.TokenManager
 import org.jxxy.debug.corekit.util.AppUtils
 import org.jxxy.debug.corekit.util.ResourceUtil
 import org.jxxy.debug.corekit.util.nullOrNot
@@ -168,4 +169,14 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     protected abstract fun subscribeUi()
 
     protected open fun doSomethingAfterGranted() {}
+
+    override fun onResume() {
+        super.onResume()
+        TokenManager.register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        TokenManager.unRegister(this)
+    }
 }

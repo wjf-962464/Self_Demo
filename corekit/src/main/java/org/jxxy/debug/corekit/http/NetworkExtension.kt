@@ -4,9 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonParseException
 import com.google.gson.stream.MalformedJsonException
 import com.orhanobut.logger.Logger
-import java.io.EOFException
-import java.net.ConnectException
-import java.net.UnknownHostException
 import kotlinx.coroutines.*
 import org.jxxy.debug.corekit.R
 import org.jxxy.debug.corekit.http.bean.BaseResp
@@ -19,26 +16,42 @@ import org.jxxy.debug.corekit.util.ResourceUtil
 import org.jxxy.debug.corekit.util.nullOrNot
 import org.jxxy.debug.corekit.util.toast
 import retrofit2.HttpException
+import java.io.EOFException
+import java.net.ConnectException
+import java.net.UnknownHostException
 
+const val CODE_SUCCESS = 0
+const val CODE_LOGIN = 10086
 fun <T, D> BaseResp<D>.process(
     resLiveData: ResLiveData<T>,
     callback: LiveDataCallback<T, D>
-) {
-    if (this.code == 0) {
-        callback.success(resLiveData, this.message, this.data)
-    } else {
-        callback.otherCode(resLiveData, this.code, this.message, this.data)
+): Boolean {
+    when (code) {
+        CODE_SUCCESS -> callback.success(resLiveData, this.message, this.data)
+        CODE_LOGIN -> {
+            message.toast()
+            TokenManager.gotoLogin()
+            return false
+        }
+        else ->
+            callback.otherCode(resLiveData, this.code, this.message, this.data)
     }
+    return true
 }
 
 fun <D> BaseResp<D>.process(
     callback: CommonCallback<D>
-) {
-    if (this.code == 0) {
-        callback.success(this.message, this.data)
-    } else {
-        callback.otherCode(this.code, this.message, this.data)
+): Boolean {
+    when (code) {
+        CODE_SUCCESS -> callback.success(this.message, this.data)
+        CODE_LOGIN -> {
+            TokenManager.gotoLogin()
+            return false
+        }
+        else ->
+            callback.otherCode(this.code, this.message, this.data)
     }
+    return true
 }
 
 inline fun <D> CoroutineScope.request(

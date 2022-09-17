@@ -39,7 +39,7 @@ class HttpManager private constructor(builder: Builder) {
     }
 
     fun updateHeader() {
-        CustomHttpHeaderUtil.header.forEach {
+        CustomHttpHeaderUtil. header.forEach {
             headers[it.key] = it.value
         }
     }

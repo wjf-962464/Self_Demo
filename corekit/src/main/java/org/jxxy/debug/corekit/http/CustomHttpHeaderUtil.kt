@@ -1,7 +1,5 @@
 package org.jxxy.debug.corekit.http
 
-import org.jxxy.debug.corekit.AddressManager
-
 /**
  * 自定义网络请求头部
  */
