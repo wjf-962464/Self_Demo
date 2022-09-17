@@ -18,16 +18,6 @@
     <dimen name="small_icon_size">20dp</dimen>
     <!--    顶部栏高度-->
     <dimen name="toolbar_height">35dp</dimen>
-    <!--    个人页的小圆点尺寸-->
-    <dimen name="circle_point_size">15dp</dimen>
-    <dimen name="circle_point_size_big">25dp</dimen>
-    <!--日期选择器-->
-    <dimen name="picker_view_height">160dp</dimen>
-    <dimen name="date_unit_text_size">18sp</dimen>
-    <!--    spinner-->
-    <dimen name="three_grid_unit">24dp</dimen>
-    <dimen name="one_and_a_half_grid_unit">12dp</dimen>
-    <dimen name="select_pop_icon">20dp</dimen>
 
     <dimen name="dialog_width">300dp</dimen>
 </resources>
