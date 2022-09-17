@@ -21,4 +21,11 @@
     <color name="wrong_color">#ffcc0000</color>
     <color name="color_green">#518A48</color>
     <color name="color_yellow">#ECBB46</color>
+
+    <color name="common_background_color">#F5F6FA</color>
+    <color name="common_text_main_black">#1A1A1A</color>
+    <color name="common_text_sub_black">#534B4B</color>
+    <color name="common_text_hint_light">#bbbec4</color>
+    <color name="common_text_hint_dark">#808080</color>
+    <color name="common_div_color">#E5E5E5</color>
 </resources>
