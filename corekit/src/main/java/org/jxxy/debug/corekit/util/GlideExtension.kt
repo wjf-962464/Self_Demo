@@ -6,8 +6,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import org.jxxy.debug.corekit.R
 
 private val centerCrop: CenterCrop by lazy { CenterCrop() }
+private val errorPic = ResourceUtil.getDrawable(R.drawable.img_loading_error)
 private val roundedCornersMap: MutableMap<Int, RequestOptions> = mutableMapOf()
 private fun roundedCorner(radius: Int): RequestOptions {
     return roundedCornersMap.getOrPut(radius) {
@@ -24,7 +26,7 @@ fun ImageView.load(url: String?, isCircle: Boolean = false) {
         .load(url)
         .centerCrop()
     if (isCircle) {
-        a.circleCrop().into(this)
+        a.circleCrop().error(errorPic).into(this)
     } else {
         a.into(this)
     }
@@ -39,7 +41,7 @@ fun ImageView.load(@DrawableRes drawableResId: Int, isCircle: Boolean = false) {
         .load(ResourceUtil.getDrawable(drawableResId))
         .centerCrop()
     if (isCircle) {
-        a.circleCrop().into(this)
+        a.circleCrop().error(errorPic).into(this)
     } else {
         a.into(this)
     }
@@ -53,6 +55,7 @@ fun ImageView.load(url: String?, radius: Int) {
     Glide.with(this)
         .load(url)
         .apply(roundedCorner(radius))
+        .error(errorPic)
         .into(this)
 }
 
@@ -64,5 +67,6 @@ fun ImageView.load(@DrawableRes drawableResId: Int, radius: Int) {
     Glide.with(this)
         .load(ResourceUtil.getDrawable(drawableResId))
         .apply(roundedCorner(radius))
+        .error(errorPic)
         .into(this)
 }

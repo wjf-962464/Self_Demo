@@ -22,15 +22,38 @@ class ScheduleTask(
     DefaultLifecycleObserver {
     private var job: Job? = null
 
-    fun startTask() {
+    init {
         lifecycle.addObserver(this)
     }
 
-    override fun onResume(owner: LifecycleOwner) {
+    fun startTask() {
+        start()
+    }
+
+    fun pause() {
+        if (job != null) {
+            job?.cancel()
+            job = null
+        }
+    }
+
+    fun start() {
+        if (job != null) {
+            pause()
+        }
         job = TimeCountDowner.countDown2(lifecycle.coroutineScope, interval, timeUnit) {
             block.invoke()
         }
         job?.start()
+    }
+
+    fun startDelay() {
+        if (job == null) {
+            job = TimeCountDowner.countDownWithDelay(lifecycle.coroutineScope, interval, timeUnit) {
+                block.invoke()
+            }
+            job?.start()
+        }
     }
 
     override fun onStop(owner: LifecycleOwner) {

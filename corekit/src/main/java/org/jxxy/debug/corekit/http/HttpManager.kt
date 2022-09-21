@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 /** @author WJF
  */
 class HttpManager private constructor(builder: Builder) {
-    private val headers = mutableMapOf<String, String>()
+    private val headers = mutableMapOf<String, String?>()
     private val retrofit: Retrofit
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
@@ -39,7 +39,7 @@ class HttpManager private constructor(builder: Builder) {
     }
 
     fun updateHeader() {
-        CustomHttpHeaderUtil. header.forEach {
+        CustomHttpHeaderUtil.header.forEach {
             headers[it.key] = it.value
         }
     }

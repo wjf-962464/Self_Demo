@@ -1,6 +1,7 @@
 package org.jxxy.debug.corekit.recyclerview
 
 import androidx.viewbinding.ViewBinding
+import com.orhanobut.logger.Logger
 import org.jxxy.debug.corekit.util.nullOrNot
 
 /**
@@ -28,6 +29,9 @@ abstract class MultipleTypeAdapter protected constructor() :
     }
 
     override fun getItemViewType(position: Int): Int {
+        if (data.getOrNull(position)?.viewType() == null) {
+            Logger.d("aaa")
+        }
         return data.getOrNull(position)?.viewType() ?: NONE_TYPE
     }
 }

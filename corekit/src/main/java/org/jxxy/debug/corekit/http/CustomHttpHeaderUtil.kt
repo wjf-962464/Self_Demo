@@ -1,21 +1,22 @@
 package org.jxxy.debug.corekit.http
 
+
 /**
  * 自定义网络请求头部
  */
 object CustomHttpHeaderUtil {
 
-    val header = mutableMapOf<String, String>()
+    val header = mutableMapOf<String, String?>()
 
     init {
         getHeaderMap()
     }
 
     private fun getHeaderMap() {
-        TokenManager.getToken()?.let {
+        TokenManager.getToken().let {
             header["satoken"] = it
         }
-        AddressManager.getCityId()?.let {
+        AddressManager.getCityId().let {
             header["cityId"] = it
         }
 //        header[HEADER_CONST] = addHeaderParams()

@@ -87,8 +87,8 @@ task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
 }
 
-def versionCode="1.0.0.29"
-def snapshotEnable=true
+def versionCode="1.0.0.1"
+def snapshotEnable=false
 
 afterEvaluate {
     publishing {

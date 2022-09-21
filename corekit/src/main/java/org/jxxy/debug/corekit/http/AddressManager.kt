@@ -8,6 +8,7 @@ object AddressManager {
     fun updateCity(cityCode: String?) {
         addressTemp = cityCode
         PersistenceUtil.putValue(ADDRESS_KEY, cityCode)
+        CustomHttpHeaderUtil.updateHeader()
     }
 
     fun getCityId(): String? {

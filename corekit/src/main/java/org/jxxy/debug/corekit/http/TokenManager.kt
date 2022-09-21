@@ -28,6 +28,7 @@ object TokenManager {
     fun loginOut() {
         tokenTemp = null
         PersistenceUtil.putValue(TOKEN_KEY, TOKEN_NULL)
+        CustomHttpHeaderUtil.updateHeader()
     }
 
     fun gotoLogin() {

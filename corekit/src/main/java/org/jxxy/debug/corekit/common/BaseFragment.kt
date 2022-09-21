@@ -70,11 +70,36 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
             Log.i(BuildConfig.TAG, "---" + this.javaClass.canonicalName + "隐藏")
         }
         lazyInit()
+
+        // 从下一个activity回到此fragment只会触发onResume
+        if (isCurrentFragment()) {
+            onFragmentVisibilityChanged(true)
+        }
     }
 
     override fun onResume() {
         super.onResume()
         lazyInit()
+
+        // 从下一个activity回到此fragment只会触发onResume
+        if (isCurrentFragment()) {
+            onFragmentVisibilityChanged(true)
+        }
+    }
+
+    private fun isCurrentFragment(): Boolean {
+        // 单个fragment resume即认为可见
+        if (activity != null && activity!!.supportFragmentManager != null && activity!!.supportFragmentManager.fragments != null) {
+            if (activity!!.supportFragmentManager.fragments.size == 1) {
+                return true
+            }
+        }
+        return !isHidden || isUserVisible
+    }
+
+    override fun onPause() {
+        super.onPause()
+        onFragmentVisibilityChanged(false)
     }
 
     override fun onDestroyView() {
@@ -89,6 +114,35 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
             isLoaded = true
             Log.i(BuildConfig.TAG, "---" + this.javaClass.canonicalName + "加载")
         }
+    }
+
+    private var mFragmentVisible = false
+    private var isUserVisible = false
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        isUserVisible = isVisibleToUser
+        onFragmentVisibilityChanged(isVisibleToUser)
+    }
+
+    protected open fun onFragmentVisibilityChanged(visible: Boolean) {
+        if (!isAdded) {
+            return
+        }
+        if (visible != mFragmentVisible) {
+            if (visible) {
+                onFragmentResume()
+            } else {
+                onFragmentPause()
+            }
+            mFragmentVisible = visible
+        }
+    }
+
+    protected open fun onFragmentResume() {
+    }
+
+    protected open fun onFragmentPause() {
     }
 
     /** 绑定viewBinding  */
