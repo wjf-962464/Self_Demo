@@ -42,11 +42,7 @@ class PhoneCallActivity :
 
         mHandler = Handler(Looper.getMainLooper())
         dialog =
-            EditTextDialog(this).setSubmitListener { phoneCallBean.phoneNum = it }
-            .width(WindowManager.LayoutParams.MATCH_PARENT)
-            .height(WindowManager.LayoutParams.WRAP_CONTENT)
-            .cancelOnTouch(true)
-            .gravity(Gravity.BOTTOM) as EditTextDialog?
+            EditTextDialog().setSubmitListener { phoneCallBean.phoneNum = it }
 
         view.bean = phoneCallBean
         view.btn.singleClick {
@@ -56,7 +52,7 @@ class PhoneCallActivity :
             phoneCallBean.opposeFlag()
         }
         view.contentHint.singleClick {
-            dialog?.show()
+            dialog?.show(supportFragmentManager, it.toString())
         }
     }
 

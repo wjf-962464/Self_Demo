@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:text="呼叫号码："
-                android:textColor="@color/text_black"
+                android:textColor="@color/common_text_main_black"
                 android:textSize="@dimen/mid_text_size" />
 
             <TextView
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text='@={bean.phoneNum}'
-                android:textColor="@color/text_black"
+                android:textColor="@color/common_text_main_black"
                 android:textSize="@dimen/Big_text_size"
                 tools:text="18001866502" />
         </LinearLayout>

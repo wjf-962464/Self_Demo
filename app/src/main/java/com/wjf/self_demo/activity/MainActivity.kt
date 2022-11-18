@@ -1,13 +1,8 @@
 package com.wjf.self_demo.activity
 
-import android.view.Gravity
-import android.view.WindowManager
 import com.orhanobut.logger.Logger
-import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityMainBinding
-import com.wjf.self_demo.view.MyDialog
 import org.jxxy.debug.corekit.common.BaseActivity
-import org.jxxy.debug.corekit.util.singleClick
 
 /**
  * @author Wangjf2-DESKTOP
@@ -16,24 +11,6 @@ class MainActivity :
     BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
-        val myDialog1 =
-            MyDialog(this).addData("address", "中骏广场").addData("hint", "已为您切换收货地址为")
-                .height(WindowManager.LayoutParams.MATCH_PARENT)
-                .width(WindowManager.LayoutParams.MATCH_PARENT).gravity(Gravity.CENTER)
-                .cancelOnTouch(true)
-        val myDialog2 =
-            MyDialog(this).addData("address", "中骏广场超长文案超长文案超长文案超长文案超长文案")
-                .addData("hint", "已为您切换收货地址为")
-                .height(WindowManager.LayoutParams.MATCH_PARENT)
-                .width(WindowManager.LayoutParams.MATCH_PARENT).gravity(Gravity.CENTER)
-                .cancelOnTouch(true)
-        view.btn1.singleClick {
-            myDialog1.show()
-        }
-        view.btn2.singleClick {
-            myDialog2.show()
-        }
-
         /*        view.recyclerViewune.setAdapter(
                 new ListAdapter(
                         this,
@@ -58,6 +35,7 @@ class MainActivity :
             }"
         )
     }
+
     override fun bindLayout(): ActivityMainBinding {
         return ActivityMainBinding.inflate(layoutInflater)
     }

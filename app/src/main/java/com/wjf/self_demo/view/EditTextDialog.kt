@@ -1,15 +1,23 @@
 package com.wjf.self_demo.view
 
-import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import com.wjf.self_demo.databinding.DialogEditBinding
 import org.jxxy.debug.corekit.common.BaseDialog
 import org.jxxy.debug.corekit.util.singleClick
 
 /** @author WJF
  */
-class EditTextDialog(context: Context) : BaseDialog<DialogEditBinding>(context) {
+class EditTextDialog : BaseDialog<DialogEditBinding>() {
+    init {
+        width = WindowManager.LayoutParams.MATCH_PARENT
+        height = WindowManager.LayoutParams.WRAP_CONTENT
+        ifCancelOnTouch = true
+        gravity = Gravity.BOTTOM
+    }
+
     var listener: ((String) -> Unit)? = null
     fun setSubmitListener(block: (String) -> Unit): EditTextDialog {
         this.listener = block
