@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleText="标题23123" />
 
-    <com.wjf.self_demo.view.FlowListView2
+    <com.wjf.self_demo.view.FlowListView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:background="@drawable/radius_text"
             android:text="略略略2"
             android:textSize="15sp" />
-    </com.wjf.self_demo.view.FlowListView2>
+    </com.wjf.self_demo.view.FlowListView>
 
     <LinearLayout
         android:layout_width="wrap_content"

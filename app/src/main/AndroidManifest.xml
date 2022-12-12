@@ -58,6 +58,7 @@
         <activity
             android:name=".activity.EventDispatchActivity"
             android:exported="false" />
+        <activity android:name=".activity.NestedRecyclerActivity"/>
         <activity android:name=".activity.HealthyCodeActivity"></activity>
         <activity android:name=".activity.BezierActivity"></activity>
         <activity android:name=".activity.LoadLayoutActivity2" />
