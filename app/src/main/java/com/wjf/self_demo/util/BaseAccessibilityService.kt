@@ -144,7 +144,7 @@ class BaseAccessibilityService : AccessibilityService() {
     fun findViewByID(id: String?): AccessibilityNodeInfo? {
         val accessibilityNodeInfo = rootInActiveWindow ?: return null
         val nodeInfoList =
-            accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id)
+            accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id.orEmpty())
         if (nodeInfoList != null && !nodeInfoList.isEmpty()) {
             Log.d("dd", "findViewByID: " + nodeInfoList.size)
             for (nodeInfo in nodeInfoList) {
@@ -175,7 +175,7 @@ class BaseAccessibilityService : AccessibilityService() {
     fun clickTextViewByID(id: String?) {
         val accessibilityNodeInfo = rootInActiveWindow ?: return
         val nodeInfoList =
-            accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id)
+            accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id.orEmpty())
         if (nodeInfoList != null && !nodeInfoList.isEmpty()) {
             for (nodeInfo in nodeInfoList) {
                 if (nodeInfo != null) {

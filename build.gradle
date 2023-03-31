@@ -3,7 +3,7 @@ apply from: rootProject.file('config.gradle')
 //apply plugin:MethodTimePlugin2
 
 buildscript {
-    ext.kotlin_version = '1.4.32'
+    ext.kotlin_version = '1.6.0'
     repositories {
         google()
         jcenter()
@@ -20,6 +20,11 @@ buildscript {
 
 
 allprojects {
+    configurations.all {
+        resolutionStrategy {
+
+        }
+    }
     repositories {
         google()
         jcenter()

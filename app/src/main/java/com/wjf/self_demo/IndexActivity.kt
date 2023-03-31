@@ -46,6 +46,7 @@ class IndexActivity :
         data.add(IndexListMenu(FpsFrameActivity::class.java, "帧率分析"))
         data.add(IndexListMenu(HealthyCodeActivity::class.java, "健康码"))
         data.add(IndexListMenu(EventDispatchActivity::class.java, "事件分发"))
+        data.add(IndexListMenu(PicLoadActivity::class.java, "图片加载"))
         CaptureActivity.setDecodeResultCallback { result: String ->
             Logger.d(
                 "扫描结果：$result"

@@ -95,7 +95,7 @@ internal fun AccessibilityService.findViewByID(id: String, pkn: String): Accessi
 internal fun AccessibilityService.findViewByID(id: String?): AccessibilityNodeInfo? {
     val accessibilityNodeInfo = rootInActiveWindow ?: return null
     val nodeInfoList =
-        accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id)
+        accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id.orEmpty())
     if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
         Log.d("zzm", "findViewByID: " + nodeInfoList.size)
         for (nodeInfo in nodeInfoList) {
@@ -132,7 +132,7 @@ internal fun AccessibilityService.getAllIds(node: AccessibilityNodeInfo) {
 internal fun AccessibilityService.clickTextViewByID(id: String?): Boolean {
     val accessibilityNodeInfo = rootInActiveWindow ?: return false
     val nodeInfoList =
-        accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id)
+        accessibilityNodeInfo.findAccessibilityNodeInfosByViewId(id.orEmpty())
     if (nodeInfoList != null && nodeInfoList.isNotEmpty()) {
         for (nodeInfo in nodeInfoList) {
             if (nodeInfo != null) {

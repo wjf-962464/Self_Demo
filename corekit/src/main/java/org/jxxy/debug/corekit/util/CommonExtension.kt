@@ -66,3 +66,7 @@ fun Context.startActivity(clazz: Class<*>, bundle: Bundle? = null) {
 inline fun <reified S> HttpManager.service(): S {
     return this.service(S::class.java)
 }
+
+inline fun <reified T> Any.castToTarget(): T? {
+    return this as? T
+}

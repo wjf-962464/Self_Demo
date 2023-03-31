@@ -96,4 +96,7 @@ dependencies {
     implementation group: "com.tencent.matrix", name: "matrix-android-commons", version: MATRIX_VERSION
     implementation group: "com.tencent.matrix", name: "matrix-trace-canary", version: MATRIX_VERSION*/
     implementation 'com.github.markzhai:blockcanary-android:1.5.0'
+
+    implementation("io.coil-kt:coil:2.2.2")
+    implementation("io.coil-kt:coil-gif:2.2.2")
 }
