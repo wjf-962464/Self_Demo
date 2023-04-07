@@ -52,6 +52,6 @@ class IndexActivity :
                 "扫描结果：$result"
             )
         }
-        adapter?.submitData(data.asReversed())
+        adapter?.add(data.asReversed())
     }
 }

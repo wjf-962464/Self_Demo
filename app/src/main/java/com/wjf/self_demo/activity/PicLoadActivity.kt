@@ -1,10 +1,9 @@
 package com.wjf.self_demo.activity
 
-import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.viewbinding.ViewBinding
+import androidx.recyclerview.widget.RecyclerView
 import coil.EventListener
 import coil.ImageLoader
 import coil.decode.GifDecoder
@@ -16,7 +15,8 @@ import coil.request.SuccessResult
 import com.wjf.self_demo.databinding.ActivityPicLoadBinding
 import com.wjf.self_demo.databinding.ItemListPicLoadBinding
 import org.jxxy.debug.corekit.common.BaseActivity
-import org.jxxy.debug.corekit.util.castToTarget
+import org.jxxy.debug.corekit.recyclerview.SingleTypeAdapter
+import org.jxxy.debug.corekit.recyclerview.SingleViewHolder
 
 // import org.jxxy.debug.corekit.util.load
 
@@ -34,7 +34,7 @@ class PicLoadActivity : BaseActivity<ActivityPicLoadBinding>() {
             resList.add("http://image.yonghuivip.com/yh-image-library/80E805E8-5990-447D-8190-2F27D2087D30.gif?w=250&h=250")
             resList.add("http://image.yonghuivip.com/image/16799981679442484aecf43ee6ff54d3ea6858e6ea091475896d0.gif?w=1053&h=570")
         }
-        adapter.submitData(resList)
+        adapter.add(resList)
 
         // 设置全局唯一实例
 //        Coil.setImageLoader(imageLoader)
@@ -43,19 +43,19 @@ class PicLoadActivity : BaseActivity<ActivityPicLoadBinding>() {
     override fun subscribeUi() {
     }
 
-    class PicLoadAdapter : SingleTypeAdapter() {
+    class PicLoadAdapter : SingleTypeAdapter<String>() {
         override fun createViewHolder(
             viewType: Int,
             inflater: LayoutInflater,
             parent: ViewGroup
-        ): SingleViewHolder<ViewBinding, Any>? {
+        ): RecyclerView.ViewHolder {
             return PicLoadHolder(
                 ItemListPicLoadBinding.inflate(
                     inflater,
                     parent,
                     false
                 )
-            ).castToTarget()
+            )
         }
     }
 }
@@ -83,7 +83,7 @@ class PicLoadHolder(view: ItemListPicLoadBinding) :
         })
         .build()
 
-    override fun setHolder(entity: String, context: Context) {
+    override fun setHolder(entity: String) {
         view.icon.load(entity, imageLoader)
 //        view.icon.load(entity)
     }

@@ -1,17 +1,19 @@
 package com.wjf.self_demo.nestedrecycler
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.google.android.material.tabs.TabLayout
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.HolderColorCubeBinding
 import com.wjf.self_demo.databinding.HolderTabChildBinding
 import com.wjf.self_demo.databinding.TabParentBinding
 import com.wjf.self_demo.nestedrecycler.widget.NestedCeilingHelper
+import org.jxxy.debug.corekit.recyclerview.MultipleType
+import org.jxxy.debug.corekit.recyclerview.MultipleTypeAdapter
+import org.jxxy.debug.corekit.recyclerview.MultipleViewHolder2
 import org.jxxy.debug.corekit.util.ResourceUtil
 
 class ParentTabEntity : MultipleType {
@@ -31,18 +33,16 @@ class ParentListAdapter(private val fragmentManager: FragmentManager) : Multiple
         viewType: Int,
         inflater: LayoutInflater,
         parent: ViewGroup
-    ): MultipleViewHolder<ViewBinding, MultipleType>? {
+    ): RecyclerView.ViewHolder? {
         return when (viewType) {
             0 -> {
                 ParentTabViewHolder(
                     HolderTabChildBinding.inflate(inflater, parent, false),
                     fragmentManager
                 )
-                    as? MultipleViewHolder<ViewBinding, MultipleType>
             }
             1 -> {
                 ColorCubeViewHolder(HolderColorCubeBinding.inflate(inflater, parent, false))
-                    as? MultipleViewHolder<ViewBinding, MultipleType>
             }
             else -> null
         }
@@ -50,7 +50,7 @@ class ParentListAdapter(private val fragmentManager: FragmentManager) : Multiple
 }
 
 class ParentTabViewHolder(view: HolderTabChildBinding, fragmentManager: FragmentManager) :
-    MultipleViewHolder<HolderTabChildBinding, ParentTabEntity>(
+    MultipleViewHolder2<HolderTabChildBinding, ParentTabEntity>(
         view
     ) {
     private val adapter by lazy { ChildPageAdapter(fragmentManager) }
@@ -76,7 +76,7 @@ class ParentTabViewHolder(view: HolderTabChildBinding, fragmentManager: Fragment
         view.parentTab.setupWithViewPager(view.parentViewPager)
     }
 
-    override fun setHolder(entity: ParentTabEntity, context: Context) {
+    override fun setHolder(entity: ParentTabEntity) {
         entity.tabs?.let {
             adapter.submit(it)
             it.forEachIndexed { i, s ->
@@ -111,14 +111,14 @@ class ParentTabViewHolder(view: HolderTabChildBinding, fragmentManager: Fragment
 }
 
 class ColorCubeViewHolder(view: HolderColorCubeBinding) :
-    MultipleViewHolder<HolderColorCubeBinding, ColorCubeEntity>(
+    MultipleViewHolder2<HolderColorCubeBinding, ColorCubeEntity>(
         view
     ) {
     init {
         (itemView.layoutParams as? StaggeredGridLayoutManager.LayoutParams)?.isFullSpan = true
     }
 
-    override fun setHolder(entity: ColorCubeEntity, context: Context) {
+    override fun setHolder(entity: ColorCubeEntity) {
         view.root.setBackgroundColor(entity.color)
     }
 }

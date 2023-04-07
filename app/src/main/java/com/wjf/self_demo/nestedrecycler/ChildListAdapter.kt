@@ -1,11 +1,12 @@
 package com.wjf.self_demo.nestedrecycler
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.wjf.self_demo.databinding.HolderColorCubeBinding
+import org.jxxy.debug.corekit.recyclerview.MultipleTypeAdapter
+import org.jxxy.debug.corekit.recyclerview.MultipleViewHolder2
 import org.jxxy.debug.corekit.util.dp
 
 class ChildListAdapter : MultipleTypeAdapter() {
@@ -13,11 +14,10 @@ class ChildListAdapter : MultipleTypeAdapter() {
         viewType: Int,
         inflater: LayoutInflater,
         parent: ViewGroup
-    ): MultipleViewHolder<ViewBinding, MultipleType>? {
+    ): RecyclerView.ViewHolder? {
         return when (viewType) {
             1 -> {
                 ChildColorCubeViewHolder(HolderColorCubeBinding.inflate(inflater, parent, false))
-                    as? MultipleViewHolder<ViewBinding, MultipleType>
             }
             else -> null
         }
@@ -25,7 +25,7 @@ class ChildListAdapter : MultipleTypeAdapter() {
 }
 
 class ChildColorCubeViewHolder(view: HolderColorCubeBinding) :
-    MultipleViewHolder<HolderColorCubeBinding, ColorCubeEntity>(
+    MultipleViewHolder2<HolderColorCubeBinding, ColorCubeEntity>(
         view
     ) {
     init {
@@ -37,7 +37,7 @@ class ChildColorCubeViewHolder(view: HolderColorCubeBinding) :
         }
     }
 
-    override fun setHolder(entity: ColorCubeEntity, context: Context) {
+    override fun setHolder(entity: ColorCubeEntity) {
         view.root.setBackgroundColor(entity.color)
     }
 }
