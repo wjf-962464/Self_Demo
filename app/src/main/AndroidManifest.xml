@@ -60,18 +60,12 @@
             android:exported="false" />
         <activity android:name=".activity.PicLoadActivity"/>
         <activity android:name=".activity.NestedRecyclerActivity"/>
-        <activity android:name=".activity.HealthyCodeActivity"></activity>
-        <activity android:name=".activity.BezierActivity"></activity>
+        <activity android:name=".activity.BezierActivity"/>
         <activity android:name=".activity.LoadLayoutActivity2" />
         <activity android:name=".activity.LoadLayoutActivity" />
-        <activity android:name=".activity.FpsFrameActivity" />
         <activity android:name=".activity.ConstraintLayoutStateActivity" />
         <activity android:name=".activity.PaletteActivity" />
-        <activity android:name=".activity.LiveDataBusActivity" />
-        <activity android:name=".activity.LiveDataActivity" />
         <activity android:name=".activity.ViewActivity" />
-        <activity android:name=".activity.AccessibilityActivity" />
-        <activity android:name=".activity.PhoneCallActivity" />
         <activity android:name=".activity.FishActivity" />
         <activity android:name=".IndexActivity">
             <intent-filter>
@@ -81,53 +75,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
-        <!--
-        <service
-                    android:name=".util.AccessibilitySampleService"
-                    android:enabled="true"
-                    android:exported="true"
-                    android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-                    <intent-filter>
-                        <action android:name="android.accessibilityservice.AccessibilityService" />
-                    </intent-filter>
-
-                    <meta-data
-                        android:name="android.accessibilityservice"
-                        android:resource="@xml/accessibility_config" />
-                </service>
-        -->
-        <receiver android:name=".util.ClockBroadcastReceiver">
-            <intent-filter>
-                <action android:name="wjf.self.clock" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".receiver.AdminReceiver"
-            android:description="@string/device_admin_description"
-            android:label="@string/device_admin"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/device_admin" />
-
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".util.AccessibilityClockService"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_clock_config" />
-        </service>
     </application>
 
 </manifest>
