@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.orhanobut.logger.Logger
 import com.wjf.self_demo.databinding.FragmentParentBinding
 import org.jxxy.debug.corekit.common.BaseFragment
-import org.jxxy.debug.corekit.recyclerview.MultipleType
 
 class ParentFragment : BaseFragment<FragmentParentBinding>() {
     private val adapter by lazy { ParentListAdapter(childFragmentManager) }

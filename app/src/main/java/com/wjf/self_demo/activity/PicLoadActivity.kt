@@ -16,8 +16,6 @@ import coil.request.SuccessResult
 import com.wjf.self_demo.databinding.ActivityPicLoadBinding
 import com.wjf.self_demo.databinding.ItemListPicLoadBinding
 import org.jxxy.debug.corekit.common.BaseActivity
-import org.jxxy.debug.corekit.recyclerview.SingleTypeAdapter
-import org.jxxy.debug.corekit.recyclerview.SingleViewHolder
 import org.jxxy.debug.corekit.util.castToTarget
 
 // import org.jxxy.debug.corekit.util.load

@@ -56,7 +56,7 @@ fun <D> BaseResp<D>.process(
 
 inline fun <D> CoroutineScope.request(
     callback: CommonCallback<D>,
-    crossinline block: suspend () -> BaseResp<D>?,
+    crossinline block: suspend () -> BaseResp<D>?
 ) {
     this.launch(exceptionHandler(callback) + Dispatchers.IO) {
         val response = async {
@@ -103,7 +103,6 @@ fun <T, D> exceptionHandler(
 ): CoroutineExceptionHandler {
     return CoroutineExceptionHandler { _, e ->
         e.printStackTrace()
-        Logger.e(e, "网络请求发生异常")
         callback?.error(resLiveData, getErrorResponse(e))
     }
 }
@@ -118,6 +117,7 @@ fun <D> exceptionHandler(
 }
 
 private fun getErrorResponse(e: Throwable): ErrorResponse {
+    Logger.e(e, "网络请求发生异常")
     val response = when (e) {
         is ErrorResponse -> e
 

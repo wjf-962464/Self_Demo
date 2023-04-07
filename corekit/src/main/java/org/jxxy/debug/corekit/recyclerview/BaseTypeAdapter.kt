@@ -3,22 +3,17 @@ package org.jxxy.debug.corekit.recyclerview
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.jxxy.debug.corekit.R
-import org.jxxy.debug.corekit.util.ResourceUtil
+import org.jxxy.debug.corekit.util.castToTarget
 
-abstract class BaseTypeAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class BaseTypeAdapter<T> :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     protected val data: MutableList<T> = mutableListOf()
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): VH {
+    ): RecyclerView.ViewHolder {
         return createViewHolder(viewType, LayoutInflater.from(parent.context), parent)
-            ?: throw IllegalStateException(
-                ResourceUtil.getString(
-                    R.string.exception_adapter_create_failed,
-                    viewType
-                )
-            )
+            ?: RecyclerViewHolder(parent)
     }
 
     /**
@@ -30,32 +25,88 @@ abstract class BaseTypeAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.A
         viewType: Int,
         inflater: LayoutInflater,
         parent: ViewGroup
-    ): VH?
+    ): RecyclerView.ViewHolder?
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    fun submitData(list: List<T>) {
+    open fun add(bean: T) {
+        val start = itemCount
+        data.add(bean)
+        notifyItemInserted(start)
+    }
+
+    open fun add(list: List<T>?) {
+        if (list.isNullOrEmpty()) {
+            return
+        }
         val start = itemCount
         val count = list.size
-        this.data.addAll(list)
+        data.addAll(list)
         notifyItemRangeInserted(start, count)
     }
 
-    fun clearData() {
+    open fun clear() {
         val count = itemCount
-        this.data.clear()
+        data.clear()
         notifyItemRangeRemoved(0, count)
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        bindHolder(holder, position)
+    open fun clearAndAdd(list: List<T>?, withAnim: Boolean = false) {
+        val preCount = itemCount
+        data.clear()
+        if (!list.isNullOrEmpty()) {
+            data.addAll(list)
+            if (withAnim) {
+                val size = list.size
+                notifyItemRangeChanged(0, size)
+                notifyItemRangeRemoved(size, preCount - size)
+            } else {
+                notifyDataSetChanged()
+            }
+        } else {
+            notifyItemRangeRemoved(0, preCount)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        holder.castToTarget<ViewHolderTag<T>>()?.let { tag ->
+            data.getOrNull(position)?.let { entity ->
+                bindHolder(tag, entity, position)
+            }
+        }
+        holderBindExtras(holder, position)
+    }
+
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isNotEmpty()) {
+            holder.castToTarget<ViewHolderTag<T>>()?.let { tag ->
+                data.getOrNull(position)?.let { entity ->
+                    bindHolder(tag, entity, position, payloads)
+                }
+            }
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
+        }
     }
 
     protected abstract fun bindHolder(
-        holder: VH,
-        position: Int,
-        payload: Any? = null
+        holder: ViewHolderTag<T>,
+        entity: T,
+        position: Int
     )
+
+    protected abstract fun bindHolder(
+        holder: ViewHolderTag<T>,
+        entity: T,
+        position: Int,
+        payloads: MutableList<Any>
+    )
+
+    protected abstract fun holderBindExtras(holder: RecyclerView.ViewHolder, position: Int)
 }

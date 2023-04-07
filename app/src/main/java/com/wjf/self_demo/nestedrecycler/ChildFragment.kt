@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.orhanobut.logger.Logger
 import com.wjf.self_demo.databinding.FragmentChildBinding
 import org.jxxy.debug.corekit.common.BaseFragment
-import org.jxxy.debug.corekit.recyclerview.MultipleType
 
 class ChildFragment : BaseFragment<FragmentChildBinding>() {
     private var currentPosition: Int = 0

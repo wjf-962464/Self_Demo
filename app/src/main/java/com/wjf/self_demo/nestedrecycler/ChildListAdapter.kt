@@ -6,9 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.wjf.self_demo.databinding.HolderColorCubeBinding
-import org.jxxy.debug.corekit.recyclerview.MultipleType
-import org.jxxy.debug.corekit.recyclerview.MultipleTypeAdapter
-import org.jxxy.debug.corekit.recyclerview.MultipleViewHolder
 import org.jxxy.debug.corekit.util.dp
 
 class ChildListAdapter : MultipleTypeAdapter() {

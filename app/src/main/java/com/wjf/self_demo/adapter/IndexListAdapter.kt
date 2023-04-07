@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.wjf.self_demo.databinding.ItemListIndexBinding
 import com.wjf.self_demo.entity.IndexListMenu
-import org.jxxy.debug.corekit.recyclerview.SingleTypeAdapter
-import org.jxxy.debug.corekit.recyclerview.SingleViewHolder
 import org.jxxy.debug.corekit.util.singleClick
 
 /**

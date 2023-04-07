@@ -12,9 +12,6 @@ import com.wjf.self_demo.databinding.HolderColorCubeBinding
 import com.wjf.self_demo.databinding.HolderTabChildBinding
 import com.wjf.self_demo.databinding.TabParentBinding
 import com.wjf.self_demo.nestedrecycler.widget.NestedCeilingHelper
-import org.jxxy.debug.corekit.recyclerview.MultipleType
-import org.jxxy.debug.corekit.recyclerview.MultipleTypeAdapter
-import org.jxxy.debug.corekit.recyclerview.MultipleViewHolder
 import org.jxxy.debug.corekit.util.ResourceUtil
 
 class ParentTabEntity : MultipleType {
