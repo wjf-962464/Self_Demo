@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -28,12 +26,29 @@
             android:layout_height="50dp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="200dp"
+        android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/icon_pwd" />
+        <ImageView
+            android:id="@+id/icon3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:src="@drawable/icon_pwd" />
+
+        <ImageView
+            android:id="@+id/icon4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:src="@drawable/icon_pwd" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,44 +56,20 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <!--            <com.wjf.self_library.view.codingUI.Icon
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/color_yellow"
-                        app:icon_position="left"
-                        app:icon_size="20dp"
-                        app:icon_src="@drawable/icon_pwd"
-                        app:icon_text="略略asda略" />
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:src="@drawable/icon_pwd" />
 
-                    <com.wjf.self_library.view.codingUI.Icon
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/color_green"
-                        app:icon_position="top"
-                        app:icon_size="30dp"
-                        app:icon_src="@drawable/icon_pwd"
-                        app:icon_text="图标呀" />
-
-                    <com.wjf.self_library.view.codingUI.Icon
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/grey"
-                        app:icon_position="bottom"
-                        app:icon_size="30dp"
-                        app:icon_src="@drawable/icon_pwd"
-                        app:icon_text="图标呀" />
-
-                    <com.wjf.self_library.view.codingUI.Icon
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/white"
-                        app:icon_position="right"
-                        app:icon_size="30dp"
-                        app:icon_src="@drawable/icon_pwd"
-                        app:icon_text="图标呀" />-->
+        <ImageView
+            android:id="@+id/icon2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:src="@drawable/icon_pwd" />
     </LinearLayout>
 </RelativeLayout>

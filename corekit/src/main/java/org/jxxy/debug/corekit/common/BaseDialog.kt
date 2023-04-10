@@ -32,6 +32,7 @@ abstract class BaseDialog<T : ViewBinding> :
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         setDialogStyle(dialog)
         return dialog
     }
@@ -83,7 +84,7 @@ abstract class BaseDialog<T : ViewBinding> :
         dismissAllowingStateLoss()
     }
 
-    private fun setDialogStyle(dialog: Dialog) {
+    protected open fun setDialogStyle(dialog: Dialog) {
         with(dialog) {
             window?.apply {
                 decorView.setPadding(0, 0, 0, 0)
