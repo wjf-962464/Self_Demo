@@ -1,6 +1,7 @@
 package com.wjf.self_demo.activity
 
 import android.graphics.Rect
+import android.os.Handler
 import android.util.Log
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.RoundedCornerTreatment
@@ -31,7 +32,7 @@ class ViewActivity : BaseActivity<ActivityViewBinding>() {
                     .Builder()
                     .setAllCorners(RoundedCornerTreatment())
                     .setAllCornerSizes(9.dp<Float>())
-                    .setBottomEdge(TriangleBottomEdgeTreatment(18f.dp(), 8f.dp(), 88f.dp()))
+                    .setBottomEdge(TriangleBottomEdgeTreatment(18f.dp(), 8f.dp(), 88f.dp(),9.dp()))
                     .build()
             )
             drawable.setTint(ResourceUtil.getColor(R.color.color_yellow))

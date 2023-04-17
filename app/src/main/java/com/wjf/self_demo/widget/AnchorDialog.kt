@@ -30,7 +30,7 @@ class AnchorDialog(val callBack: () -> Unit) : BaseDialog<DialogAnchorBinding>()
                 .Builder()
                 .setAllCorners(RoundedCornerTreatment())
                 .setAllCornerSizes(9.dp<Float>())
-                .setBottomEdge(TriangleBottomEdgeTreatment(18f.dp(), 8f.dp(), 88f.dp()))
+                .setBottomEdge(TriangleBottomEdgeTreatment(18f.dp(), 8f.dp(), 88f.dp(), 9.dp()))
                 .build()
         )
         drawable.setTint(ResourceUtil.getColor(R.color.white))
@@ -73,9 +73,10 @@ class AnchorDialog(val callBack: () -> Unit) : BaseDialog<DialogAnchorBinding>()
             val lp = dialog?.window?.attributes
             val height = view.measuredHeight + 8.dp<Int>()
             lp?.height = height
+            Log.d("wjftc", "onViewCreated: ${location[0]}")
             lp?.apply {
                 gravity = Gravity.START.or(Gravity.TOP)
-                x = location[0] + it.width / 2 - view.measuredWidth / 2
+                x = location[0] + ((it.width - 8.dp<Float>())/2 - 88f.dp<Float>()).toInt()
                 y = if (alignTop) {
                     location[1] - height
                 } else {
@@ -99,7 +100,8 @@ class AnchorDialog(val callBack: () -> Unit) : BaseDialog<DialogAnchorBinding>()
 class TriangleBottomEdgeTreatment(
     private val width: Float,
     private val height: Float,
-    private val offset: Float
+    private val offset: Float,
+    private val radius: Float
 ) : EdgeTreatment() {
 
     override fun getEdgePath(
@@ -108,7 +110,7 @@ class TriangleBottomEdgeTreatment(
         interpolation: Float,
         shapePath: ShapePath
     ) {
-        val start = length - offset - width
+        val start = length - offset - width + radius
         shapePath.lineTo(start, 0f)
         shapePath.lineTo(start + width / 2, -height * interpolation)
         shapePath.lineTo(start + width, 0f)
