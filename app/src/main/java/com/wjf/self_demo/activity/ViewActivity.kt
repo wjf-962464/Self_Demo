@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.postDelayed
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.RoundedCornerTreatment
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -54,13 +53,10 @@ class ViewActivity : BaseActivity<ActivityViewBinding>() {
         }
         val list = mutableListOf("我是跑马灯1", "我不是跑马灯", "你猜我是不是跑马灯")
         var position = 0
-        val paint = Paint()
-        paint.textSize = 12f
         view.marqueeView.setFactory(object : PoolViewFactory {
             override fun makeView(layoutInflater: LayoutInflater, parent: ViewGroup): View {
                 val view = TextView(this@ViewActivity)
                 view.setPadding(0, 0, 20.dp(), 0)
-                view.text = "跑马灯"
                 view.textSize = 12f
                 view.setTextColor(ResourceUtil.getColor(R.color.white))
                 return view
@@ -69,14 +65,28 @@ class ViewActivity : BaseActivity<ActivityViewBinding>() {
             override fun setAnimator(objectAnimator: ObjectAnimator, width: Int, parentWidth: Int) {
                 objectAnimator.duration = (parentWidth + width) * 5L
             }
+
+            override fun setView(view: View): Boolean {
+                (view as? TextView)?.text = list[position++ % list.size]
+                return true
+            }
         })
+        var status = true
+        view.marqueeView.singleClick {
+            if (status) {
+                it.pause()
+            } else {
+                it.resume()
+            }
+            status = !status
+        }
 //        view.marqueeView.start()
-        view.marqueeView.postDelayed(5000L) {
+        /*view.marqueeView.postDelayed(5000L) {
             view.marqueeView.pause()
         }
         view.marqueeView.postDelayed(7000L) {
             view.marqueeView.resume()
-        }
+        }*/
     }
 
     override fun bindLayout(): ActivityViewBinding {

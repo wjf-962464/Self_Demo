@@ -42,8 +42,7 @@ class MarqueeAnimalView @JvmOverloads constructor(context: Context, attrs: Attri
             }
         }
         return factory?.makeView(layoutInflater, this@MarqueeAnimalView)?.apply {
-            measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-            addView(this, measuredWidth, measuredHeight)
+            addView(this, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
     }
 
@@ -57,6 +56,9 @@ class MarqueeAnimalView @JvmOverloads constructor(context: Context, attrs: Attri
 
     private fun next(view: View?) {
         view ?: return
+        if (factory?.setView(view) == true) {
+            view.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
+        }
         val width = view.measuredWidth
         val parentWidth = measuredWidth
         val targetValue = parentWidth - width
@@ -155,6 +157,11 @@ class MarqueeAnimalView @JvmOverloads constructor(context: Context, attrs: Attri
 interface PoolViewFactory {
     fun makeView(layoutInflater: LayoutInflater, parent: ViewGroup): View
     fun setAnimator(objectAnimator: ObjectAnimator, width: Int, parentWidth: Int)
+
+    /**
+     * 返回值，代表view是否需要重新测量
+     */
+    fun setView(view: View): Boolean
 }
 
 class RecyclerAnimatorUpdateListener(private val targetValue: Int, private val block: (ValueAnimator.AnimatorUpdateListener) -> Unit) : ValueAnimator.AnimatorUpdateListener {
