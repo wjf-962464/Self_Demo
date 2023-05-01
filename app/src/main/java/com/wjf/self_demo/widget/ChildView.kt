@@ -6,33 +6,38 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
-class ChildView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet?,
-    defStyleAttr: Int = 0
-) : androidx.appcompat.widget.AppCompatTextView(context, attrs, defStyleAttr),
-    View.OnClickListener {
+class ChildView @JvmOverloads constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) : androidx.appcompat.widget.AppCompatTextView(context, attrs, defStyleAttr), View.OnClickListener {
     init {
-        setOnClickListener(this)
+        isClickable = false
+        addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View?) {
+                Log.d("wjftc", "onViewAttachedToWindow: $parent")
+                parent.requestDisallowInterceptTouchEvent(true)
+            }
+
+            override fun onViewDetachedFromWindow(v: View?) {
+            }
+        })
+//        setOnClickListener(this)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val result = super.dispatchTouchEvent(ev)
         when (ev?.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                Log.d("wjftc", "ChildView dispatchTouchEvent ACTION_DOWN")
+                Log.d("wjftc", "ChildView dispatchTouchEvent ACTION_DOWN $result")
             }
             MotionEvent.ACTION_MOVE -> {
-                Log.i("wjftc", "ChildView dispatchTouchEvent ACTION_MOVE")
-                return true
+                Log.i("wjftc", "ChildView dispatchTouchEvent ACTION_MOVE $result")
             }
             MotionEvent.ACTION_UP -> {
-                Log.w("wjftc", "ChildView dispatchTouchEvent ACTION_UP")
+                Log.w("wjftc", "ChildView dispatchTouchEvent ACTION_UP $result")
             }
             MotionEvent.ACTION_CANCEL -> {
-                Log.e("wjftc", "ChildView dispatchTouchEvent ACTION_CANCEL")
+                Log.e("wjftc", "ChildView dispatchTouchEvent ACTION_CANCEL $result")
             }
         }
-        return super.dispatchTouchEvent(ev)
+        return result
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -40,17 +45,18 @@ class ChildView @JvmOverloads constructor(
 //        Log.d("wjftc","ChildView onTouchEvent:$result")
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                Log.d("wjftc", "ChildView onTouchEvent ACTION_DOWN")
-            }
-            MotionEvent.ACTION_MOVE -> {
-                Log.i("wjftc", "ParentLayout onTouchEvent ACTION_MOVE")
+                Log.d("wjftc", "ChildView onTouchEvent ACTION_DOWN $result")
                 return true
             }
+            MotionEvent.ACTION_MOVE -> {
+                parent.requestDisallowInterceptTouchEvent(true)
+                Log.i("wjftc", "ChildView onTouchEvent ACTION_MOVE $result")
+            }
             MotionEvent.ACTION_UP -> {
-                Log.w("wjftc", "ChildView onTouchEvent ACTION_UP")
+                Log.w("wjftc", "ChildView onTouchEvent ACTION_UP $result")
             }
             MotionEvent.ACTION_CANCEL -> {
-                Log.e("wjftc", "ChildView onTouchEvent ACTION_CANCEL")
+                Log.e("wjftc", "ChildView onTouchEvent ACTION_CANCEL $result")
             }
         }
         return result

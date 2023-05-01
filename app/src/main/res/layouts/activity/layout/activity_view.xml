@@ -48,6 +48,7 @@
             android:layout_alignParentBottom="true"
             android:layout_weight="1"
             android:src="@drawable/icon_pwd" />
+
         <ImageView
             android:id="@+id/icon6"
             android:layout_width="30dp"
@@ -56,6 +57,14 @@
             android:layout_weight="1"
             android:src="@drawable/icon_pwd" />
     </LinearLayout>
+
+    <com.wjf.self_demo.widget.MarqueeAnimalView
+        android:id="@+id/marqueeView"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/color_yellow"
+        android:layout_marginTop="400dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,6 +87,7 @@
             android:layout_alignParentBottom="true"
             android:layout_weight="1"
             android:src="@drawable/icon_pwd" />
+
         <ImageView
             android:id="@+id/icon5"
             android:layout_width="30dp"

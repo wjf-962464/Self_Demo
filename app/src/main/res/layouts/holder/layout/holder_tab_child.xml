@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.wjf.self_demo.widget.MarqueeAnimalView
+        android:id="@+id/marqueeView"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@color/color_yellow"
+        android:layout_gravity="center_horizontal" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/parentTab"
         android:layout_width="match_parent"

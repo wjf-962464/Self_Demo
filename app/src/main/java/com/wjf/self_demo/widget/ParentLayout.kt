@@ -59,8 +59,10 @@ class ParentLayout @JvmOverloads constructor(
         when (ev?.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.d("wjftc", "ParentLayout onInterceptTouchEvent ACTION_DOWN  $result")
+                return false
             }
             MotionEvent.ACTION_MOVE -> {
+//                return true
                 Log.i("wjftc", "ParentLayout onInterceptTouchEvent ACTION_MOVE  $result")
             }
             MotionEvent.ACTION_UP -> {
@@ -70,7 +72,7 @@ class ParentLayout @JvmOverloads constructor(
                 Log.e("wjftc", "ParentLayout onInterceptTouchEvent ACTION_CANCEL  $result")
             }
         }
-        return result
+        return true
     }
 
     override fun onClick(v: View?) {

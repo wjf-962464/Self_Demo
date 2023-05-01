@@ -1,7 +1,10 @@
 package com.wjf.self_demo.nestedrecycler
 
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -11,10 +14,12 @@ import com.wjf.self_demo.databinding.HolderColorCubeBinding
 import com.wjf.self_demo.databinding.HolderTabChildBinding
 import com.wjf.self_demo.databinding.TabParentBinding
 import com.wjf.self_demo.nestedrecycler.widget.NestedCeilingHelper
+import com.wjf.self_demo.widget.PoolViewFactory
 import org.jxxy.debug.corekit.recyclerview.MultipleType
 import org.jxxy.debug.corekit.recyclerview.MultipleTypeAdapter
 import org.jxxy.debug.corekit.recyclerview.MultipleViewHolder2
 import org.jxxy.debug.corekit.util.ResourceUtil
+import org.jxxy.debug.corekit.util.dp
 
 class ParentTabEntity : MultipleType {
     var tabs: MutableList<String>? = null
@@ -74,6 +79,21 @@ class ParentTabViewHolder(view: HolderTabChildBinding, fragmentManager: Fragment
             }
         })
         view.parentTab.setupWithViewPager(view.parentViewPager)
+        view.marqueeView.setFactory(object : PoolViewFactory {
+            override fun makeView(layoutInflater: LayoutInflater, parent: ViewGroup): View {
+                val view = TextView(itemView.context)
+                view.setPadding(0, 0, 20.dp(), 0)
+                view.text = "跑马灯"
+                view.textSize = 12f
+                view.setTextColor(ResourceUtil.getColor(R.color.white))
+                return view
+            }
+
+            override fun setAnimator(objectAnimator: ObjectAnimator, width: Int, parentWidth: Int) {
+                objectAnimator.duration = (parentWidth + width) * 5L
+            }
+        })
+        view.marqueeView.start()
     }
 
     override fun setHolder(entity: ParentTabEntity) {
