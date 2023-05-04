@@ -92,6 +92,10 @@ class ParentTabViewHolder(view: HolderTabChildBinding, fragmentManager: Fragment
             override fun setAnimator(objectAnimator: ObjectAnimator, width: Int, parentWidth: Int) {
                 objectAnimator.duration = (parentWidth + width) * 5L
             }
+
+            override fun setView(view: View): Boolean {
+                return false
+            }
         })
         view.marqueeView.start()
     }

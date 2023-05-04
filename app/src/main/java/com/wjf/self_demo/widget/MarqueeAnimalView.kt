@@ -41,8 +41,12 @@ class MarqueeAnimalView @JvmOverloads constructor(context: Context, attrs: Attri
                 return queue.poll()
             }
         }
-        return factory?.makeView(layoutInflater, this@MarqueeAnimalView)?.apply {
-            addView(this, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        return factory?.makeView(layoutInflater, this@MarqueeAnimalView)?.also {
+            if (it.layoutParams == null) {
+                addView(it, LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+            } else {
+                addView(it)
+            }
         }
     }
 
@@ -58,6 +62,13 @@ class MarqueeAnimalView @JvmOverloads constructor(context: Context, attrs: Attri
         view ?: return
         if (factory?.setView(view) == true) {
             view.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
+            val lp = view.layoutParams
+            lp.width = view.measuredWidth
+            lp.height = view.measuredHeight
+            view.layoutParams = lp
+        }
+        if (!enableAnimated) {
+            return
         }
         val width = view.measuredWidth
         val parentWidth = measuredWidth
@@ -80,6 +91,9 @@ class MarqueeAnimalView @JvmOverloads constructor(context: Context, attrs: Attri
     // </editor-fold>
 
     // <editor-fold desc="使用">
+
+    // 是否启用动画
+    var enableAnimated = true
     fun start() {
         if (measuredWidth == 0) {
             this.post {

@@ -1,7 +1,6 @@
 package com.wjf.self_demo.activity
 
 import android.animation.ObjectAnimator
-import android.graphics.Paint
 import android.graphics.Rect
 import android.util.Log
 import android.view.LayoutInflater
@@ -51,7 +50,7 @@ class ViewActivity : BaseActivity<ActivityViewBinding>() {
         view.icon4.singleClick {
             dialog.show(supportFragmentManager, view.icon4)
         }
-        val list = mutableListOf("我是跑马灯1", "我不是跑马灯", "你猜我是不是跑马灯")
+        val list = mutableListOf("我是跑马灯1", "我不是跑马灯蛤", "你猜我是不是跑马灯hhh")
         var position = 0
         view.marqueeView.setFactory(object : PoolViewFactory {
             override fun makeView(layoutInflater: LayoutInflater, parent: ViewGroup): View {
@@ -71,6 +70,7 @@ class ViewActivity : BaseActivity<ActivityViewBinding>() {
                 return true
             }
         })
+//        view.marqueeView.enableAnimated = false
         var status = true
         view.marqueeView.singleClick {
             if (status) {

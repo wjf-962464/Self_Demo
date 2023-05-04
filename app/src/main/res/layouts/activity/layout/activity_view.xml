@@ -60,8 +60,8 @@
 
     <com.wjf.self_demo.widget.MarqueeAnimalView
         android:id="@+id/marqueeView"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:background="@color/color_yellow"
         android:layout_marginTop="400dp" />
