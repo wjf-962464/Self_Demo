@@ -1,8 +1,6 @@
 package com.wjf.self_demo.activity
 
 import android.animation.ObjectAnimator
-import android.graphics.Rect
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,11 +24,7 @@ import org.jxxy.debug.corekit.util.singleClick
 class ViewActivity : BaseActivity<ActivityViewBinding>() {
     override fun initView() {
         EncodingUtils.bindBarCode("sadad", view.barcode)
-        val dialog = AnchorDialog() {
-            val rect = Rect()
-            val result = view.icon2.getGlobalVisibleRect(rect)
-            Log.d("wjftc", "initView: $result $rect ${rect.height()} ${view.icon2.measuredHeight}")
-        }
+        val dialog = AnchorDialog()
         val drawable by lazy {
             val drawable = MaterialShapeDrawable(ShapeAppearanceModel.Builder().setAllCorners(RoundedCornerTreatment()).setAllCornerSizes(9.dp<Float>()).setBottomEdge(TriangleBottomEdgeTreatment(18f.dp(), 8f.dp(), 88f.dp(), 9.dp())).build())
             drawable.setTint(ResourceUtil.getColor(R.color.color_yellow))

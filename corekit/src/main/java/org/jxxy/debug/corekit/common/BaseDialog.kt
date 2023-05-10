@@ -14,25 +14,20 @@ import org.jxxy.debug.corekit.R
  * @author : Wangjf
  * @date : 2021/1/19
  */
-abstract class BaseDialog<T : ViewBinding> :
-    DialogFragment() {
+abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
 
     var gravity = Gravity.CENTER
 
     @StyleRes
-    var windowAnimations = R.style.CommonDialogAnimation
+    var windowAnimations: Int? = null
     var width = WindowManager.LayoutParams.MATCH_PARENT
     var height = WindowManager.LayoutParams.WRAP_CONTENT
     var ifCancelOnTouch = false
     var enableBack = false
     var alpha: Float = 0.25f
 
-    protected lateinit var view: T
-        private set
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         setDialogStyle(dialog)
         return dialog
     }
@@ -42,25 +37,24 @@ abstract class BaseDialog<T : ViewBinding> :
         setStyle(STYLE_NO_TITLE, R.style.BaseDialogTheme)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        view = bindLayout(inflater)
-        initView()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = getView(inflater, container)
+        initView(view)
         return view.root
     }
 
     /**
      * 初始化视图
      */
-    protected abstract fun initView()
+    protected abstract fun initView(view: T)
 
     /**
      * 指定布局文件
      */
-    protected abstract fun bindLayout(inflater: LayoutInflater): T
+    protected abstract fun getView(inflater: LayoutInflater, parent: ViewGroup?): T
+    fun show(manager: FragmentManager) {
+        show(manager, this::class.simpleName)
+    }
 
     override fun show(manager: FragmentManager, tag: String?) {
         try {
@@ -88,7 +82,9 @@ abstract class BaseDialog<T : ViewBinding> :
         with(dialog) {
             window?.apply {
                 decorView.setPadding(0, 0, 0, 0)
-                setWindowAnimations(windowAnimations)
+                windowAnimations?.let {
+                    setWindowAnimations(it)
+                }
                 setDimAmount(alpha)
                 setGravity(gravity)
 
