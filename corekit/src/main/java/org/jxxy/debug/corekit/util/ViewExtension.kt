@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import org.jxxy.debug.corekit.common.BaseApplication
 
+fun View?.isShowing(): Boolean = this?.visibility == View.VISIBLE
+
 fun View?.show() {
     if (this?.visibility != View.VISIBLE) {
         this?.visibility = View.VISIBLE
@@ -25,12 +27,7 @@ fun View?.gone() {
     }
 }
 
-inline fun <T : View> T.singleClick(
-    time: Long = 500,
-    increase: Boolean = false,
-    range: Int = 10,
-    crossinline block: (T) -> Unit
-) {
+inline fun <T : View> T.singleClick(time: Long = 500, increase: Boolean = false, range: Int = 10, crossinline block: (T) -> Unit) {
     if (increase) {
         this.increaseTouchRange(range)
     }
@@ -72,10 +69,7 @@ var <T : View> T.lastClickTime: Long
  * 尺寸相关
  */
 inline fun <reified T> Float.dp(): T {
-    val result = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, this,
-        BaseApplication.context().resources.displayMetrics
-    )
+    val result = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, BaseApplication.context().resources.displayMetrics)
     return when (T::class) {
         Float::class -> result as T
         Int::class -> result.toInt() as T
@@ -88,11 +82,7 @@ inline fun <reified T> Int.dp(): T {
 }
 
 inline fun <reified T> Float.sp(): T {
-    val result = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_SP,
-        this,
-        BaseApplication.context().resources.displayMetrics
-    )
+    val result = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this, BaseApplication.context().resources.displayMetrics)
     return when (T::class) {
         Float::class -> result as T
         Int::class -> result.toInt() as T

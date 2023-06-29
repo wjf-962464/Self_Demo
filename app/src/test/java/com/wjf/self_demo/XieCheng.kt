@@ -1,5 +1,10 @@
 package com.wjf.self_demo
 
+import com.google.gson.GsonBuilder
+import com.google.gson.TypeAdapter
+import com.google.gson.stream.JsonReader
+import com.google.gson.stream.JsonToken
+import com.google.gson.stream.JsonWriter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
@@ -26,8 +31,56 @@ fun sleepJob(length: Int = 5, time: Long = 500L) {
     }
 }
 
+class Tag {
+    var type: Int? = null
+    var imageUrl: String? = null
+    var tagHeight: Int? = null
+    var tagWidth: Int? = null
+
+    override fun toString(): String {
+        return "Tag(type=$type, imageUrl=$imageUrl, tagHeight=$tagHeight, tagWidth=$tagWidth)"
+    }
+}
+
+class TagTypeAdapter : TypeAdapter<Tag>() {
+    override fun write(out: JsonWriter?, value: Tag?) {
+    }
+
+    override fun read(reader: JsonReader): Tag? {
+        if (reader.peek() == JsonToken.NULL) {
+            reader.nextNull()
+            return null
+        }
+        val result = Tag()
+        reader.beginObject()
+        while (reader.hasNext()) {
+            when (reader.nextName()) {
+                "type" -> result.type = reader.nextInt()
+                "imageUrl" -> result.imageUrl = reader.nextString()
+                "extendInfo" -> {
+                    reader.beginObject()
+                    while (reader.hasNext()) {
+                        when (reader.nextName()) {
+                            "tagHeight" -> result.tagHeight = reader.nextInt()
+                            "tagWidth" -> result.tagWidth = reader.nextInt()
+                            else -> reader.skipValue()
+                        }
+                    }
+                    reader.endObject()
+                }
+                else -> reader.skipValue()
+            }
+        }
+        reader.endObject()
+        return result
+    }
+}
+
 fun main() {
-    f()
+    val str = "{\"type\":44,\"imageUrl\":\"https://image.yonghuivip.com/sku/card/mindlabel1.png\",\"extendInfo\":\"{\\\"tagHeight\\\":\\\"48\\\",\\\"tagWidth\\\":\\\"78\\\"}\"}"
+    val gson = GsonBuilder().registerTypeAdapter(Tag::class.java, TagTypeAdapter()).create()
+    val bean = gson.fromJson(str, Tag::class.java)
+    println("bean:$bean")
 }
 
 fun f() {
@@ -119,8 +172,7 @@ fun d() {
             }
         }.onEach {
             "on each $it".pt()
-        }
-            .launchIn(this + Dispatchers.Default)
+        }.launchIn(this + Dispatchers.Default)
         "start".pt()
         sleepJob(time = 100L)
         "end".pt()

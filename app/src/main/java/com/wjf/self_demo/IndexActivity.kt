@@ -31,6 +31,7 @@ class IndexActivity :
     }
 
     override fun subscribeUi() {
+        data.add(IndexListMenu(BehaviorActivity::class.java, "behavior"))
         data.add(IndexListMenu(NestedRecyclerActivity::class.java, "列表嵌套"))
         data.add(IndexListMenu(MainActivity::class.java, "自定义流式布局"))
         data.add(IndexListMenu(FishActivity::class.java, "灵动的锦鲤"))
