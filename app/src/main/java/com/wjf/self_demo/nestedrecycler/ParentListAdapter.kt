@@ -94,7 +94,7 @@ class ParentTabViewHolder(view: HolderTabChildBinding, fragmentManager: Fragment
             }
 
             override fun setView(view: View): Boolean {
-                return false
+                return true
             }
         })
         view.marqueeView.start()

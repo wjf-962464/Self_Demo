@@ -72,7 +72,7 @@ public class NestedPublicRecyclerView extends RecyclerView {
 
     public void doScrollConsumed(int dx, int dy, @NonNull int[] consumed) {
         consumed[0] = 0;
-        consumed[1] = 1;
+        consumed[1] = 0;
         scrollStep(dx, dy, consumed);
         int consumedX = consumed[0];
         int consumedY = consumed[1];

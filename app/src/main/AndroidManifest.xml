@@ -66,9 +66,11 @@
         <activity android:name=".activity.LoadLayoutActivity" />
         <activity android:name=".activity.ConstraintLayoutStateActivity" />
         <activity android:name=".activity.PaletteActivity" />
-        <activity android:name=".activity.ViewActivity" />
+        <activity android:name=".activity.ViewActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".activity.FishActivity" />
-        <activity android:name=".IndexActivity">
+        <activity android:name=".IndexActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -9,7 +9,7 @@ class NestedChildRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : NestedPublicRecyclerView(context, attrs, defStyleAttr), NestedChildItemContainer {
+) : NestedPublicRecyclerView(context, attrs, defStyleAttr) {
 
     init {
         isNestedScrollingEnabled = true

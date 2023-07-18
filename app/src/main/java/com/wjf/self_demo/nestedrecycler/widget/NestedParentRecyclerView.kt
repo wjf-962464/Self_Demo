@@ -155,6 +155,7 @@ class NestedParentRecyclerView @JvmOverloads constructor(
                 } else {
                     val y = e.getY(activePointerIndex)
                     if (isScrollEnd) {
+                        Log.d("wjftc", "onTouchEvent: isScrollEnd")
                         // 如果此控件已经滑动到底部，需要让子嵌套布局滑动剩余的距离
                         // 或者子嵌套布局向下还未到顶部，也需要让子嵌套布局先滑动一段距离
                         val child = findChildScrollTarget(mContentView)
@@ -166,6 +167,11 @@ class NestedParentRecyclerView @JvmOverloads constructor(
                             if (consumedY != 0 && NestedCeilingHelper.DEBUG) {
                                 log("onTouch scroll consumed: $consumedY")
                             }
+                        }
+                    } else {
+                        val child = findChildScrollTarget(mContentView)
+                        child?.let {
+                            Log.d("wjftc", "onTouchEvent: not isScrollEnd ${isChildScrollTop(it)}")
                         }
                     }
                     mLastY = y
@@ -179,6 +185,7 @@ class NestedParentRecyclerView @JvmOverloads constructor(
         get() = !canScrollVertically(1)
 
     private fun isChildScrollTop(child: RecyclerView): Boolean {
+        // 不能向下滚动，即在顶部了
         return !child.canScrollVertically(-1)
     }
 
@@ -451,6 +458,7 @@ class NestedParentRecyclerView @JvmOverloads constructor(
         if (dyUnconsumed == 0) {
             return
         }
+        Log.d("wjftc", "onNestedScrollInternal: $dyUnconsumed")
         mTempConsumed[1] = 0
         doScrollConsumed(0, dyUnconsumed, mTempConsumed)
         val consumedY = mTempConsumed[1]

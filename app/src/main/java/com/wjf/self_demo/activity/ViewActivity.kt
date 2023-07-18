@@ -1,6 +1,8 @@
 package com.wjf.self_demo.activity
 
 import android.animation.ObjectAnimator
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import android.widget.TextView
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.RoundedCornerTreatment
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.wjf.self_demo.IndexActivity
 import com.wjf.self_demo.R
 import com.wjf.self_demo.databinding.ActivityViewBinding
 import com.wjf.self_demo.widget.AnchorDialog
@@ -18,6 +21,7 @@ import org.jxxy.debug.corekit.common.BaseActivity
 import org.jxxy.debug.corekit.util.ResourceUtil
 import org.jxxy.debug.corekit.util.dp
 import org.jxxy.debug.corekit.util.singleClick
+import org.jxxy.debug.corekit.util.startActivity
 
 /** @author Wangjf2-DESKTOP
  */
@@ -32,10 +36,12 @@ class ViewActivity : BaseActivity<ActivityViewBinding>() {
         }
         view.icon2.background = drawable
         view.icon1.singleClick {
-            dialog.show(supportFragmentManager, view.icon2)
+            startActivity<IndexActivity>()
+//            dialog.show(supportFragmentManager, view.icon2)
         }
         view.icon2.singleClick {
-            dialog.show(supportFragmentManager, view.icon1)
+            startActivity<ViewActivity>()
+//            dialog.show(supportFragmentManager, view.icon1)
         }
 
         view.icon3.singleClick {
@@ -88,5 +94,45 @@ class ViewActivity : BaseActivity<ActivityViewBinding>() {
     }
 
     override fun subscribeUi() {
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        println("ActivityB - onCreate")
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("ActivityB - onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("ActivityB - onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println("ActivityB - onDestroy")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        println("ActivityB - onStart")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        println("ActivityB - onRestart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("ActivityB - onResume")
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        println("ActivityB - onNewIntent")
     }
 }
