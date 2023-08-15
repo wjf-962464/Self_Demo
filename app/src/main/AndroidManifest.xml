@@ -55,6 +55,7 @@
         android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.FragmentTestActivity"/>
         <activity android:name=".activity.BehaviorActivity"/>
         <activity
             android:name=".activity.EventDispatchActivity"

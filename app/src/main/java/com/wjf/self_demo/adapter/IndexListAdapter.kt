@@ -50,6 +50,7 @@ class IndexListAdapter : SingleTypeAdapter<IndexListMenu>() {
         if (list.isNullOrEmpty()) {
             return
         }
+        data.clear()
         data.addAll(list)
         notifyDataSetChanged()
     }

@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.FrameMetrics
 import android.view.Window
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MyAsyncLayoutInflater
 import com.orhanobut.logger.Logger
@@ -15,10 +14,10 @@ import com.wjf.self_demo.adapter.IndexListAdapter
 import com.wjf.self_demo.databinding.ActivityIndexBinding
 import com.wjf.self_demo.databinding.ItemListIndexBinding
 import com.wjf.self_demo.entity.IndexListMenu
-import kotlinx.coroutines.*
 import org.jxxy.debug.barcode.CaptureActivity
 import org.jxxy.debug.corekit.common.BaseActivity
-import org.jxxy.debug.corekit.recyclerview.SpanItemDecoration
+import org.jxxy.debug.corekit.recyclerview.GridSpacingItemDecoration
+import org.jxxy.debug.corekit.util.dp
 
 /** @author Wangjf2-DESKTOP
  */
@@ -31,7 +30,8 @@ class IndexActivity : BaseActivity<ActivityIndexBinding>(), Window.OnFrameMetric
 //        view.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         adapter = IndexListAdapter()
         view.recyclerView.layoutManager = GridLayoutManager(this, 5)
-        view.recyclerView.addItemDecoration(SpanItemDecoration(20f, 15f, 5))
+//        view.recyclerView.addItemDecoration(SpanItemDecoration(20f, 15f, 5))
+        view.recyclerView.addItemDecoration(GridSpacingItemDecoration(5,15f.dp(),10f.dp(),true))
         view.recyclerView.adapter = adapter
     }
 
@@ -40,6 +40,7 @@ class IndexActivity : BaseActivity<ActivityIndexBinding>(), Window.OnFrameMetric
     }
 
     override fun subscribeUi() {
+        data.add(IndexListMenu(FragmentTestActivity::class.java, "fragment生命周期"))
         data.add(IndexListMenu(BehaviorActivity::class.java, "behavior"))
         data.add(IndexListMenu(NestedRecyclerActivity::class.java, "列表嵌套"))
         data.add(IndexListMenu(MainActivity::class.java, "自定义流式布局"))
@@ -56,7 +57,7 @@ class IndexActivity : BaseActivity<ActivityIndexBinding>(), Window.OnFrameMetric
             Logger.d("扫描结果：$result")
         }
 
-        val flag = false
+        val flag = true
 //        view.recyclerView.itemAnimator = null
         if (flag) {
 //            view.recyclerView.itemAnimator = null
@@ -72,7 +73,8 @@ class IndexActivity : BaseActivity<ActivityIndexBinding>(), Window.OnFrameMetric
             }
         }
 
-        lifecycleScope.launch(
+        adapter?.add(data)
+        /*lifecycleScope.launch(
             Dispatchers.Default + CoroutineExceptionHandler { _, e ->
                 Log.e("wjftc", "出错了", e)
             }
@@ -83,7 +85,12 @@ class IndexActivity : BaseActivity<ActivityIndexBinding>(), Window.OnFrameMetric
             delay(2000L)
             Log.d("wjftc", "网络请求结束了")
             withContext(Dispatchers.Main) {
-                adapter?.addAll(a)
+                adapter?.add(a)
+            }
+            delay(2000L)
+            withContext(Dispatchers.Main) {
+                adapter?.clear()
+                adapter?.add(a)
             }
         }
         val a = HandlerThread("帧率监控")
@@ -105,7 +112,7 @@ class IndexActivity : BaseActivity<ActivityIndexBinding>(), Window.OnFrameMetric
                     Log.i("wjftc", "主线程耗时$dif ms")
                 }
             }
-        }
+        }*/
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
