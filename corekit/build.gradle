@@ -92,6 +92,7 @@ def snapshotEnable=false
 
 afterEvaluate {
     publishing {
+        println("Components:"+components*.name)
         //发布的 jar 包配置
         publications {
             //release这个名称可以替换，会生成对应的publishXXXPublicationToMaven的两个Task

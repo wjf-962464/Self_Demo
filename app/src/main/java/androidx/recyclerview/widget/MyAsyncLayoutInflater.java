@@ -185,7 +185,7 @@ public final class MyAsyncLayoutInflater {
 
                 request.view =
                         request.inflater.mInflater.inflate(request.resid, request.parent, false);
-                Log.i("wjftc", "runInner: "+(System.currentTimeMillis()-startTime)+" ms in "+Thread.currentThread().getName());
+                Log.i("wjftc", "runInner: "+request.resid+" cost "+(System.currentTimeMillis()-startTime)+" ms in "+Thread.currentThread().getName());
             } catch (RuntimeException ex) {
                 // Probably a Looper failure, retry on the UI thread
                 Log.w(

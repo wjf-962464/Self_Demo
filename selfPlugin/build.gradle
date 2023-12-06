@@ -16,7 +16,7 @@ publishing {
         mavenJava(MavenPublication) {
             //定义插件的在本地 maven 中的 id
             groupId 'com.wjf.selfPlugin'
-            artifactId 'HelloGradlePlugin'
+            artifactId 'FirstPlugin'
             //定义插件的在本地 maven 中的版本号
             version '1.0.0'
 
@@ -26,7 +26,7 @@ publishing {
     repositories {
         maven {
             // 发布位置
-            url uri('/Users/wangjiafeng/localMaven')
+            url uri('../repos')
         }
     }
 }

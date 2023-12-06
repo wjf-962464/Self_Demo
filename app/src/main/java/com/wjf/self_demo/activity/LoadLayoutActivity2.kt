@@ -21,7 +21,11 @@ class LoadLayoutActivity2 : BaseActivity<ActivityLoadLayoutBinding>() {
 
     override fun initView() {
         val singleThreadPool: ExecutorService = ThreadPoolExecutor(
-            1, 1, 0L, TimeUnit.MILLISECONDS, LinkedBlockingQueue(1024)
+            1,
+            1,
+            0L,
+            TimeUnit.MILLISECONDS,
+            LinkedBlockingQueue(1024),
         )
         val manager = LoadManager.Builder()
             .addCallBack(
@@ -38,13 +42,14 @@ class LoadLayoutActivity2 : BaseActivity<ActivityLoadLayoutBinding>() {
                                 }
                             }
                         }
-                    })
+                    },
+                ),
             )
             .addCallBack(LoadingCallback())
             .build()
         loadService = manager.bind(this, lifecycle)
         loadService.setCallback(
-            EmptyCallback::class.java
+            EmptyCallback::class.java,
         ) { view: View ->
             val binding = CallbackEmptyBinding.bind(view)
             binding.callbackMsg.text = "这是改过的消息"

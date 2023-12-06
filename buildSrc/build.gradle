@@ -15,6 +15,11 @@ dependencies {
     implementation localGroovy()
 //    implementation 'com.android.tools.build:gradle:3.3.2'
     implementation "com.android.tools.build:gradle:7.1.2"
+    implementation 'commons-io:commons-io:2.8.0' // 确保你使用了正确的版本号
+
+    // 添加ASM库依赖，确保使用最新版本或与Gradle插件兼容的版本
+    implementation 'org.ow2.asm:asm:7.2'           // asm主库
+    implementation 'org.ow2.asm:asm-commons:7.2'   // asm-commons提供AdviceAdapter
 }
 
 

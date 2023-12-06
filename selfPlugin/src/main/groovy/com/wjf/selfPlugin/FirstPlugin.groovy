@@ -5,7 +5,7 @@ import com.wjf.selfPlugin.config.WjfPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project;
 
-class HelloGradlePlugin implements Plugin<Project> {
+class FirstPlugin implements Plugin<Project> {
     void apply(Project project) {
 
         def wjfPlugin = project.extensions.create("wjf", WjfPlugin)
